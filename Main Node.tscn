@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://didqtxntv00hi"]
+
+[ext_resource type="Script" path="res://Scripts/MainNode.cs" id="1_fukwd"]
+[ext_resource type="FontFile" uid="uid://cx0s7gpd6ft8g" path="res://Font/LapsusPro-Bold.otf" id="2_tft22"]
+
+[node name="Main Node" type="Node2D"]
+script = ExtResource("1_fukwd")
+
+[node name="Money" type="Label" parent="."]
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 216.0
+offset_bottom = 103.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_tft22")
+theme_override_font_sizes/font_size = 40

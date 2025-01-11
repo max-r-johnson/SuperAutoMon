@@ -1,0 +1,218 @@
+[gd_scene load_steps=21 format=3 uid="uid://d1vbruneran4p"]
+
+[ext_resource type="Script" path="res://Scripts/TeamArea2D.cs" id="1_0hmvj"]
+[ext_resource type="Texture2D" uid="uid://bbe6trhryv6ut" path="res://Images/Base.png" id="2_btvko"]
+[ext_resource type="Texture2D" uid="uid://bu7tblevih0q7" path="res://Images/Stats.png" id="3_6o27n"]
+[ext_resource type="FontFile" uid="uid://cx0s7gpd6ft8g" path="res://Font/LapsusPro-Bold.otf" id="3_q1p3c"]
+[ext_resource type="Texture2D" uid="uid://cstd5kmbb1a5u" path="res://Images/Coin.png" id="5_xdl2b"]
+[ext_resource type="Texture2D" uid="uid://c1qbjdpxlmtjk" path="res://EXP bar.png" id="6_ggtvk"]
+[ext_resource type="Script" path="res://Scripts/PetAnimation.cs" id="7_gv655"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dit73"]
+atlas = ExtResource("6_ggtvk")
+region = Rect2(0, 0, 85, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o88xw"]
+atlas = ExtResource("6_ggtvk")
+region = Rect2(85, 0, 85, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bypj"]
+atlas = ExtResource("6_ggtvk")
+region = Rect2(170, 0, 85, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywf8v"]
+atlas = ExtResource("6_ggtvk")
+region = Rect2(0, 85, 85, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ytew"]
+atlas = ExtResource("6_ggtvk")
+region = Rect2(85, 85, 85, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yv2y6"]
+atlas = ExtResource("6_ggtvk")
+region = Rect2(170, 85, 85, 85)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0ewgj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dit73")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o88xw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bypj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ywf8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ytew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yv2y6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0c2x"]
+size = Vector2(100, 100)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7mvd"]
+bg_color = Color(0.831373, 0.831373, 0.831373, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psswy"]
+bg_color = Color(0.831373, 0.831373, 0.831373, 1)
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vokfe"]
+font = ExtResource("3_q1p3c")
+font_size = 65
+font_color = Color(0.368627, 0.270588, 0.109804, 0.843137)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xka3b"]
+font = ExtResource("3_q1p3c")
+font_size = 10
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rj24i"]
+font = ExtResource("3_q1p3c")
+font_size = 14
+font_color = Color(0, 0, 0, 1)
+
+[node name="TeamArea2D" type="Area2D"]
+script = ExtResource("1_0hmvj")
+
+[node name="Base" type="Sprite2D" parent="."]
+texture = ExtResource("2_btvko")
+
+[node name="Pet" type="Sprite2D" parent="."]
+
+[node name="Stats" type="Sprite2D" parent="Pet"]
+visible = false
+texture = ExtResource("3_6o27n")
+
+[node name="Health" type="Label" parent="Pet/Stats"]
+z_index = 1
+offset_left = 8.0
+offset_top = 30.0
+offset_right = 28.0
+offset_bottom = 56.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_q1p3c")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="Attack" type="Label" parent="Pet/Stats"]
+z_index = 1
+offset_left = -28.0
+offset_top = 30.0
+offset_right = -8.0
+offset_bottom = 56.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_q1p3c")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="Item" type="Sprite2D" parent="Pet"]
+position = Vector2(30, 25)
+scale = Vector2(0.4, 0.4)
+
+[node name="Exp" type="AnimatedSprite2D" parent="Pet"]
+visible = false
+texture_filter = 1
+position = Vector2(0, -45)
+sprite_frames = SubResource("SpriteFrames_0ewgj")
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"slice": "",
+"source": "res://Images/EXP bar.aseprite"
+}
+metadata/_aseprite_wizard_source_file_hash_ = "71d55a9326adc352a3ec49938003ba4d"
+
+[node name="Border" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_a0c2x")
+
+[node name="DescriptionBox" type="VBoxContainer" parent="."]
+visible = false
+z_index = 1
+offset_left = -80.0
+offset_top = -140.0
+offset_right = 80.0
+offset_bottom = -60.0
+
+[node name="Panel" type="Panel" parent="DescriptionBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_n7mvd")
+
+[node name="Name" type="Label" parent="DescriptionBox/Panel"]
+layout_mode = 2
+offset_left = 27.5
+offset_top = 3.0
+offset_right = 132.5
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_q1p3c")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_psswy")
+text = "Bulbasaur"
+horizontal_alignment = 1
+
+[node name="Coin" type="Sprite2D" parent="DescriptionBox/Panel"]
+position = Vector2(146, 14)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_xdl2b")
+
+[node name="Cost" type="Label" parent="DescriptionBox/Panel/Coin"]
+offset_left = -44.0
+offset_top = -44.0
+offset_right = 44.0
+offset_bottom = 44.0
+text = "1"
+label_settings = SubResource("LabelSettings_vokfe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tier" type="Label" parent="DescriptionBox/Panel"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 20.0
+offset_right = 90.0
+offset_bottom = 43.0
+text = "Tier 1"
+label_settings = SubResource("LabelSettings_xka3b")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="DescriptionBox/Panel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 40.0
+offset_right = 155.0
+offset_bottom = 76.0
+text = "\"Sell => Put a free apple in the shop.\""
+label_settings = SubResource("LabelSettings_rj24i")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="PetAnimator" type="Node2D" parent="."]
+script = ExtResource("7_gv655")
