@@ -109,3 +109,27 @@ public partial class DoomSeedAbility : FoodAbility
 		await pet.Faint(null);
 	}
 }
+
+public partial class RareCandyAbility : FoodAbility
+{
+	public RareCandyAbility()  : base()
+	{
+		name = "Rare Candy";
+		tier = 5;
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Gives a pet 1 experience.";
+    }
+
+	public override bool canBeEaten(Pet pet)
+    {
+		return pet.experience<pet.maxExp;
+    }
+
+    public override void OnEaten(Pet pet)
+    {
+        pet.gainExperience(1);
+    }
+}

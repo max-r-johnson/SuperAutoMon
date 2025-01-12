@@ -41,7 +41,7 @@ public partial class Pack
 		//for every pet in tier one of kanto, print the type of every pet's ability (weedleability, rattataability, etc.)
 
 		FoodList kantoFoodList = new FoodList();
-		kantoFoodList.tierOneFood = new List<Type>{typeof(TinyAppleAbility),typeof(OranBerryAbility)};
+		kantoFoodList.tierOneFood = new List<Type>{typeof(TinyAppleAbility),typeof(OranBerryAbility),typeof(RareCandyAbility)};
 		kantoFoodList.tierTwoFood = new List<Type>{typeof(DoomSeedAbility),typeof(GummiAbility),typeof(EnergyPowderAbility)}.Concat(kantoFoodList.tierOneFood).ToList();
 		//kantoFoodList.tierThreeFood.Add(new Food(ability));
 		//kantoFoodList.tierFourFood.Add(new Food(ability));

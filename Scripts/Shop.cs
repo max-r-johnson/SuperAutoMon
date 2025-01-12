@@ -161,15 +161,13 @@ public partial class Shop
     public async Task buyPet(int shopIndex, int teamIndex)
     {
         decMoney(selectedPet.cost);
-        //if it is the same pet as the one being bought
         if(team.GetPetAt(teamIndex)!=null)
         {
             //NEEDS TO CHECK IF STATS ARE HIGHER/HAS ITEM IN CASE SHOP IS SCALED OR HAS ITEMS ATTACHED
-            if(shopPets[shopIndex].name == team.GetPetAt(teamIndex).name)
+            if(Game.isSamePet(shopPets[shopIndex],team.GetPetAt(teamIndex)))
             {
                 if(team.GetPetAt(teamIndex).experience < Game.maxExp)
                 {
-                    //need to account for say u have 6 bulbys. If you combine 2 to level 2 then 3, should be the same stats as if combine from 1 to 3
                     GD.Print("teampet exp: " + team.GetPetAt(teamIndex).experience + ", selected experience: " + selectedPet.experience);
                     team.GetPetAt(teamIndex).gainExperience(selectedPet.experience + 1);
                 }
@@ -197,18 +195,21 @@ public partial class Shop
     //for refactoring - make buyFood and buyPet have the same parameters
     public async Task buyFood(Food food, int teamIndex)
     {
-        decMoney(food.cost);
-        shopFood[selectedFoodIndex] = null;
-        await team.GetPetAt(teamIndex).Eat(food);
-        selectedFood = null;
-        game.changeFoodTexture(foodSlots[selectedFoodIndex],selectedFood);
-        foreach(int i in GD.Range(Game.teamSize))
+        if(food.foodAbility.canBeEaten(team.GetPetAt(teamIndex)))
         {
-            if(team.GetPetAt(i)!=null)
+            decMoney(food.cost);
+            shopFood[selectedFoodIndex] = null;
+            await team.GetPetAt(teamIndex).Eat(food);
+            game.changeFoodTexture(foodSlots[selectedFoodIndex],null);
+            foreach(int i in GD.Range(Game.teamSize))
             {
-                await team.GetPetAt(i).petAbility.FoodPurchased(null);
+                if(team.GetPetAt(i)!=null)
+                {
+                    await team.GetPetAt(i).petAbility.FoodPurchased(null);
+                }
             }
         }
+        selectedFood = null;
     }
 
     public async Task sellPet(int teamIndex)

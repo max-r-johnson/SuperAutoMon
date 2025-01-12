@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d1vbruneran4p"]
+[gd_scene load_steps=22 format=3 uid="uid://d1vbruneran4p"]
 
 [ext_resource type="Script" path="res://Scripts/TeamArea2D.cs" id="1_0hmvj"]
 [ext_resource type="Texture2D" uid="uid://bbe6trhryv6ut" path="res://Images/Base.png" id="2_btvko"]
@@ -8,50 +8,57 @@
 [ext_resource type="Texture2D" uid="uid://c1qbjdpxlmtjk" path="res://EXP bar.png" id="6_ggtvk"]
 [ext_resource type="Script" path="res://Scripts/PetAnimation.cs" id="7_gv655"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dit73"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xuike"]
 atlas = ExtResource("6_ggtvk")
 region = Rect2(0, 0, 85, 85)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_o88xw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8o47"]
 atlas = ExtResource("6_ggtvk")
 region = Rect2(85, 0, 85, 85)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3bypj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hapn"]
 atlas = ExtResource("6_ggtvk")
 region = Rect2(170, 0, 85, 85)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ywf8v"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbngu"]
 atlas = ExtResource("6_ggtvk")
 region = Rect2(0, 85, 85, 85)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ytew"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gbt2"]
 atlas = ExtResource("6_ggtvk")
 region = Rect2(85, 85, 85, 85)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yv2y6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7uhrv"]
 atlas = ExtResource("6_ggtvk")
 region = Rect2(170, 85, 85, 85)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_0ewgj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqemn"]
+atlas = ExtResource("6_ggtvk")
+region = Rect2(0, 170, 85, 85)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gmin0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dit73")
+"texture": SubResource("AtlasTexture_xuike")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_o88xw")
+"texture": SubResource("AtlasTexture_p8o47")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3bypj")
+"texture": SubResource("AtlasTexture_1hapn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ywf8v")
+"texture": SubResource("AtlasTexture_xbngu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7ytew")
+"texture": SubResource("AtlasTexture_5gbt2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yv2y6")
+"texture": SubResource("AtlasTexture_7uhrv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqemn")
 }],
 "loop": true,
 "name": &"default",
@@ -134,7 +141,7 @@ scale = Vector2(0.4, 0.4)
 visible = false
 texture_filter = 1
 position = Vector2(0, -45)
-sprite_frames = SubResource("SpriteFrames_0ewgj")
+sprite_frames = SubResource("SpriteFrames_gmin0")
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -144,7 +151,7 @@ metadata/_aseprite_wizard_config_ = {
 "slice": "",
 "source": "res://Images/EXP bar.aseprite"
 }
-metadata/_aseprite_wizard_source_file_hash_ = "71d55a9326adc352a3ec49938003ba4d"
+metadata/_aseprite_wizard_source_file_hash_ = "1b5af6c661f39d08e2d19e26723b5b68"
 
 [node name="Border" type="Sprite2D" parent="."]
 

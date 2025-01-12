@@ -18,6 +18,11 @@ public partial class FoodAbility
         return "No Ability";
     }
 
+    public virtual bool canBeEaten(Pet pet)
+    {
+        return true;
+    }
+
     public virtual void OnEaten(Pet pet)
     {
         
