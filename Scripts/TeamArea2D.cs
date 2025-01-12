@@ -98,7 +98,7 @@ public partial class TeamArea2D : Area2D
 								}
 								else
 								{
-									await tempPet.gainExperience(Math.Min(Math.Min(team.selectedPet.experience,team.GetPetAt(slotIndex).experience) + 1, Game.maxExp - tempPet.experience));
+									tempPet.gainExperience(Math.Min(Math.Min(team.selectedPet.experience,team.GetPetAt(slotIndex).experience) + 1, Game.maxExp - tempPet.experience));
 								}
 								team.RemoveAt(team.selectedPet.index);
 								team.RemoveAt(slotIndex);

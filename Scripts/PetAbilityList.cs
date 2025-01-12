@@ -206,7 +206,7 @@ public partial class KakunaAbility : PetAbility
 		await base.StartOfBattle(null);
 		int currentIndex = basePet.index;
 		List<Task> taskList = new List<Task>();
-		foreach (int i in GD.Range(1))
+		foreach (int i in GD.Range(2))
 		{
 			if(currentIndex - i - 1 < 0)
 			{

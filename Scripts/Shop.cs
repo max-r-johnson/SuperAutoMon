@@ -160,6 +160,7 @@ public partial class Shop
 
     public async Task buyPet(int shopIndex, int teamIndex)
     {
+        decMoney(selectedPet.cost);
         //if it is the same pet as the one being bought
         if(team.GetPetAt(teamIndex)!=null)
         {
@@ -170,14 +171,13 @@ public partial class Shop
                 {
                     //need to account for say u have 6 bulbys. If you combine 2 to level 2 then 3, should be the same stats as if combine from 1 to 3
                     GD.Print("teampet exp: " + team.GetPetAt(teamIndex).experience + ", selected experience: " + selectedPet.experience);
-                    await team.GetPetAt(teamIndex).gainExperience(selectedPet.experience + 1);
+                    team.GetPetAt(teamIndex).gainExperience(selectedPet.experience + 1);
                 }
                 else
                 {
                     selectedPet = null;
                     return;
                 }
-                decMoney(selectedPet.cost);
                 shopPets[shopIndex] = null;
                 selectedPet = null;
             }
@@ -185,7 +185,6 @@ public partial class Shop
         //if empty slot
         else
         {
-            decMoney(selectedPet.cost);
             team.AddPet(selectedPet, teamIndex);
             shopPets[shopIndex] = null;
         }
@@ -214,11 +213,10 @@ public partial class Shop
 
     public async Task sellPet(int teamIndex)
     {
-        
+        incMoney(team.GetPetAt(teamIndex).sellValue);
         team.RemoveAt(teamIndex);
         game.changeTexture(team.teamSlots[teamIndex],team.team[teamIndex], "team");
         await team.selectedPet.petAbility.Sell(null);
-        incMoney(Game.sellCost);
     }
 
     public async Task replaceShop(Food food)

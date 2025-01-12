@@ -236,7 +236,9 @@ public partial class BattleNode : Node
 				MethodInfo methodInfo = ability.GetType().GetMethod("StartOfBattle");
 				if(methodInfo.DeclaringType != typeof(PetAbility))
 				{
+					GD.Print("enqueuing");
 					Func<Pet, Task> task = teamPet.petAbility.StartOfBattle;
+					GD.Print(task);
 					battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,null));
 				}
 			}

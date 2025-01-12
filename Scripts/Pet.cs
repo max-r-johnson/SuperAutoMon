@@ -200,16 +200,17 @@ public partial class Pet
 	}
 
 	//test giving exp at max evo, test giving enough exp to evolve from 1 to 3 evo, test on pets without evos
-	public async Task gainExperience(int amount)
+	public async void gainExperience(int amount)
 	{
+		GD.Print(experience);
 		//should still be able to gain exp when at full. But have conditions in teamSlot so that you can't stack em.
 
 		//also if stone evo or friend evo
-		if(experience < 2 && (experience += amount) >= 2 && petAbility.evolution!=null && petAbility.isStoneEvo == false)
+		if(experience < 2 && (experience + amount) >= 2 && petAbility.evolution!=null && petAbility.isStoneEvo == false)
 		{
 			await evolve();
 		}
-		if(experience < Game.maxExp && (experience += amount) >= Game.maxExp && petAbility.isStoneEvo == false && petAbility.evolution != null)
+		if(experience < Game.maxExp && (experience + amount) >= Game.maxExp && petAbility.isStoneEvo == false && petAbility.evolution != null)
 		{
 			await evolve();
 		}
@@ -221,15 +222,21 @@ public partial class Pet
 
 	public async Task evolve()
 	{
-		GD.Print("evolving");
 		//stats, exp should be same. Should create new pet using the petAbility corresponding to the "evolution" of a pet. The check for gaining exp if at max/can't evolve
 		//should be moved to gainExperience. Add check for stoneEvo. If friendship evo, evolve at start of next turn?
 		//update texture
-		Pet evolvedPet = new Pet(petAbility.evolution);
-		evolvedPet.health = health;
-		evolvedPet.attack = attack;
-		evolvedPet.item = item;
-		evolvedPet.sellValue = sellValue;
+		petAbility = petAbility.evolution;
+		name = petAbility.name;
+		petAbility.basePet = this;
+		sellValue += 1;
+		game.changeTexture(team.teamSlots[index], this, "team");
+		// Pet evolvedPet = new Pet(petAbility.evolution);
+		// evolvedPet.health = health;
+		// evolvedPet.attack = attack;
+		// evolvedPet.item = item;
+		// evolvedPet.sellValue = sellValue + 1;
+		// team.RemoveAt(index);
+		// team.AddPet(evolvedPet, index);
 		await Task.CompletedTask;
 		// another method to give next tier pets in shop
 	}
