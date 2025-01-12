@@ -35,7 +35,7 @@ public partial class TeamArea2D : Area2D
 					else if(shop.selectedPet != null && team.GetPetAt(slotIndex) != null)
 					{
 						//if its the same pet
-						if(shop.selectedPet.name == team.GetPetAt(slotIndex).name)
+						if(Game.isSamePet(team.GetPetAt(slotIndex),shop.selectedPet) && team.GetPetAt(slotIndex).experience < team.GetPetAt(slotIndex).maxExp)
 						{
 							buyPet();
 						}
@@ -81,8 +81,9 @@ public partial class TeamArea2D : Area2D
 						else if(team.selectedPet != null)
 						{
 							//if same name (must take stats of higher, experience of higher, held item of not selected pet)
-							//doesn't work with evolution (nothing does lol)
-							if(team.GetPetAt(slotIndex).name == team.selectedPet.name)
+
+							//need to check if evolution too
+							if(Game.isSamePet(team.GetPetAt(slotIndex),team.selectedPet) && team.GetPetAt(slotIndex).experience < team.GetPetAt(slotIndex).maxExp && team.selectedPet.experience < team.selectedPet.maxExp)
 							{
 								Pet tempPet = new Pet(
 									(team.GetPetAt(slotIndex).experience > team.selectedPet.experience)
@@ -91,7 +92,7 @@ public partial class TeamArea2D : Area2D
 								);
 								assignTempPetStats(tempPet);
 								tempPet.experience = Math.Max(team.selectedPet.experience,team.GetPetAt(slotIndex).experience);
-								if(team.GetPetAt(slotIndex).experience == Game.maxExp || tempPet.experience == Game.maxExp)
+								if(team.GetPetAt(slotIndex).experience == team.GetPetAt(slotIndex).maxExp || tempPet.experience == tempPet.maxExp)
 								{
 									unselectPet();
 									return;

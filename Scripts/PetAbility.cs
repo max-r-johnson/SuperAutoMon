@@ -148,4 +148,14 @@ public partial class PetAbility
     {
         await Task.CompletedTask;
     }
+
+    public virtual async Task Evolve(Pet target)
+    {
+        await Task.CompletedTask;
+    }
+
+    public virtual async Task FriendEvolved(Pet target)
+    {
+        await Task.CompletedTask;
+    }
 }

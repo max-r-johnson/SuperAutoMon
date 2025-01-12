@@ -168,7 +168,15 @@ public partial class Game
 		if(pet != null)
 		{
 			expSprite.Show();
-			expSprite.Frame = pet.experience;
+			if(pet.maxExp == 2 && pet.experience == pet.maxExp)
+			{
+				GD.Print("frame 6");
+				expSprite.Frame = 6;
+			}
+			else
+			{
+				expSprite.Frame = pet.experience;
+			}
 		}
 		else
 		{
@@ -703,4 +711,28 @@ public partial class Game
         await Task.WhenAll(tasks);
         mouseDisabled = false;
     }
+
+	public static bool isSamePet(Pet pet1, Pet pet2)
+	{
+		GD.Print(pet1.name);
+		GD.Print(pet2.name);
+		GD.Print(pet1.petAbility);
+		GD.Print(pet1.petAbility?.evolution);
+		GD.Print(pet1.petAbility?.evolution?.name);
+		GD.Print(pet1.petAbility?.evolution?.evolution?.name);
+
+		bool secondIsEvo = pet1.name == pet2.name || 
+           pet1.petAbility?.evolution?.name == pet2.name || 
+           pet1.petAbility?.evolution?.evolution?.name == pet2.name;
+
+		bool firstIsEvo = pet2.name == pet1.name || 
+           pet2.petAbility?.evolution?.name == pet1.name || 
+           pet2.petAbility?.evolution?.evolution?.name == pet1.name;
+
+		GD.Print("pet 1 " + pet1.name);
+		GD.Print("pet 2 " + pet2.name);
+		GD.Print("second is evo: " + secondIsEvo);
+		GD.Print("first is evo: " + firstIsEvo);
+    	return firstIsEvo || secondIsEvo;
+	}
 }

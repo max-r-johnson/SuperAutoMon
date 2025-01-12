@@ -92,14 +92,88 @@ public partial class CharmanderAbility : PetAbility
 		attack = 3;
     	health = 2;
 		tier = 1;
+		evolution = new CharmeleonAbility();
     }
 
-    // public override async Task StartOfBattle(Pet target)
-    // {
-    //     Pet randomPet = team.GetRandomPet();
-    // 	randomPet.GainAttack(1);
-    // 	randomPet.GainHealth(1);
-    // }
+	public override string AbilityMessage()
+	{
+		return "Evolved => Give adjacent friends +1 attack.";
+	}
+
+    public override async Task Evolve(Pet target)
+    {
+		//can use this logic for adjaceny in future. not rn tho I'm tired
+		Task task1 = Task.CompletedTask;
+		Task task2 = Task.CompletedTask;
+		if(basePet.index > 0)
+		{
+			if (team.GetPetAt(basePet.index-1)!=null)
+			{
+				GD.Print("Charmander gave " + team.GetPetAt(basePet.index-1).name + " 1 attack upon evolving!");
+				task1 = basePet.GiveBuff(1, team.GetPetAt(basePet.index-1), Pet.BuffType.GainAttack);
+			}
+		}
+		if(basePet.index < Game.teamSize)
+		{
+			if (team.GetPetAt(basePet.index+1)!=null)
+			{
+				GD.Print("Charmander gave " + team.GetPetAt(basePet.index+1).name + " 1 attack upon evolving!");
+				task2 = basePet.GiveBuff(1, team.GetPetAt(basePet.index+1), Pet.BuffType.GainAttack);
+			}
+		}
+		await game.WaitForTasks(task1, task2);
+    }
+}
+
+public partial class CharmeleonAbility : PetAbility
+{
+	public CharmeleonAbility() : base()
+    {
+		name = "Charmeleon";
+		evolution = new CharizardAbility();
+    }
+
+	public override string AbilityMessage()
+	{
+		return "Evolved => Give adjacent friends +2 attack.";
+	}
+
+    public override async Task Evolve(Pet target)
+    {
+		//can use this logic for adjaceny in future. not rn tho I'm tired. It also needs to not only work for direct adjacent slots, but the nextmost adjacent pet.
+		Task task1 = Task.CompletedTask;
+		Task task2 = Task.CompletedTask;
+		if(basePet.index > 0)
+		{
+			if (team.GetPetAt(basePet.index-1)!=null)
+			{
+				GD.Print("Charmeleon gave " + team.GetPetAt(basePet.index-1).name + " 2 attack upon evolving!");
+				task1 = basePet.GiveBuff(2, team.GetPetAt(basePet.index-1), Pet.BuffType.GainAttack);
+			}
+		}
+		if(basePet.index < Game.teamSize - 1)
+		{
+			if (team.GetPetAt(basePet.index+1)!=null)
+			{
+				GD.Print("Charmeleon gave " + team.GetPetAt(basePet.index+1).name + " 2 attack upon evolving!");
+				task2 = basePet.GiveBuff(2, team.GetPetAt(basePet.index+1), Pet.BuffType.GainAttack);
+			}
+		}
+		await game.WaitForTasks(task1, task2);
+    }
+}
+
+public partial class CharizardAbility : PetAbility
+{
+	public CharizardAbility() : base()
+    {
+		name = "Charizard";
+    }
+
+	public override string AbilityMessage()
+	{
+		return "No ability.";
+	}
 }
 
 public partial class SquirtleAbility : PetAbility
@@ -323,6 +397,7 @@ public partial class RattataAbility : PetAbility
 		attack = 2;
     	health = 2;
 		tier = 1;
+		evolution = new RaticateAbility();
     }
 
 	public override string AbilityMessage()
@@ -332,9 +407,28 @@ public partial class RattataAbility : PetAbility
 
     public override async Task EndOfTurn(Pet target)
     {
-		GD.Print("rat ability triggered");
 		await game.WaitForTasks(basePet.GainAttack(1));
 		GD.Print(basePet.name + " gained 1 attack!");
+    }
+}
+
+public partial class RaticateAbility : PetAbility
+{
+	public RaticateAbility() : base()
+    {
+		name = "Raticate";
+		tier = 1;
+    }
+
+	public override string AbilityMessage()
+	{
+		return "End of Turn => Gain 2 attack.";
+	}
+
+    public override async Task EndOfTurn(Pet target)
+    {
+		await game.WaitForTasks(basePet.GainAttack(2));
+		GD.Print(basePet.name + " gained 2 attack!");
     }
 }
 

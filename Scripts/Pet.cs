@@ -24,6 +24,7 @@ public partial class Pet
 	public int tier {get {return petAbility.tier;}}
 	public Item item {get; set;}
 	public Item currentItem {get;set;}
+	public int maxExp;
 	public int eatenFood;
 	public int sellValue;
 
@@ -43,6 +44,14 @@ public partial class Pet
 		name = ability.name;
 		petAbility.basePet = this;
 		this.item = item;
+		if(petAbility.evolution == null)
+		{
+			maxExp = 2;
+		}
+		else
+		{
+			maxExp = Game.maxExp;
+		}
 		if(item!=null)
 		{
 			this.item.basePet = this;
@@ -202,43 +211,81 @@ public partial class Pet
 	//test giving exp at max evo, test giving enough exp to evolve from 1 to 3 evo, test on pets without evos
 	public async void gainExperience(int amount)
 	{
-		GD.Print(experience);
+		Task task1 = Task.CompletedTask;
+		Task task2 = Task.CompletedTask;
+		if(experience == maxExp)
+		{
+			await game.WaitForTasks(GainHealth(amount),GainAttack(amount));
+			return;
+		}
 		//should still be able to gain exp when at full. But have conditions in teamSlot so that you can't stack em.
 
 		//also if stone evo or friend evo
 		if(experience < 2 && (experience + amount) >= 2 && petAbility.evolution!=null && petAbility.isStoneEvo == false)
 		{
-			await evolve();
+			task1 = evolve();
 		}
 		if(experience < Game.maxExp && (experience + amount) >= Game.maxExp && petAbility.isStoneEvo == false && petAbility.evolution != null)
 		{
-			await evolve();
+			task2 = evolve();
 		}
-		experience += amount;
-		//this also needs to be changed for gaining exp when at max evo	
+		if(experience + amount > maxExp)
+		{
+			experience = maxExp;
+		}
+		else
+		{
+			experience += amount;
+		}
 		game.updateExpTexture(team.teamSlots[index], this);
 		await game.WaitForTasks(GainHealth(amount),GainAttack(amount));
+		await task1;
+		await task2;
 	}
 
 	public async Task evolve()
 	{
-		//stats, exp should be same. Should create new pet using the petAbility corresponding to the "evolution" of a pet. The check for gaining exp if at max/can't evolve
-		//should be moved to gainExperience. Add check for stoneEvo. If friendship evo, evolve at start of next turn?
-		//update texture
+		PetAbility previousAbility = petAbility;
 		petAbility = petAbility.evolution;
 		name = petAbility.name;
 		petAbility.basePet = this;
 		sellValue += 1;
 		game.changeTexture(team.teamSlots[index], this, "team");
-		// Pet evolvedPet = new Pet(petAbility.evolution);
-		// evolvedPet.health = health;
-		// evolvedPet.attack = attack;
-		// evolvedPet.item = item;
-		// evolvedPet.sellValue = sellValue + 1;
-		// team.RemoveAt(index);
-		// team.AddPet(evolvedPet, index);
-		await Task.CompletedTask;
-		// another method to give next tier pets in shop
+		game.createDescription(team.teamSlots[index], this, "team");
+		if(game.inBattle != true)
+		{
+			// another method to give next tier pets in shop
+			// it needs to have a check for combining two level 2s
+			{
+				await previousAbility.Evolve(this);
+				foreach (int i in GD.Range(team.team.Count))
+				{
+					await petAbility.FriendEvolved(this);
+				}
+			}
+		}
+		else
+		{
+			//untested
+			MethodInfo methodInfo = previousAbility.GetType().GetMethod("Evolve");
+			if(methodInfo.DeclaringType != typeof(PetAbility))
+			{
+				Func<Pet, Task> task = previousAbility.Evolve;
+				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,null));
+			}
+			foreach (int i in GD.Range(team.team.Count))
+			{
+				if(team.GetPetAt(i)!=null&&i!=index)
+				{
+					methodInfo = team.GetPetAt(i).petAbility.GetType().GetMethod("FriendEvolved");
+					if(methodInfo.DeclaringType != typeof(PetAbility))
+					{
+						Func<Pet, Task> task = parameter => team.GetPetAt(i).petAbility.FriendEvolved(parameter);
+						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,this));
+					}
+				}
+			}
+		}
 	}
 
 	//need to fix remove at for this. I didn't want it to remove right away cuz the animation needs to play	
@@ -252,39 +299,43 @@ public partial class Pet
 				Func<Pet, Task> task = parameter => petAbility.Faint(parameter);
 				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,source));
 			}
-			game.justFainted = true;
 			methodInfo = source.petAbility.GetType().GetMethod("Knockout");
 			if(methodInfo.DeclaringType != typeof(PetAbility))
 			{
 				Func<Pet, Task> task = source.petAbility.Knockout;
 				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,null));
 			}
+			foreach (int i in GD.Range(team.team.Count))
+			{
+				//untested
+				if(team.GetPetAt(i)!=null&&i!=index)
+				{
+					methodInfo = team.GetPetAt(i).petAbility.GetType().GetMethod("FriendFainted");
+					if(methodInfo.DeclaringType != typeof(PetAbility))
+					{
+						Func<Pet, Task> task = parameter => team.GetPetAt(i).petAbility.Faint(parameter);
+						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,source));
+					}
+				}
+				Pet enemyPet = enemyTeam.GetPetAt(i);
+				if(enemyPet!=null)
+				{
+					methodInfo = enemyPet.petAbility.GetType().GetMethod("EnemyFainted");
+					if(methodInfo.DeclaringType != typeof(PetAbility))
+					{
+						Func<Pet, Task> task = parameter => enemyPet.petAbility.EnemyFainted(parameter);
+						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,source));
+					}
+				}
+			}
+			game.justFainted = true;
 		}
 		else
 		{
 			await petAbility.Faint(source);
-		}
-		foreach (int i in GD.Range(team.team.Count))
-		{
-			//untested
-			if(team.GetPetAt(i)!=null&&i!=index)
+			foreach (int i in GD.Range(team.team.Count))
 			{
-				MethodInfo methodInfo = team.GetPetAt(i).petAbility.GetType().GetMethod("FriendFainted");
-				if(methodInfo.DeclaringType != typeof(PetAbility))
-				{
-					Func<Pet, Task> task = parameter => team.GetPetAt(i).petAbility.Faint(parameter);
-					game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,source));
-				}
-			}
-			Pet enemyPet = enemyTeam.GetPetAt(i);
-			if(enemyPet!=null)
-			{
-				MethodInfo methodInfo = enemyPet.petAbility.GetType().GetMethod("EnemyFainted");
-				if(methodInfo.DeclaringType != typeof(PetAbility))
-				{
-					Func<Pet, Task> task = parameter => enemyPet.petAbility.EnemyFainted(parameter);
-					game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,this));
-				}
+				await petAbility.FriendFainted(source);
 			}
 		}
 		team.RemoveAt(index);
