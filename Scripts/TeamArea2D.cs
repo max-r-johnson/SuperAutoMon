@@ -80,11 +80,9 @@ public partial class TeamArea2D : Area2D
 						}
 						else if(team.selectedPet != null)
 						{
-							//if same name (must take stats of higher, experience of higher, held item of not selected pet)
-
-							//need to check if evolution too
 							if(Game.isSamePet(team.GetPetAt(slotIndex),team.selectedPet) && team.GetPetAt(slotIndex).experience < team.GetPetAt(slotIndex).maxExp && team.selectedPet.experience < team.selectedPet.maxExp)
 							{
+								GD.Print("same pet");
 								Pet tempPet = new Pet(
 									(team.GetPetAt(slotIndex).experience > team.selectedPet.experience)
 										? team.GetPetAt(slotIndex).petAbility
@@ -92,6 +90,7 @@ public partial class TeamArea2D : Area2D
 								);
 								assignTempPetStats(tempPet);
 								tempPet.experience = Math.Max(team.selectedPet.experience,team.GetPetAt(slotIndex).experience);
+								tempPet.maxExp = team.selectedPet.maxExp;
 								if(team.GetPetAt(slotIndex).experience == team.GetPetAt(slotIndex).maxExp || tempPet.experience == tempPet.maxExp)
 								{
 									unselectPet();
@@ -151,17 +150,14 @@ public partial class TeamArea2D : Area2D
 		{
 			if(team.GetPetAt(slotIndex)!=null)
 			{
-				//maybe add a constant that finds the ID of the description node
-				VBoxContainer Description = (VBoxContainer)GetChildren()[4];
-				Description.Show();
+				getDescription().Show();
 			}
 		}
 		else
 		{
 			if(enemyTeam.GetPetAt(slotIndex)!=null)
 			{
-				VBoxContainer Description = (VBoxContainer)GetChildren()[4];
-				Description.Show();
+				getDescription().Show();
 			}
 		}
     }
@@ -169,8 +165,7 @@ public partial class TeamArea2D : Area2D
     public override void _MouseExit()
     {
 		isInside = false;
-		VBoxContainer Description = (VBoxContainer)GetChildren()[4];
-		Description.Hide();
+		getDescription().Hide();
     }
 
     // Called when the node enters the scene tree for the first time.
@@ -181,6 +176,11 @@ public partial class TeamArea2D : Area2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+	}
+
+	public VBoxContainer getDescription()
+	{
+		return (VBoxContainer)GetChildren()[4];
 	}
 
 	public void unselectPet()

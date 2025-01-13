@@ -156,8 +156,6 @@ public partial class Team
 				{
 					if(pet.index!=0)
 					{
-						Game.enableBorder(teamSlots[pet.index]);
-						Game.enableBorder(teamSlots[pet.index-1]);
 						await Swap(pet.index, pet.index-1);
 					}
 					//if can move frontwards
@@ -167,19 +165,25 @@ public partial class Team
 				{
 					if(pet.index!=Game.teamSize)
 					{
-						Game.enableBorder(teamSlots[pet.index]);
-						Game.enableBorder(teamSlots[pet.index+1]);
 						await Swap(pet.index, pet.index+1);
 					}
 					//move backwards
 				}
 			}
+			// //add organizeTeam to the front of the queue
+			// Queue<Tuple<Func<Pet, Task>, Pet>> newQueue = new Queue<Tuple<Func<Pet, Task>, Pet>>();
+			// newQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(battleNode.OrganizeTeam,null));
+			// while (game.battleQueue.Count > 0)
+        	// {
+            // 	newQueue.Enqueue(game.battleQueue.Dequeue());
+			// }
+			// game.battleQueue = newQueue;
 			//if the method for "move" was overridden (it's not the base, which is nothing), add it to the queue
 			MethodInfo methodInfo = pet.petAbility.GetType().GetMethod("Move");
 			if(methodInfo.DeclaringType != typeof(PetAbility))
 			{
 				Func<Pet, Task> action = pet.petAbility.Move;
-				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(action,null));
+				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(action,null,pet));
 			}
 			foreach(int i in GD.Range(Game.teamSize))
 			{
@@ -192,7 +196,7 @@ public partial class Team
 					if(methodInfo.DeclaringType != typeof(PetAbility))
 					{
 						Func<Pet, Task> action = parameter => teamPet.petAbility.FriendMoved(parameter);
-						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(action,pet));
+						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(action,pet,teamPet));
 					}
 				}
 				//for each pet in the opposing team, queue its enemyMoved ability
@@ -203,12 +207,14 @@ public partial class Team
 					if(methodInfo.DeclaringType != typeof(PetAbility))
 					{
 						Func<Pet, Task> action = parameter => enemyPet.petAbility.EnemyMoved(parameter);
-						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(action,pet));
+						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(action,pet,enemyPet));
 					}
 				}
 			}
-			//organize for if it gets moved and there is an empty space
+			game.mouseDisabled = true;
+			await Task.Delay(500);
 			await battleNode.OrganizeTeam(null);
+			game.mouseDisabled = false;
 		}
 		else
 		{

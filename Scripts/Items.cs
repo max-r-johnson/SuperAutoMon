@@ -40,7 +40,7 @@ public partial class Item
                 if(methodInfo.DeclaringType != typeof(PetAbility))
                 {
                     Func<Pet, Task> task = parameter => basePet.petAbility.UsedPerk(parameter);
-                    game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,null));
+                    game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,basePet));
                 }
             }
             foreach(int i in GD.Range(Game.teamSize))
@@ -54,7 +54,7 @@ public partial class Item
                     if(methodInfo.DeclaringType != typeof(PetAbility))
                     {
                         Func<Pet, Task> task = parameter => teamPet.petAbility.FriendUsedPerk(parameter);
-                        game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,basePet));
+                        game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,basePet, teamPet));
                     }
                 }
                 // //for each pet in the opposing team, queue its enemyMoved ability

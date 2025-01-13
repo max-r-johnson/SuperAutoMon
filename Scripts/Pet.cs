@@ -67,7 +67,7 @@ public partial class Pet
 			if(methodInfo.DeclaringType != typeof(PetAbility))
 			{
 				Func<Pet, Task> task = petAbility.Hurt;
-				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,null));
+				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,this));
 			}
 			if(currentItem!=null)
 			{
@@ -75,7 +75,7 @@ public partial class Pet
 				if(methodInfo.DeclaringType != typeof(Item))
 				{
 					Func<Pet, Task> task = currentItem.Hurt;
-					game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,null));
+					game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,this));
 				}
 			}
 		}
@@ -128,7 +128,7 @@ public partial class Pet
 			if(methodInfo.DeclaringType != typeof(PetAbility))
 			{
 				Func<Pet, Task> task = petAbility.Hurt;
-				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,null));
+				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,this));
 			}
 			if(currentItem!=null)
 			{
@@ -136,7 +136,7 @@ public partial class Pet
 				if(methodInfo.DeclaringType != typeof(Item))
 				{
 					Func<Pet, Task> task = currentItem.Hurt;
-					game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,null));
+					game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,this));
 				}
 			}
 		}
@@ -271,7 +271,7 @@ public partial class Pet
 			if(methodInfo.DeclaringType != typeof(PetAbility))
 			{
 				Func<Pet, Task> task = previousAbility.Evolve;
-				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,null));
+				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,this));
 			}
 			foreach (int i in GD.Range(team.team.Count))
 			{
@@ -281,7 +281,7 @@ public partial class Pet
 					if(methodInfo.DeclaringType != typeof(PetAbility))
 					{
 						Func<Pet, Task> task = parameter => team.GetPetAt(i).petAbility.FriendEvolved(parameter);
-						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,this));
+						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,this,this));
 					}
 				}
 			}
@@ -298,13 +298,13 @@ public partial class Pet
 			if(methodInfo.DeclaringType != typeof(PetAbility))
 			{
 				Func<Pet, Task> task = parameter => petAbility.Faint(parameter);
-				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,source));
+				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,source,this));
 			}
 			methodInfo = source.petAbility.GetType().GetMethod("Knockout");
 			if(methodInfo.DeclaringType != typeof(PetAbility))
 			{
 				Func<Pet, Task> task = source.petAbility.Knockout;
-				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,null));
+				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,this));
 			}
 			foreach (int i in GD.Range(team.team.Count))
 			{
@@ -315,7 +315,7 @@ public partial class Pet
 					if(methodInfo.DeclaringType != typeof(PetAbility))
 					{
 						Func<Pet, Task> task = parameter => team.GetPetAt(i).petAbility.Faint(parameter);
-						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,source));
+						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,source,this));
 					}
 				}
 				Pet enemyPet = enemyTeam.GetPetAt(i);
@@ -325,7 +325,7 @@ public partial class Pet
 					if(methodInfo.DeclaringType != typeof(PetAbility))
 					{
 						Func<Pet, Task> task = parameter => enemyPet.petAbility.EnemyFainted(parameter);
-						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,source));
+						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,source,this));
 					}
 				}
 			}
@@ -506,7 +506,6 @@ public partial class Pet
 
 	public async Task Snipe(int damage, Pet target)
 	{
-		GD.Print("snipe started");
 		var projectile = GD.Load<PackedScene>("res://Projectile.tscn");
 		Node2D instance = (Node2D)projectile.Instantiate();
 		if(game.inBattle == true)
@@ -521,7 +520,6 @@ public partial class Pet
 		((Sprite2D)instance.GetChild(0)).Texture = (Texture2D)GD.Load(Game.pngURLBuilder("Snipe"));
 		await ((ProjectileAnimation)instance.GetChild(1)).FireProjectile(target.team.teamSlots[target.index]);
 		await target.takeDamage(damage, this);
-		GD.Print("snipe finished");
 	}
 
 	//should have perm + temp attack/health too

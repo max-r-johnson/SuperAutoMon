@@ -1,7 +1,9 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 using System.Numerics;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -19,7 +21,7 @@ public partial class BattleNode : Node
     private List<Pet> permEnemyTeam = new List<Pet>();
 	private List<Node2D> teamSlots {get {return team.teamSlots;}}
 	private List<Node2D> enemyTeamSlots {get {return enemyTeam.teamSlots;}}
-	private Queue<Tuple<Func<Pet, Task>,Pet>> battleQueue {get {return game.battleQueue;}}
+	private Queue<Tuple<Func<Pet, Task>,Pet, Pet>> battleQueue {get {return game.battleQueue;}}
 	public Button playButton {get {return (Button)GetNode("Play");}}
 	public Button pauseButton {get {return (Button)GetNode("Pause");}}
 	private Campaign campaign = new Campaign();
@@ -65,8 +67,8 @@ public partial class BattleNode : Node
 			game.createDescription(teamSlots[i],team.team[i],"team");
 			game.createDescription(enemyTeamSlots[i],enemyTeam.team[i],"team");
 		}
-		battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(OrganizeTeam,null));
-		battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(StartOfBattleAbilities,null));
+		battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(OrganizeTeam,null,null));
+		battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(StartOfBattleAbilities,null,null));
 		//Start of battle abilities to queue, queue checks ifPaused and stops if so.
 		//front attackers to queue
 		//also make sure fainting works in battle correctly
@@ -205,7 +207,6 @@ public partial class BattleNode : Node
 					task2 = async () => await Game.GetPetAnimator(enemyTeamSlots[enemyPet.index]).AnimateAttackFaint();
 				}
 				await game.WaitForFuncTasks(task1, task2);
-				GD.Print("animations done");
 				if(teamPet.currentHealth <= 0)
 				{
 					await teamPet.Faint(enemyPet);
@@ -236,10 +237,8 @@ public partial class BattleNode : Node
 				MethodInfo methodInfo = ability.GetType().GetMethod("StartOfBattle");
 				if(methodInfo.DeclaringType != typeof(PetAbility))
 				{
-					GD.Print("enqueuing");
 					Func<Pet, Task> task = teamPet.petAbility.StartOfBattle;
-					GD.Print(task);
-					battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,null));
+					battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,teamPet));
 				}
 			}
 			Pet enemyPet = enemyTeam.GetPetAt(i);
@@ -250,7 +249,7 @@ public partial class BattleNode : Node
 				if(methodInfo.DeclaringType != typeof(PetAbility))
 				{
 					Func<Pet, Task> task = enemyPet.petAbility.StartOfBattle;
-					battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(task,null));
+					battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,enemyPet));
 				}
 			}
 		}
@@ -298,7 +297,7 @@ public partial class BattleNode : Node
 				MethodInfo methodInfo = ability.GetType().GetMethod("InFront");
 				if(methodInfo.DeclaringType != typeof(PetAbility))
 				{
-					battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(teamPet.petAbility.InFront,null));
+					battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(teamPet.petAbility.InFront,null,null));
 					frontAbility = true;
 				}
 			}
@@ -308,7 +307,7 @@ public partial class BattleNode : Node
 				MethodInfo methodInfo = ability.GetType().GetMethod("InFront");
 				if(methodInfo.DeclaringType != typeof(PetAbility))
 				{
-					battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(enemyPet.petAbility.InFront,null));
+					battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(enemyPet.petAbility.InFront,null,null));
 					frontAbility = true;
 				}
 			}
@@ -323,30 +322,44 @@ public partial class BattleNode : Node
 		}
 	}
 
-	public void BattleDequeue()
+	public async void BattleDequeue()
 	{
-		game.FindTargets();
-		if(battleQueue.Count<=0)
-		{
-			battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet>(PetsBattle,null));
-		}
-		Tuple<Func<Pet, Task>,Pet> tuple = battleQueue.Dequeue();
-		Func<Pet, Task> action = tuple.Item1;
+		VBoxContainer Description = null;
 		foreach(int i in GD.Range(Game.teamSize))
 		{
 			if(team.teamSlots[i] != null)
 			{
-				Game.disableBorder(team.teamSlots[i]);
+				Description = (VBoxContainer)team.teamSlots[i].GetChildren()[4];
+				Description.Hide();
 			}
 		}
 		foreach(int i in GD.Range(Game.teamSize))
 		{
 			if(enemyTeam.teamSlots[i] != null)
 			{
-				Game.disableBorder(enemyTeam.teamSlots[i]);
+				Description = (VBoxContainer)enemyTeam.teamSlots[i].GetChildren()[4];
+				Description.Hide();
 			}
 		}
-		action(tuple.Item2);
+		game.FindTargets();
+		if(battleQueue.Count<=0)
+		{
+			battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(PetsBattle,null,null));
+		}
+		Tuple<Func<Pet, Task>,Pet, Pet> tuple = battleQueue.Dequeue();
+		Func<Pet, Task> action = tuple.Item1;
+		Pet pet = tuple.Item3;
+
+		if(pet!=null)
+		{
+			Description = (VBoxContainer)pet.team.teamSlots[pet.index].GetChildren()[4];
+			Description.Show();
+			await action(tuple.Item2);
+		}
+		else
+		{
+			await action(tuple.Item2);
+		}
 	}
 
 	public void PlayButton()

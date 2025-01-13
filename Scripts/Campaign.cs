@@ -27,8 +27,7 @@ public partial class Campaign
         {
             //((FoodAbility)Activator.CreateInstance(availableFood[i][j])).name + ", ";
             //this needs to be list of types
-            List<Type> roundOnePets = new List<Type>{typeof(EkansAbility)};
-            // List<Type> roundOnePets = new List<Type>{typeof(WeedleAbility), typeof(RattataAbility),typeof(EkansAbility), typeof(NidoranfAbility), typeof(NidoranmAbility)};
+            List<Type> roundOnePets = new List<Type>{typeof(WeedleAbility), typeof(RattataAbility),typeof(EkansAbility), typeof(NidoranfAbility), typeof(NidoranmAbility)};
             List<Type> starters = new List<Type>{typeof(BulbasaurAbility), typeof(SquirtleAbility), typeof(CharmanderAbility)};
             Pet beginnerPet = new Pet((PetAbility)Activator.CreateInstance(roundOnePets[random.Next(0,roundOnePets.Count)]));
             Pet starter = new Pet((PetAbility)Activator.CreateInstance(starters[random.Next(0,starters.Count)]),1,1,1);

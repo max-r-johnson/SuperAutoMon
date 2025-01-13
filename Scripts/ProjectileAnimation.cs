@@ -37,9 +37,6 @@ public partial class ProjectileAnimation : Node2D
             _duration = .5f;
         }
         _midPoint = new Vector2((_startPosition.X + _targetPosition.X)/2, _startPosition.Y - _arcHeight);
-        GD.Print("start: " + _startPosition);
-        GD.Print("mid: " + _midPoint);
-        GD.Print("end: " + _targetPosition);
 
         tween.TweenMethod(
             new Callable(this, nameof(UpdateFireArc)),

@@ -32,7 +32,7 @@ public partial class Game
 	public Player player;
 	public static Team team;
 	public static Team enemyTeam;
-	public Queue<Tuple<Func<Pet, Task>,Pet>> battleQueue = new Queue<Tuple<Func<Pet, Task>,Pet>>();
+	public Queue<Tuple<Func<Pet, Task>,Pet,Pet>> battleQueue = new Queue<Tuple<Func<Pet, Task>,Pet,Pet>>();
 	public MainNode mainNode;
 	public BattleNode battleNode;
 	public bool justFainted;
@@ -290,18 +290,6 @@ public partial class Game
 		{
 			sprite.Texture = null;
 		}
-	}
-
-	public static void enableBorder(Node slot)
-	{
-		Sprite2D borderSprite = (Sprite2D)slot.GetChildren()[2];
-		borderSprite.Texture = (Texture2D)GD.Load(pngURLBuilder("Border"));
-	}
-
-	public static void disableBorder(Node slot)
-	{
-		Sprite2D borderSprite = (Sprite2D)slot.GetChildren()[2];
-		borderSprite.Texture = null;
 	}
 
 	public void changeLabel(Node slot, Pet pet, string type)
