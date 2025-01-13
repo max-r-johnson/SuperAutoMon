@@ -11,13 +11,13 @@ public partial class PetAbility
     public string name {get;set;}
     public int tier {get;set;}
     public int cost {get;set;}
-    public Pet basePet;
+    public Pet basePet {get;set;}
 	public Team team {get {return basePet.team;}}
     public Team enemyTeam {get {return basePet.enemyTeam;}}
-    public Pet enemyPet;
+    public Pet enemyPet {get;set;}
     public Shop shop {get {return game.shop;}}
-    public bool isStoneEvo;
-    public PetAbility evolution; 
+    public bool isStoneEvo {get;set;}
+    public PetAbility evolution {get;set;}
     public virtual string AbilityMessage()
     {
         return "No Ability";
@@ -37,7 +37,6 @@ public partial class PetAbility
 
     public virtual async Task StartOfBattle(Pet target)
     {
-        Game.enableBorder(team.teamSlots[basePet.index]);
         await Task.CompletedTask;
     }
 
@@ -58,7 +57,6 @@ public partial class PetAbility
 
     public virtual async Task Hurt(Pet source)
     {
-        Game.enableBorder(team.teamSlots[basePet.index]);
         await Task.CompletedTask;
     }
 

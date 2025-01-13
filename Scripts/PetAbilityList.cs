@@ -352,7 +352,6 @@ public partial class PidgeyAbility : PetAbility
 		//this needs to find the last pet on their team that isn't null and move it forward
 		if(enemyTeam.lastIndex!=null)
 		{
-			GD.Print(enemyTeam.lastIndex);
 			GD.Print(this.name + " moved " + enemyTeam.lastIndex.name + " 1 space forward!");
         	await enemyTeam.Move(enemyTeam.lastIndex,-1);
 		}
@@ -414,6 +413,7 @@ public partial class SpearowAbility : PetAbility
 		attack = 2;
     	health = 1;
 		tier = 1;
+		evolution = new FearowAbility();
     }
 
     public override string AbilityMessage()
@@ -426,8 +426,33 @@ public partial class SpearowAbility : PetAbility
 		if(target.currentHealth>0)
 		{
 			GD.Print(target.name + " took 1 damage from spearow after moving!");
-			Game.enableBorder(enemyTeam.teamSlots[target.index]);
 			await game.WaitForTasks(basePet.Snipe(1,target));
+		}
+		else
+		{
+			game.battleNode.BattleDequeue();
+		}
+    }
+}
+
+public partial class FearowAbility : PetAbility
+{
+	public FearowAbility() : base()
+    {
+		name = "Fearow";
+    }
+
+    public override string AbilityMessage()
+    {
+        return "Enemy Moved => deal 2 damage to it.";
+    }
+
+    public override async Task EnemyMoved(Pet target)
+    {
+		if(target.currentHealth>0)
+		{
+			GD.Print(target.name + " took 2 damage from fearow after moving!");
+			await game.WaitForTasks(basePet.Snipe(2,target));
 		}
 		else
 		{
@@ -444,6 +469,7 @@ public partial class EkansAbility : PetAbility
 		attack = 3;
     	health = 2;
 		tier = 1;
+		evolution = new ArbokAbility();
     }
 
     public override string AbilityMessage()
@@ -454,15 +480,51 @@ public partial class EkansAbility : PetAbility
     public override async Task StartOfBattle(Pet target)
     {
 		await base.StartOfBattle(null);
-		//must do pet.attack instead of attack cuz petAbility attack and health are just the base
 		if(basePet.currentHealth>0)
 		{
-			int tempAttack = basePet.attack;
-			basePet.SetAttack(basePet.health);
+			int tempAttack = basePet.currentAttack;
+			basePet.SetAttack(basePet.currentHealth);
 			basePet.SetHealth(tempAttack);
 			GD.Print(basePet.name + " swapped its attack and health!");
 		}
 		else
+		{
+			game.battleNode.BattleDequeue();
+		}
+    }
+}
+
+public partial class ArbokAbility : PetAbility
+{
+	public ArbokAbility() : base()
+    {
+		name = "Arbok";
+    }
+
+    public override string AbilityMessage()
+    {
+        return "Start of Battle => Swap own attack and health as well as the pet across from this.";
+    }
+
+    public override async Task StartOfBattle(Pet target)
+    {
+		await base.StartOfBattle(null);
+		if(basePet.currentHealth>0)
+		{
+			int tempAttack = basePet.currentAttack;
+			basePet.SetAttack(basePet.currentHealth);
+			basePet.SetHealth(tempAttack);
+			GD.Print(basePet.name + " swapped its attack and health!");
+		}
+		enemyPet = enemyTeam.GetPetAt(basePet.index);
+		if(enemyPet!=null)
+		{
+			int tempAttack = enemyPet.currentAttack;
+			enemyPet.SetAttack(enemyPet.currentHealth);
+			enemyPet.SetHealth(tempAttack);
+			GD.Print(enemyPet.name + " swapped its attack and health!");
+		}
+		if(basePet.currentHealth <= 0 && enemyPet == null)
 		{
 			game.battleNode.BattleDequeue();
 		}
@@ -499,6 +561,8 @@ public partial class PikachuAbility : PetAbility
 		attack = 3;
 		health = 2;
 		tier = 2;
+		isStoneEvo = true;
+		evolution = new RaichuAbility();
 	}
 
     public override string AbilityMessage()
@@ -515,8 +579,44 @@ public partial class PikachuAbility : PetAbility
 			Pet randomPet = enemyTeam.highestHealth[random.Next(0,enemyTeam.highestHealth.Count)];
 			if(randomPet.currentHealth>0)
 			{
-				GD.Print("Pikachu ability against " + randomPet.name);
+				GD.Print(randomPet.name + " took 3 damage from Pikachu!");
 				await game.WaitForTasks(basePet.Snipe(3,randomPet));
+			}
+			else
+			{
+				game.battleNode.BattleDequeue();
+			}
+		}
+		else
+		{
+			game.battleNode.BattleDequeue();
+		}
+    }
+}
+
+public partial class RaichuAbility : PetAbility
+{
+	public RaichuAbility() : base()
+	{
+		name = "Raichu";
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Start of Battle => Deal 6 damage to the enemy with the highest health.";
+    }
+
+    public override async Task StartOfBattle(Pet target)
+    {
+		await base.StartOfBattle(null);
+		Random random = new Random();
+		if(enemyTeam.highestHealth.Count>0)
+		{
+			Pet randomPet = enemyTeam.highestHealth[random.Next(0,enemyTeam.highestHealth.Count)];
+			if(randomPet.currentHealth>0)
+			{
+				GD.Print(randomPet.name + " took 6 damage from Pikachu!");
+				await game.WaitForTasks(basePet.Snipe(6,randomPet));
 			}
 			else
 			{
@@ -538,6 +638,7 @@ public partial class SandshrewAbility : PetAbility
 		attack = 1;
 		health = 3;
 		tier = 2;
+		evolution = new SandslashAbility();
 	}
 
     public override string AbilityMessage()
@@ -553,6 +654,35 @@ public partial class SandshrewAbility : PetAbility
 			if(team.GetPetAt(basePet.index-1)!=null)
 			{
 				await game.WaitForTasks(basePet.GiveBuff(3,team.GetPetAt(basePet.index-1),Pet.BuffType.GainHealth));
+			}
+			else
+			{
+				game.battleNode.BattleDequeue();
+			}
+		}
+    }
+}
+
+public partial class SandslashAbility : PetAbility
+{
+	public SandslashAbility() : base()
+	{
+		name = "Sandslash";
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Start of Battle => Give the friend ahead 6 health.";
+    }
+
+    public override async Task StartOfBattle(Pet target)
+    {
+		await base.StartOfBattle(null);
+        if(basePet.index!=0)
+		{
+			if(team.GetPetAt(basePet.index-1)!=null)
+			{
+				await game.WaitForTasks(basePet.GiveBuff(6,team.GetPetAt(basePet.index-1),Pet.BuffType.GainHealth));
 			}
 			else
 			{
