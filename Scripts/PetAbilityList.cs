@@ -339,6 +339,7 @@ public partial class PidgeyAbility : PetAbility
 		attack = 1;
     	health = 2;
 		tier = 1;
+		evolution = new PidgeottoAbility();
     }
 
     public override string AbilityMessage()
@@ -352,8 +353,71 @@ public partial class PidgeyAbility : PetAbility
 		//this needs to find the last pet on their team that isn't null and move it forward
 		if(enemyTeam.lastIndex!=null)
 		{
-			GD.Print(this.name + " moved " + enemyTeam.lastIndex.name + " 1 space forward!");
+			GD.Print(name + " moved " + enemyTeam.lastIndex.name + " 1 space forward!");
         	await enemyTeam.Move(enemyTeam.lastIndex,-1);
+		}
+		else
+		{
+			game.battleNode.BattleDequeue();
+		}
+    }
+}
+
+public partial class PidgeottoAbility : PetAbility
+{
+	public PidgeottoAbility() : base()
+    {
+		name = "Pidgeotto";
+		evolution = new PidgeotAbility();
+    }
+
+    public override string AbilityMessage()
+    {
+        return "Start of Battle => Move the enemy in the last spot forward 1 space 2 times.";
+    }
+
+    public override async Task StartOfBattle(Pet target)
+    {
+		await base.StartOfBattle(null);
+		//this needs to find the last pet on their team that isn't null and move it forward
+		if(enemyTeam.lastIndex!=null)
+		{
+			foreach(int i in GD.Range(2))
+			{
+				GD.Print(name + " moved " + enemyTeam.lastIndex.name + " 1 space forward!");
+        		await enemyTeam.Move(enemyTeam.lastIndex,-1);
+			}
+		}
+		else
+		{
+			game.battleNode.BattleDequeue();
+		}
+    }
+}
+
+public partial class PidgeotAbility : PetAbility
+{
+	public PidgeotAbility() : base()
+    {
+		name = "Pidgeot";
+    }
+
+    public override string AbilityMessage()
+    {
+        return "Start of Battle => Move the enemy in the last spot forward 1 space 3 times.";
+    }
+
+    public override async Task StartOfBattle(Pet target)
+    {
+		await base.StartOfBattle(null);
+		//this needs to find the last pet on their team that isn't null and move it forward
+		if(enemyTeam.lastIndex!=null)
+		{
+			foreach(int i in GD.Range(3))
+			{
+				GD.Print(name + " moved " + enemyTeam.lastIndex.name + " 1 space forward!");
+        		await enemyTeam.Move(enemyTeam.lastIndex,-1);
+			}
 		}
 		else
 		{

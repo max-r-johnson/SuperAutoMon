@@ -199,8 +199,10 @@ public partial class TeamArea2D : Area2D
 
 	public async void buyPet()
 	{
+		game.mouseDisabled = true;
 		await shop.buyPet(shop.selectedPetIndex,slotIndex);
 		GetParent().GetNode<Panel>("Store").Hide();
+		game.mouseDisabled = false;
 	}
 
 	public async Task<bool> arrangePets()

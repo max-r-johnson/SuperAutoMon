@@ -355,12 +355,18 @@ public partial class Game
 			Label Description = (Label)Window.GetChildren()[0].GetChildren()[3];
 			createLabelSettings(Description,descriptionSize);
 			Description.Text = pet.petAbility.AbilityMessage();
-			//CANNOT FOR THE LIFE OF ME FIGURE OUT HOW TO SHOW ACCURATE SIZE (EVEN THO MIN SIZE WORKED WITH NAME)
-			if(Description.GetMinimumSize().Y>Description.Size.Y)
-			{
-				Window.SetSize(new Godot.Vector2(Window.Size.X,Window.Size.Y + 18));
-				Window.SetPosition(new Godot.Vector2(Window.Position.X,Window.Position.Y - 18));
-			}
+			// Label ItemDescription = (Label)Window.GetChildren()[0].GetChildren()[4];
+			// createLabelSettings(ItemDescription,descriptionSize);
+			// if(pet.item!= null)
+			// {
+			// 	ItemDescription.Text = pet.item.itemMessage();
+			// 	Window.SetSize(new Godot.Vector2(Window.Size.X,Window.Size.Y + 100));
+			// 	Window.SetPosition(new Godot.Vector2(Window.Position.X,Window.Position.Y - 100));
+			// }
+			Godot.Vector2 size = AdjustedDescriptionSize(Description, 150);
+			Description.Size = size;
+			Window.SetSize(new Godot.Vector2(160, size.Y + Tier.Size.Y + Name.Size.Y));
+			Window.SetPosition(new Godot.Vector2(Window.Position.X,Window.Position.Y - size.Y + 36));
 		}
 	}
 
@@ -392,12 +398,51 @@ public partial class Game
 		createLabelSettings(Description,descriptionSize);
 		Description.Text = food.foodAbility.AbilityMessage();
 		//CANNOT FOR THE LIFE OF ME FIGURE OUT HOW TO SHOW ACCURATE SIZE (EVEN THO MIN SIZE WORKED WITH NAME)
-		if(Description.GetMinimumSize().Y>Description.Size.Y)
-		{
-			Window.SetSize(new Godot.Vector2(Window.Size.X,Window.Size.Y + 18));
-			Window.SetPosition(new Godot.Vector2(Window.Position.X,Window.Position.Y - 18));
-		}
+		Godot.Vector2 size = AdjustedDescriptionSize(Description, 150);
+		Description.Size = size;
+		Window.SetSize(new Godot.Vector2(160, size.Y + Tier.Size.Y + Name.Size.Y));
+		Window.SetPosition(new Godot.Vector2(Window.Position.X,Window.Position.Y - size.Y + 36));
 	}
+
+	public static Godot.Vector2 AdjustedDescriptionSize(Label description, float maxWidth)
+    {
+        // Ensure you are using the correct font
+        var font = description.LabelSettings.Font;
+        var text = description.Text;
+        var lines = new List<string>();
+        var currentLine = "";
+        var words = text.Split(' ');
+
+        foreach (var word in words)
+        {
+            var testLine = string.IsNullOrEmpty(currentLine) ? word : $"{currentLine} {word}";
+            var testSize = font.GetStringSize(testLine).X;
+
+            if (testSize > maxWidth)
+            {
+                // If adding the word exceeds maxWidth, finalize the current line
+                lines.Add(currentLine);
+                currentLine = word;
+            }
+            else
+            {
+                currentLine = testLine;
+            }
+        }
+
+        // Append the final line
+        if (!string.IsNullOrEmpty(currentLine))
+        {
+            lines.Add(currentLine);
+        }
+
+        // Set the description text to wrapped lines
+        description.Text = string.Join("\n", lines);
+
+        // Adjust the size based on the number of lines
+        var lineHeight = font.GetHeight();
+        return new Godot.Vector2(maxWidth, lineHeight * lines.Count);
+    }
 
 	public void createLabelSettings(Label label, int size)
 	{

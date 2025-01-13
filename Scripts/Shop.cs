@@ -168,7 +168,6 @@ public partial class Shop
             //NEEDS TO CHECK IF STATS ARE HIGHER/HAS ITEM IN CASE SHOP IS SCALED OR HAS ITEMS ATTACHED
             if(team.GetPetAt(teamIndex).experience < Game.maxExp)
             {
-                GD.Print("teampet exp: " + team.GetPetAt(teamIndex).experience + ", selected experience: " + selectedPet.experience);
                 await team.GetPetAt(teamIndex).gainExperience(selectedPet.experience + 1);
             }
             else
@@ -184,8 +183,8 @@ public partial class Shop
             team.AddPet(selectedPet, teamIndex);
         }
         await team.GetPetAt(teamIndex).petAbility.Buy(null);
-        VBoxContainer Description = (VBoxContainer)Game.team.teamSlots[teamIndex].GetChildren()[4];
-		Description.Show();
+        // VBoxContainer Description = (VBoxContainer)Game.team.teamSlots[teamIndex].GetChildren()[4];
+		// Description.Show();
     }
 
     //for refactoring - make buyFood and buyPet have the same parameters

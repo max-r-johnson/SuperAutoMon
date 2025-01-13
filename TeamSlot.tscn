@@ -221,5 +221,10 @@ label_settings = SubResource("LabelSettings_rj24i")
 horizontal_alignment = 1
 autowrap_mode = 2
 
+[node name="ItemDescription" type="Label" parent="DescriptionBox/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
 [node name="PetAnimator" type="Node2D" parent="."]
 script = ExtResource("7_gv655")

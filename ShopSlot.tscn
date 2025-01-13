@@ -5,23 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://cfkykw2x5m1x6" path="res://Images/Bulbasaur.png" id="3_4vvdd"]
 [ext_resource type="Texture2D" uid="uid://bu7tblevih0q7" path="res://Images/Stats.png" id="4_oudc4"]
 [ext_resource type="FontFile" uid="uid://cx0s7gpd6ft8g" path="res://Font/LapsusPro-Bold.otf" id="5_3sqaj"]
+[ext_resource type="StyleBox" uid="uid://cvlp7v4ykkcmr" path="res://Panel.stylebox" id="6_18thn"]
 [ext_resource type="Texture2D" uid="uid://cstd5kmbb1a5u" path="res://Images/Coin.png" id="6_52glw"]
 [ext_resource type="Script" path="res://Scripts/PetAnimation.cs" id="7_cs2xc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0c2x"]
 size = Vector2(85, 110)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qt1pa"]
-bg_color = Color(0.831373, 0.831373, 0.831373, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_right = 7
-corner_radius_bottom_left = 7
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p86oc"]
 bg_color = Color(0.831373, 0.831373, 0.831373, 1)
@@ -113,7 +102,7 @@ offset_bottom = -60.0
 [node name="Panel" type="Panel" parent="DescriptionBox"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_qt1pa")
+theme_override_styles/panel = ExtResource("6_18thn")
 
 [node name="Name" type="Label" parent="DescriptionBox/Panel"]
 layout_mode = 2
@@ -164,6 +153,20 @@ text = "\"Sell => Put a free apple in the shop.\""
 label_settings = SubResource("LabelSettings_6p1tq")
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="Panel" type="Panel" parent="DescriptionBox/Panel"]
+visible = false
+offset_top = 50.0
+offset_right = 160.0
+offset_bottom = 80.0
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("6_18thn")
+
+[node name="ItemDescription" type="Label" parent="DescriptionBox/Panel/Panel"]
+offset_left = 5.0
+offset_top = 40.0
+offset_right = 155.0
+offset_bottom = 76.0
 
 [node name="PetAnimator" type="Node2D" parent="."]
 script = ExtResource("7_cs2xc")

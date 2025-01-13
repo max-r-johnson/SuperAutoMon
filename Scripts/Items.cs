@@ -19,6 +19,11 @@ public partial class Item
 
     }
 
+    public virtual string itemMessage()
+    {
+        return "No effect.";
+    }
+
     public virtual async Task Hurt(Pet pet)
     {
         await Task.CompletedTask;
@@ -100,6 +105,11 @@ public partial class OranBerry : Item
             game.battleNode.BattleDequeue();
         }
     }
+
+    public override string itemMessage()
+    {
+        return "Gives 2 health when hurt. One use.";
+    }
 }
 
 public partial class LumBerry : Item
@@ -116,6 +126,11 @@ public partial class LumBerry : Item
         basePet.RemoveItem();
         await PerkUsed();
     }
+
+    public override string itemMessage()
+    {
+        return "Removes an ailment. One use.";
+    }
 }
 
 public partial class Poison : Item
@@ -124,5 +139,10 @@ public partial class Poison : Item
     {
         name = "Poison";
         isAilment = true;
+    }
+
+    public override string itemMessage()
+    {
+        return "Take 3 extra damage.";
     }
 }
