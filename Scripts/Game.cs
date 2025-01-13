@@ -707,9 +707,21 @@ public partial class Game
 
 	public async Task WaitForTasks(params Task[] tasks)
     {
-        mouseDisabled = true;
-        await Task.WhenAll(tasks);
-        mouseDisabled = false;
+		mouseDisabled = true;
+
+		await Task.WhenAll(tasks);
+
+		mouseDisabled = false;
+    }
+
+	public async Task WaitForFuncTasks(params Func<Task>[] taskFuncs)
+    {
+		mouseDisabled = true;
+
+		var tasks = taskFuncs.Select(func => func()).ToArray();
+		await Task.WhenAll(tasks);
+
+		mouseDisabled = false;
     }
 
 	public static bool isSamePet(Pet pet1, Pet pet2)

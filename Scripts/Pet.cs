@@ -176,43 +176,43 @@ public partial class Pet
 
 	public async Task Eat(Food food)
 	{
-		Task task1 = null;
-		Task task2 = null;
+		Func<Task> task1 = async () => await Task.CompletedTask;
+		Func<Task> task2 = async () => await Task.CompletedTask;
 		eatenFood += 1;
 		if(food.health>0)
 		{
-			task1 = GainHealth(food.health);
+			task1 = async () => await GainHealth(food.health);
 		}
 		else if(food.health<0)
 		{
-			task1 = ReduceHealth(Math.Abs(food.health));
+			task1 = async () => await ReduceHealth(Math.Abs(food.health));
 		}
 		else
 		{
-			task1 = Task.CompletedTask;
+			task1 = async () => await Task.CompletedTask;
 		}
 		if(food.attack>0)
 		{
-			task2 = GainAttack(food.attack);
+			task2 = async () => await GainAttack(food.attack);
 		}
 		else if(food.attack<0)
 		{
-			task2 = ReduceAttack(Math.Abs(food.attack));
+			task2 = async () => await ReduceAttack(Math.Abs(food.attack));
 		}
 		else
 		{
-			task2 = Task.CompletedTask;
+			task2 = async () => await Task.CompletedTask;
 		}
-		await game.WaitForTasks(task1, task2);
+		await game.WaitForFuncTasks(task1, task2);
 		await petAbility.AteFood(null);
 		food.foodAbility.OnEaten(this);
 	}
 
 	//test giving exp at max evo, test giving enough exp to evolve from 1 to 3 evo, test on pets without evos
-	public async void gainExperience(int amount)
+	public async Task gainExperience(int amount)
 	{
-		Task task1 = Task.CompletedTask;
-		Task task2 = Task.CompletedTask;
+		Func<Task> task1 = async () => await Task.CompletedTask;
+		Func<Task> task2 = async () => await Task.CompletedTask;
 		if(experience == maxExp)
 		{
 			await game.WaitForTasks(GainHealth(amount),GainAttack(amount));
@@ -223,11 +223,11 @@ public partial class Pet
 		//also if stone evo or friend evo
 		if(experience < 2 && (experience + amount) >= 2 && petAbility.evolution!=null && petAbility.isStoneEvo == false)
 		{
-			task1 = evolve();
+			task1 = async () => await evolve();
 		}
 		if(experience < Game.maxExp && (experience + amount) >= Game.maxExp && petAbility.isStoneEvo == false && petAbility.evolution != null)
 		{
-			task2 = evolve();
+			task2 = async () => await evolve();
 		}
 		if(experience + amount > maxExp)
 		{
@@ -238,9 +238,9 @@ public partial class Pet
 			experience += amount;
 		}
 		game.updateExpTexture(team.teamSlots[index], this);
-		await game.WaitForTasks(GainHealth(amount),GainAttack(amount));
-		await task1;
-		await task2;
+		await Task.WhenAll(GainHealth(amount),GainAttack(amount));
+		await task1();
+		await task2();
 	}
 
 	public async Task evolve()
@@ -286,6 +286,7 @@ public partial class Pet
 				}
 			}
 		}
+		await Task.CompletedTask;
 	}
 
 	//need to fix remove at for this. I didn't want it to remove right away cuz the animation needs to play	
@@ -641,10 +642,41 @@ public partial class Pet
 		game.changeTexture(team.teamSlots[index],this,"team");
 	}
 
+	public List<Pet> getAdjacentPets()
+	{
+		List<Pet> adjacentPets = new List<Pet>();
+		if(index > 0)
+		{
+			foreach(int i in GD.Range(index - 1, -1, -1))
+			{
+				GD.Print("Checking index " + i);
+				if (team.GetPetAt(i)!=null)
+				{
+					adjacentPets.Add(team.GetPetAt(i));
+					break;
+				}
+			}
+		}
+		if(index < Game.teamSize)
+		{
+			foreach(int i in GD.Range(index + 1, Game.teamSize))
+			{
+				GD.Print("Checking index " + i);
+				if (team.GetPetAt(i)!=null)
+				{
+					adjacentPets.Add(team.GetPetAt(i));
+					break;
+				}
+			}
+		}
+		return adjacentPets;
+	}
+
 	public Pet Clone()
 	{
 		return (Pet)MemberwiseClone();
 	}
+
 	public override string ToString()
 	{
 		return "Pet: " + attack + "/" + health + " (" + currentAttack + "/" + currentHealth + ") " + name + " - " + petAbility.AbilityMessage();

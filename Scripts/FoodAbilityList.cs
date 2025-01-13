@@ -128,8 +128,8 @@ public partial class RareCandyAbility : FoodAbility
 		return pet.experience<pet.maxExp;
     }
 
-    public override void OnEaten(Pet pet)
+    public override async void OnEaten(Pet pet)
     {
-        pet.gainExperience(1);
+        await pet.gainExperience(1);
     }
 }

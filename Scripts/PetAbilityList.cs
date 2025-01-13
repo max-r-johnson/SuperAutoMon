@@ -102,26 +102,13 @@ public partial class CharmanderAbility : PetAbility
 
     public override async Task Evolve(Pet target)
     {
-		//can use this logic for adjaceny in future. not rn tho I'm tired
-		Task task1 = Task.CompletedTask;
-		Task task2 = Task.CompletedTask;
-		if(basePet.index > 0)
+		List<Task> taskList = new List<Task>(); 
+		foreach(Pet pet in basePet.getAdjacentPets())
 		{
-			if (team.GetPetAt(basePet.index-1)!=null)
-			{
-				GD.Print("Charmander gave " + team.GetPetAt(basePet.index-1).name + " 1 attack upon evolving!");
-				task1 = basePet.GiveBuff(1, team.GetPetAt(basePet.index-1), Pet.BuffType.GainAttack);
-			}
+			GD.Print("Charmander gave " + pet.name + " 1 attack upon evolving!");
+			taskList.Add(basePet.GiveBuff(1, pet, Pet.BuffType.GainAttack));
 		}
-		if(basePet.index < Game.teamSize)
-		{
-			if (team.GetPetAt(basePet.index+1)!=null)
-			{
-				GD.Print("Charmander gave " + team.GetPetAt(basePet.index+1).name + " 1 attack upon evolving!");
-				task2 = basePet.GiveBuff(1, team.GetPetAt(basePet.index+1), Pet.BuffType.GainAttack);
-			}
-		}
-		await game.WaitForTasks(task1, task2);
+		await game.WaitForTasks(taskList.ToArray());
     }
 }
 
@@ -140,26 +127,13 @@ public partial class CharmeleonAbility : PetAbility
 
     public override async Task Evolve(Pet target)
     {
-		//can use this logic for adjaceny in future. not rn tho I'm tired. It also needs to not only work for direct adjacent slots, but the nextmost adjacent pet.
-		Task task1 = Task.CompletedTask;
-		Task task2 = Task.CompletedTask;
-		if(basePet.index > 0)
+		List<Task> taskList = new List<Task>(); 
+		foreach(Pet pet in basePet.getAdjacentPets())
 		{
-			if (team.GetPetAt(basePet.index-1)!=null)
-			{
-				GD.Print("Charmeleon gave " + team.GetPetAt(basePet.index-1).name + " 2 attack upon evolving!");
-				task1 = basePet.GiveBuff(2, team.GetPetAt(basePet.index-1), Pet.BuffType.GainAttack);
-			}
+			GD.Print("Charmeleon gave " + pet.name + " 2 attack upon evolving!");
+			taskList.Add(basePet.GiveBuff(2, pet, Pet.BuffType.GainAttack));
 		}
-		if(basePet.index < Game.teamSize - 1)
-		{
-			if (team.GetPetAt(basePet.index+1)!=null)
-			{
-				GD.Print("Charmeleon gave " + team.GetPetAt(basePet.index+1).name + " 2 attack upon evolving!");
-				task2 = basePet.GiveBuff(2, team.GetPetAt(basePet.index+1), Pet.BuffType.GainAttack);
-			}
-		}
-		await game.WaitForTasks(task1, task2);
+		await game.WaitForTasks(taskList.ToArray());
     }
 }
 
@@ -742,9 +716,9 @@ public partial class PoliwagAbility : PetAbility
         Pet randomPet = team.GetRandomPet(basePet);
 		if(randomPet != null)
 		{
-			Task task1 = basePet.GiveBuff(1, randomPet, Pet.BuffType.GainAttack);
-			Task task2 = basePet.GiveBuff(1, randomPet, Pet.BuffType.GainHealth);
-			await game.WaitForTasks(task1, task2);
+			Func<Task> task1 = async () => await basePet.GiveBuff(1, randomPet, Pet.BuffType.GainAttack);
+			Func<Task> task2 = async () => await basePet.GiveBuff(1, randomPet, Pet.BuffType.GainHealth);
+			await game.WaitForFuncTasks(task1, task2);
 		}
     }
 }
@@ -792,9 +766,9 @@ public partial class BellsproutAbility : PetAbility
 	//doesn't work when it uses the perk
     public override async Task FriendUsedPerk(Pet target)
     {
-		Task task1 = basePet.GiveBuff(1, target, Pet.BuffType.GainAttack);
-		Task task2 = basePet.GiveBuff(2, target, Pet.BuffType.GainHealth);
-		await game.WaitForTasks(task1, task2);
+		Func<Task> task1 = async () => await basePet.GiveBuff(1, target, Pet.BuffType.GainAttack);
+		Func<Task> task2 = async () => await basePet.GiveBuff(2, target, Pet.BuffType.GainHealth);
+		await game.WaitForFuncTasks(task1, task2);
     }
 }
 

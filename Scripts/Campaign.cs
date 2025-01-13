@@ -27,7 +27,8 @@ public partial class Campaign
         {
             //((FoodAbility)Activator.CreateInstance(availableFood[i][j])).name + ", ";
             //this needs to be list of types
-            List<Type> roundOnePets = new List<Type>{typeof(WeedleAbility), typeof(RattataAbility),typeof(EkansAbility), typeof(NidoranfAbility), typeof(NidoranmAbility)};
+            List<Type> roundOnePets = new List<Type>{typeof(EkansAbility)};
+            // List<Type> roundOnePets = new List<Type>{typeof(WeedleAbility), typeof(RattataAbility),typeof(EkansAbility), typeof(NidoranfAbility), typeof(NidoranmAbility)};
             List<Type> starters = new List<Type>{typeof(BulbasaurAbility), typeof(SquirtleAbility), typeof(CharmanderAbility)};
             Pet beginnerPet = new Pet((PetAbility)Activator.CreateInstance(roundOnePets[random.Next(0,roundOnePets.Count)]));
             Pet starter = new Pet((PetAbility)Activator.CreateInstance(starters[random.Next(0,starters.Count)]),1,1,1);
@@ -44,8 +45,7 @@ public partial class Campaign
             List<Pet> birdCatcher = new List<Pet>{new Pet(new SpearowAbility()), new Pet(new SpearowAbility()), new Pet(new PidgeyAbility()), new Pet(new PidgeyAbility()), new Pet(new PidgeyAbility())};
             List<Pet> punk = new List<Pet>{new Pet(new NidoranfAbility(),2,2), new Pet(new NidoranmAbility(),2,2), new Pet(new EkansAbility())};
 
-            // List<List<Pet>> possibleTrainers = new List<List<Pet>>{bugCatcher,birdCatcher,punk};
-            List<List<Pet>> possibleTrainers = new List<List<Pet>>{birdCatcher};
+            List<List<Pet>> possibleTrainers = new List<List<Pet>>{bugCatcher,birdCatcher,punk};
             var chosenTrainer = possibleTrainers[random.Next(0,possibleTrainers.Count)];
             foreach(int i in GD.Range(chosenTrainer.Count))
             {

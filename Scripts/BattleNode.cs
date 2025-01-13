@@ -149,9 +149,9 @@ public partial class BattleNode : Node
 
 			if(CheckFrontAbility() == false)
 			{
-				Task task1 = Game.GetPetAnimator(teamSlots[teamPet.index]).AnimateAttack();
-				Task task2 = Game.GetPetAnimator(enemyTeamSlots[enemyPet.index]).AnimateAttack();
-				await game.WaitForTasks(task1, task2);
+				Func<Task> task1 = async () => await Game.GetPetAnimator(teamSlots[teamPet.index]).AnimateAttack();
+				Func<Task> task2 = async () => await Game.GetPetAnimator(enemyTeamSlots[enemyPet.index]).AnimateAttack();
+				await game.WaitForFuncTasks(task1, task2);
 
 				//if there is a faint ability or similar, it would get queued.
 				//The AttackRecover animation would play, but the AttackFaint animation would not play until the new abilities are dequeued.
@@ -160,7 +160,7 @@ public partial class BattleNode : Node
 				await enemyPet.takeDamageNoFaint(teamPet.currentAttack, teamPet);
 				if(teamPet.currentHealth > 0)
 				{
-					task1 = Game.GetPetAnimator(teamSlots[teamPet.index]).AnimateAttackRecover();
+					task1 = async () => await Game.GetPetAnimator(teamSlots[teamPet.index]).AnimateAttackRecover();
 				}
 				else
 				{
@@ -189,11 +189,11 @@ public partial class BattleNode : Node
 									}
 								}
 							}
-					task1 = Game.GetPetAnimator(teamSlots[teamPet.index]).AnimateAttackFaint();
+					task1 = async () => await Game.GetPetAnimator(teamSlots[teamPet.index]).AnimateAttackFaint();
 				}
 				if(enemyPet.currentHealth > 0)
 				{
-					task2 = Game.GetPetAnimator(enemyTeamSlots[enemyPet.index]).AnimateAttackRecover();
+					task2 = async () => await Game.GetPetAnimator(enemyTeamSlots[enemyPet.index]).AnimateAttackRecover();
 				}
 				else
 				{
@@ -202,9 +202,9 @@ public partial class BattleNode : Node
 					{
 						//repeat above
 					}
-					task2 = Game.GetPetAnimator(enemyTeamSlots[enemyPet.index]).AnimateAttackFaint();
+					task2 = async () => await Game.GetPetAnimator(enemyTeamSlots[enemyPet.index]).AnimateAttackFaint();
 				}
-				await game.WaitForTasks(task1, task2);
+				await game.WaitForFuncTasks(task1, task2);
 				GD.Print("animations done");
 				if(teamPet.currentHealth <= 0)
 				{

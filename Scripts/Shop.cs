@@ -161,33 +161,29 @@ public partial class Shop
     public async Task buyPet(int shopIndex, int teamIndex)
     {
         decMoney(selectedPet.cost);
+        shopPets[shopIndex] = null;
+        game.changeTexture(shopSlots[shopIndex],shopPets[shopIndex], "shop");
         if(team.GetPetAt(teamIndex)!=null)
         {
             //NEEDS TO CHECK IF STATS ARE HIGHER/HAS ITEM IN CASE SHOP IS SCALED OR HAS ITEMS ATTACHED
-            if(Game.isSamePet(shopPets[shopIndex],team.GetPetAt(teamIndex)))
+            if(team.GetPetAt(teamIndex).experience < Game.maxExp)
             {
-                if(team.GetPetAt(teamIndex).experience < Game.maxExp)
-                {
-                    GD.Print("teampet exp: " + team.GetPetAt(teamIndex).experience + ", selected experience: " + selectedPet.experience);
-                    team.GetPetAt(teamIndex).gainExperience(selectedPet.experience + 1);
-                }
-                else
-                {
-                    selectedPet = null;
-                    return;
-                }
-                shopPets[shopIndex] = null;
-                selectedPet = null;
+                GD.Print("teampet exp: " + team.GetPetAt(teamIndex).experience + ", selected experience: " + selectedPet.experience);
+                await team.GetPetAt(teamIndex).gainExperience(selectedPet.experience + 1);
             }
+            else
+            {
+                selectedPet = null;
+                return;
+            }
+            selectedPet = null;
         }
         //if empty slot
         else
         {
             team.AddPet(selectedPet, teamIndex);
-            shopPets[shopIndex] = null;
         }
         await team.GetPetAt(teamIndex).petAbility.Buy(null);
-        game.changeTexture(shopSlots[shopIndex],shopPets[shopIndex], "shop");
         VBoxContainer Description = (VBoxContainer)Game.team.teamSlots[teamIndex].GetChildren()[4];
 		Description.Show();
     }

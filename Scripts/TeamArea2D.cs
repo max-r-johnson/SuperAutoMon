@@ -99,12 +99,14 @@ public partial class TeamArea2D : Area2D
 								}
 								else
 								{
-									tempPet.gainExperience(Math.Min(Math.Min(team.selectedPet.experience,team.GetPetAt(slotIndex).experience) + 1, Game.maxExp - tempPet.experience));
+									Pet selectedPet = team.selectedPet;
+									Pet combinePet = team.GetPetAt(slotIndex);
+									team.RemoveAt(team.selectedPet.index);
+									team.RemoveAt(slotIndex);
+									team.AddPet(tempPet, slotIndex);
+									unselectPet();
+									await tempPet.gainExperience(Math.Min(Math.Min(selectedPet.experience,combinePet.experience) + 1, Game.maxExp - tempPet.experience));
 								}
-								team.RemoveAt(team.selectedPet.index);
-								team.RemoveAt(slotIndex);
-								team.AddPet(tempPet, slotIndex);
-								unselectPet();
 							}
 							//if different name
 							else
