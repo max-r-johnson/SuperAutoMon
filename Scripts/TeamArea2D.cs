@@ -34,8 +34,7 @@ public partial class TeamArea2D : Area2D
 					//if clicking a slot with a pet in it when you have a shop pet selected
 					else if(shop.selectedPet != null && team.GetPetAt(slotIndex) != null)
 					{
-						//if its the same pet
-						if(Game.isSamePet(team.GetPetAt(slotIndex),shop.selectedPet) && team.GetPetAt(slotIndex).experience < team.GetPetAt(slotIndex).maxExp)
+						if((Game.isSamePet(team.GetPetAt(slotIndex),shop.selectedPet) || Game.isSamePetNidorans(team.GetPetAt(slotIndex),shop.selectedPet)) && team.GetPetAt(slotIndex).experience < team.GetPetAt(slotIndex).maxExp)
 						{
 							buyPet();
 						}
@@ -80,14 +79,22 @@ public partial class TeamArea2D : Area2D
 						}
 						else if(team.selectedPet != null)
 						{
-							if(Game.isSamePet(team.GetPetAt(slotIndex),team.selectedPet) && team.GetPetAt(slotIndex).experience < team.GetPetAt(slotIndex).maxExp && team.selectedPet.experience < team.selectedPet.maxExp)
+							if((Game.isSamePet(team.GetPetAt(slotIndex),team.selectedPet) || Game.isSamePetNidorans(team.selectedPet,team.GetPetAt(slotIndex))) && team.GetPetAt(slotIndex).experience < team.GetPetAt(slotIndex).maxExp && team.selectedPet.experience < team.selectedPet.maxExp)
 							{
 								GD.Print("same pet");
-								Pet tempPet = new Pet(
-									(team.GetPetAt(slotIndex).experience > team.selectedPet.experience)
-										? team.GetPetAt(slotIndex).petAbility
-										: team.selectedPet.petAbility
-								);
+								Pet tempPet = null;
+								// if(Game.isSamePetNidorans(team.GetPetAt(slotIndex), team.selectedPet))
+								// {
+								// 	tempPet = new Pet(team.GetPetAt(slotIndex).petAbility);
+								// }
+								// else
+								{
+									tempPet = new Pet(
+										(team.GetPetAt(slotIndex).experience > team.selectedPet.experience)
+											? team.GetPetAt(slotIndex).petAbility
+											: team.selectedPet.petAbility
+									);
+								}
 								assignTempPetStats(tempPet);
 								tempPet.experience = Math.Max(team.selectedPet.experience,team.GetPetAt(slotIndex).experience);
 								tempPet.maxExp = team.selectedPet.maxExp;
@@ -165,6 +172,7 @@ public partial class TeamArea2D : Area2D
     public override void _MouseExit()
     {
 		isInside = false;
+		GD.Print(Time.GetTimeDictFromSystem());
 		getDescription().Hide();
     }
 

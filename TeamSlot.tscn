@@ -165,10 +165,12 @@ offset_left = -80.0
 offset_top = -140.0
 offset_right = 80.0
 offset_bottom = -60.0
+mouse_filter = 2
 
 [node name="Panel" type="Panel" parent="DescriptionBox"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_n7mvd")
 
 [node name="Name" type="Label" parent="DescriptionBox/Panel"]

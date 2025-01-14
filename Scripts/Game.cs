@@ -328,8 +328,12 @@ public partial class Game
 		if(pet!=null)
 		{
 			VBoxContainer Window = (VBoxContainer)slot.GetChildren()[4];
+			Window.ZIndex = 1;
 			Window.SetPosition(new Godot.Vector2(-80,-140));
 			Window.SetSize(new Godot.Vector2(160,80));
+			Window.MouseFilter = Control.MouseFilterEnum.Ignore;
+			Panel panel = (Panel)Window.GetChild(0);
+			panel.MouseFilter = Control.MouseFilterEnum.Ignore;
 			Label Name = (Label)Window.GetChildren()[0].GetChildren()[0];
 			Name.Text = pet.name;
 			while(Name.GetMinimumSize().X>105)
@@ -375,17 +379,12 @@ public partial class Game
 
 	public void createDescription(Node slot, Food food, string type)
 	{
-		VBoxContainer Window = new VBoxContainer();
-		if (type == "shop")
-		{
-			Window = (VBoxContainer)slot.GetChildren()[4];
-		}
-		if (type == "team")
-		{
-			Window = (VBoxContainer)slot.GetChildren()[3];
-		}
+		VBoxContainer Window = (VBoxContainer)slot.GetChildren()[4];
 		Window.SetPosition(new Godot.Vector2(-80,-140));
 		Window.SetSize(new Godot.Vector2(160,80));
+		Window.MouseFilter = Control.MouseFilterEnum.Ignore;
+		Panel panel = (Panel)Window.GetChild(0);
+		panel.MouseFilter = Control.MouseFilterEnum.Ignore;
 		Label Name = (Label)Window.GetChildren()[0].GetChildren()[0];
 		createLabelSettings(Name,petNameSize);
 		Name.Text = food.name;
@@ -783,5 +782,16 @@ public partial class Game
 		GD.Print("second is evo: " + secondIsEvo);
 		GD.Print("first is evo: " + firstIsEvo);
     	return firstIsEvo || secondIsEvo;
+	}
+
+	public static bool isSamePetNidorans(Pet pet1, Pet pet2)
+	{
+		GD.Print("nidorans");
+		GD.Print(isSamePet(new Pet(new NidoranfAbility()), pet1));
+		GD.Print(isSamePet(pet2, new Pet(new NidoranmAbility())));
+		GD.Print(isSamePet(new Pet(new NidoranfAbility()), pet2));
+		GD.Print(isSamePet(pet1, new Pet(new NidoranmAbility())));
+		return (isSamePet(new Pet(new NidoranfAbility()), pet1) && isSamePet(pet2, new Pet(new NidoranmAbility()))) || (isSamePet(new Pet(new NidoranfAbility()), pet2) && isSamePet(pet1, new Pet(new NidoranmAbility())));
+
 	}
 }

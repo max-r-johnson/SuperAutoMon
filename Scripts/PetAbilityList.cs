@@ -603,6 +603,40 @@ public partial class NidoranmAbility : PetAbility
 		attack = 1;
     	health = 2;
 		tier = 1;
+		evolution = new NidorinoAbility();
+    }
+
+	public override string AbilityMessage()
+    {
+        return "Can be combined with female Nidorans and their evolutions.";
+    }
+}
+
+public partial class NidorinoAbility : PetAbility
+{
+	public NidorinoAbility() : base()
+    {
+		name = "Nidorino";
+		evolution = new NidokingAbility();
+		isStoneEvo = true;
+    }
+
+	public override string AbilityMessage()
+    {
+        return "Can be combined with female Nidorans and their evolutions.";
+    }
+}
+
+public partial class NidokingAbility : PetAbility
+{
+	public NidokingAbility() : base()
+    {
+		name = "Nidoking";
+    }
+
+	public override string AbilityMessage()
+    {
+        return "Can be combined with female Nidorans and their evolutions.";
     }
 }
 
@@ -614,6 +648,40 @@ public partial class NidoranfAbility : PetAbility
 		attack = 2;
     	health = 1;
 		tier = 1;
+		evolution = new NidorinaAbility();
+    }
+
+	public override string AbilityMessage()
+    {
+        return "Can be combined with male Nidorans and their evolutions.";
+    }
+}
+
+public partial class NidorinaAbility : PetAbility
+{
+	public NidorinaAbility() : base()
+    {
+		name = "Nidorina";
+		evolution = new NidoqueenAbility();
+		isStoneEvo = true;
+    }
+
+	public override string AbilityMessage()
+    {
+        return "Can be combined with female Nidorans and their evolutions.";
+    }
+}
+
+public partial class NidoqueenAbility : PetAbility
+{
+	public NidoqueenAbility() : base()
+    {
+		name = "Nidoqueen";
+    }
+
+	public override string AbilityMessage()
+    {
+        return "Can be combined with female Nidorans and their evolutions.";
     }
 }
 
