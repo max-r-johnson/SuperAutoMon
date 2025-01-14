@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://cstd5kmbb1a5u" path="res://Images/Coin.png" id="6_52glw"]
 [ext_resource type="Script" path="res://Scripts/PetAnimation.cs" id="7_cs2xc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0c2x"]
-size = Vector2(85, 110)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_waeaq"]
+size = Vector2(86, 100)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p86oc"]
 bg_color = Color(0.831373, 0.831373, 0.831373, 1)
@@ -88,8 +88,7 @@ scale = Vector2(0.4, 0.4)
 [node name="Stored" type="Sprite2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
-shape = SubResource("RectangleShape2D_a0c2x")
+shape = SubResource("RectangleShape2D_waeaq")
 
 [node name="DescriptionBox" type="VBoxContainer" parent="."]
 visible = false
@@ -156,6 +155,7 @@ autowrap_mode = 2
 
 [node name="Panel" type="Panel" parent="DescriptionBox/Panel"]
 visible = false
+layout_mode = 0
 offset_top = 50.0
 offset_right = 160.0
 offset_bottom = 80.0
@@ -163,6 +163,7 @@ size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("6_18thn")
 
 [node name="ItemDescription" type="Label" parent="DescriptionBox/Panel/Panel"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 40.0
 offset_right = 155.0

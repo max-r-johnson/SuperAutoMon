@@ -251,21 +251,20 @@ public partial class Pet
 		petAbility.basePet = this;
 		sellValue += 1;
 		game.changeTexture(team.teamSlots[index], this, "team");
-		game.createDescription(team.teamSlots[index], this, "team");
 		if(game.inBattle != true)
 		{
+			game.createDescription(team.teamSlots[index], this, "team");
 			// another method to give next tier pets in shop
 			// it needs to have a check for combining two level 2s
+			await previousAbility.Evolve(this);
+			foreach (int i in GD.Range(team.team.Count))
 			{
-				await previousAbility.Evolve(this);
-				foreach (int i in GD.Range(team.team.Count))
-				{
-					await petAbility.FriendEvolved(this);
-				}
+				await petAbility.FriendEvolved(this);
 			}
 		}
 		else
 		{
+			game.createDescription(team.teamSlots[index], this, "battle");
 			//untested
 			MethodInfo methodInfo = previousAbility.GetType().GetMethod("Evolve");
 			if(methodInfo.DeclaringType != typeof(PetAbility))

@@ -64,8 +64,8 @@ public partial class BattleNode : Node
 			game.changeTexture(enemyTeamSlots[i],enemyTeam.team[i],"team");
 			game.changeLabel(teamSlots[i],team.team[i],"team");
 			game.changeLabel(enemyTeamSlots[i],enemyTeam.team[i],"team");
-			game.createDescription(teamSlots[i],team.team[i],"team");
-			game.createDescription(enemyTeamSlots[i],enemyTeam.team[i],"team");
+			game.createDescription(teamSlots[i],team.team[i],"battle");
+			game.createDescription(enemyTeamSlots[i],enemyTeam.team[i],"battle");
 		}
 		battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(OrganizeTeam,null,null));
 		battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(StartOfBattleAbilities,null,null));

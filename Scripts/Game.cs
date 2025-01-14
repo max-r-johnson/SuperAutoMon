@@ -327,19 +327,7 @@ public partial class Game
 	{
 		if(pet!=null)
 		{
-			VBoxContainer Window = new VBoxContainer();
-			if (type == "shop")
-			{
-				Window = (VBoxContainer)slot.GetChildren()[4];
-			}
-			if (type == "team")
-			{
-				Window = (VBoxContainer)slot.GetChildren()[4];
-			}
-			if (type == "battle")
-			{
-				Window = (VBoxContainer)slot.GetChildren()[4];
-			}
+			VBoxContainer Window = (VBoxContainer)slot.GetChildren()[4];
 			Window.SetPosition(new Godot.Vector2(-80,-140));
 			Window.SetSize(new Godot.Vector2(160,80));
 			Label Name = (Label)Window.GetChildren()[0].GetChildren()[0];
@@ -366,7 +354,22 @@ public partial class Game
 			Godot.Vector2 size = AdjustedDescriptionSize(Description, 150);
 			Description.Size = size;
 			Window.SetSize(new Godot.Vector2(160, size.Y + Tier.Size.Y + Name.Size.Y));
-			Window.SetPosition(new Godot.Vector2(Window.Position.X,Window.Position.Y - size.Y + 36));
+			float xPos = Window.Position.X;
+			//global position due to adjusted canvaslayer position
+			if(Window.GlobalPosition.X <= -30)
+			{
+				xPos = Window.Position.X + 50;
+			}
+			else if(Window.GlobalPosition.X >= 1022)
+			{
+				xPos = Window.Position.X - 50;
+			}
+			Window.SetPosition(new Godot.Vector2(xPos,Window.Position.Y - size.Y + 25));
+			if(type == "team")
+			{
+				//should show up directly to the right of the slot
+				Window.SetPosition(new Godot.Vector2(Window.Position.X + 130, Window.Position.Y + 100));
+			}
 		}
 	}
 
@@ -402,6 +405,7 @@ public partial class Game
 		Description.Size = size;
 		Window.SetSize(new Godot.Vector2(160, size.Y + Tier.Size.Y + Name.Size.Y));
 		Window.SetPosition(new Godot.Vector2(Window.Position.X,Window.Position.Y - size.Y + 36));
+		// if(Window.Position.X)
 	}
 
 	public static Godot.Vector2 AdjustedDescriptionSize(Label description, float maxWidth)

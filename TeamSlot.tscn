@@ -66,7 +66,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0c2x"]
-size = Vector2(100, 100)
+size = Vector2(90, 100)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7mvd"]
 bg_color = Color(0.831373, 0.831373, 0.831373, 1)

@@ -101,7 +101,14 @@ public partial class Team
 				game.changeLabel(teamSlots[index],pet,"team");
 			}
 			game.changeTexture(teamSlots[index],pet,"team");
-			game.createDescription(teamSlots[index], pet, "team");
+			if(game.inBattle == true)
+			{
+				game.createDescription(teamSlots[index], pet, "battle");
+			}
+			else
+			{
+				game.createDescription(teamSlots[index], pet, "team");
+			}
 			//if a pet is bought from the shop, the description is shown immediately. This is in shop.buyPet
 			//this could have issues if the player's mouse leaves the area2D before the pet is finished buying (IE long animations)
 	}
