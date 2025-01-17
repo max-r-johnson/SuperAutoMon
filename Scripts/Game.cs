@@ -327,37 +327,63 @@ public partial class Game
 	{
 		if(pet!=null)
 		{
-			VBoxContainer Window = (VBoxContainer)slot.GetChildren()[4];
+			VBoxContainer Window = null;
+			Label ItemDescription = null;
+			Label itemName = null;
+			if(pet.item==null)
+			{
+				Window = (VBoxContainer)slot.GetChildren()[4];
+				Window.SetPosition(new Godot.Vector2(-80,-140));
+				Window.SetSize(new Godot.Vector2(160,80));
+			}
+			else
+			{
+				Window = (VBoxContainer)slot.GetChildren()[6];
+				Panel panel2 = (Panel)Window.GetChild(1);
+				ItemDescription = (Label)panel2.GetChild(2);
+				Sprite2D itemSprite = (Sprite2D)panel2.GetChild(1);
+				itemName = (Label)panel2.GetChild(0);
+				itemName.AddThemeFontSizeOverride("font_size", 15);
+				ItemDescription.Text = pet.item.itemMessage();
+				ItemDescription.Size = AdjustedDescriptionSize(ItemDescription, 150);
+				itemSprite.Texture = (Texture2D)GD.Load(pngURLBuilder(pet.item.name.Replace(" ", string.Empty)));
+				panel2.CustomMinimumSize = new Godot.Vector2(Window.Size.X, ItemDescription.Size.Y + itemName.Size.Y);
+				Window.SetSize(new Godot.Vector2(Window.Size.X,Window.Size.Y + 90));
+				itemName.Text = pet.item.name;
+				// Window.SetPosition(new Godot.Vector2(Window.Position.X,Window.Position.Y - 100));
+				while(itemName.GetMinimumSize().X>105)
+				{
+					itemName.AddThemeFontSizeOverride("font_size", itemName.GetThemeFontSize("font_size") - 1);
+				}
+				// itemName.Position = new Godot.Vector2(0,10);
+			}
 			Window.ZIndex = 1;
-			Window.SetPosition(new Godot.Vector2(-80,-140));
-			Window.SetSize(new Godot.Vector2(160,80));
 			Window.MouseFilter = Control.MouseFilterEnum.Ignore;
 			Panel panel = (Panel)Window.GetChild(0);
 			panel.MouseFilter = Control.MouseFilterEnum.Ignore;
 			Label Name = (Label)Window.GetChildren()[0].GetChildren()[0];
 			Name.Text = pet.name;
+			Name.AddThemeFontSizeOverride("font_size", 20);
 			while(Name.GetMinimumSize().X>105)
 			{
-				Name.LabelSettings.FontSize -=1;
+				Name.AddThemeFontSizeOverride("font_size", Name.GetThemeFontSize("font_size") - 1);
 			}
 			Label Cost = (Label)Window.GetChildren()[0].GetChildren()[1].GetChildren()[0];
 			Cost.Text = pet.cost.ToString();
 			Label Tier = (Label)Window.GetChildren()[0].GetChildren()[2];
 			Tier.Text = "Tier: " + pet.tier;
 			Label Description = (Label)Window.GetChildren()[0].GetChildren()[3];
-			createLabelSettings(Description,descriptionSize);
 			Description.Text = pet.petAbility.AbilityMessage();
-			// Label ItemDescription = (Label)Window.GetChildren()[0].GetChildren()[4];
-			// createLabelSettings(ItemDescription,descriptionSize);
-			// if(pet.item!= null)
-			// {
-			// 	ItemDescription.Text = pet.item.itemMessage();
-			// 	Window.SetSize(new Godot.Vector2(Window.Size.X,Window.Size.Y + 100));
-			// 	Window.SetPosition(new Godot.Vector2(Window.Position.X,Window.Position.Y - 100));
-			// }
 			Godot.Vector2 size = AdjustedDescriptionSize(Description, 150);
 			Description.Size = size;
-			Window.SetSize(new Godot.Vector2(160, size.Y + Tier.Size.Y + Name.Size.Y));
+			if(pet.item!=null)
+			{
+				Window.SetSize(new Godot.Vector2(160, size.Y + Tier.Size.Y + Name.Size.Y + ItemDescription.Size.Y + itemName.Size.Y));
+			}
+			else
+			{
+				Window.SetSize(new Godot.Vector2(160, size.Y + Tier.Size.Y + Name.Size.Y));
+			}
 			float xPos = Window.Position.X;
 			//global position due to adjusted canvaslayer position
 			if(Window.GlobalPosition.X <= -30)
@@ -368,15 +394,16 @@ public partial class Game
 			{
 				xPos = Window.Position.X - 50;
 			}
-			Window.SetPosition(new Godot.Vector2(xPos,Window.Position.Y - size.Y + 25));
+			Window.SetPosition(new Godot.Vector2(xPos,Window.Position.Y - size.Y + 36));
 			if(type == "team")
 			{
 				//should show up directly to the right of the slot
-				Window.SetPosition(new Godot.Vector2(Window.Position.X + 130, Window.Position.Y + 100));
+				Window.SetPosition(new Godot.Vector2(Window.Position.X + 130, Window.Position.Y + 90));
 			}
 		}
 	}
 
+	// the description doesn't align with the pet description
 	public void createDescription(Node slot, Food food, string type)
 	{
 		VBoxContainer Window = (VBoxContainer)slot.GetChildren()[4];
@@ -386,31 +413,28 @@ public partial class Game
 		Panel panel = (Panel)Window.GetChild(0);
 		panel.MouseFilter = Control.MouseFilterEnum.Ignore;
 		Label Name = (Label)Window.GetChildren()[0].GetChildren()[0];
-		createLabelSettings(Name,petNameSize);
 		Name.Text = food.name;
+		Name.AddThemeFontSizeOverride("font_size", 20);
 		while(Name.GetMinimumSize().X>105)
 		{
-			Name.LabelSettings.FontSize -= 1;
+			Name.AddThemeFontSizeOverride("font_size", Name.GetThemeFontSize("font_size") - 1);
 		}
 		Label Cost = (Label)Window.GetChildren()[0].GetChildren()[1].GetChildren()[0];
 		Cost.Text = food.cost.ToString();
 		Label Tier = (Label)Window.GetChildren()[0].GetChildren()[2];
 		Tier.Text = "Tier: " + food.tier;
 		Label Description = (Label)Window.GetChildren()[0].GetChildren()[3];
-		createLabelSettings(Description,descriptionSize);
 		Description.Text = food.foodAbility.AbilityMessage();
-		//CANNOT FOR THE LIFE OF ME FIGURE OUT HOW TO SHOW ACCURATE SIZE (EVEN THO MIN SIZE WORKED WITH NAME)
 		Godot.Vector2 size = AdjustedDescriptionSize(Description, 150);
 		Description.Size = size;
 		Window.SetSize(new Godot.Vector2(160, size.Y + Tier.Size.Y + Name.Size.Y));
 		Window.SetPosition(new Godot.Vector2(Window.Position.X,Window.Position.Y - size.Y + 36));
-		// if(Window.Position.X)
 	}
 
 	public static Godot.Vector2 AdjustedDescriptionSize(Label description, float maxWidth)
     {
         // Ensure you are using the correct font
-        var font = description.LabelSettings.Font;
+        var font = description.GetThemeFont("font");
         var text = description.Text;
         var lines = new List<string>();
         var currentLine = "";
@@ -447,16 +471,7 @@ public partial class Game
         return new Godot.Vector2(maxWidth, lineHeight * lines.Count);
     }
 
-	public void createLabelSettings(Label label, int size)
-	{
-        label.LabelSettings = new LabelSettings
-        {
-            Font = (Font)GD.Load("res://Font//LapsusPro-Bold.otf"),
-            FontColor = new Color("#000000"),
-            FontSize = size
-        };
-    }
-
+	
 
 	public async Task EndTurn()
 	{

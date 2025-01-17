@@ -157,14 +157,14 @@ public partial class TeamArea2D : Area2D
 		{
 			if(team.GetPetAt(slotIndex)!=null)
 			{
-				getDescription().Show();
+				showDescription(team.GetPetAt(slotIndex));
 			}
 		}
 		else
 		{
 			if(enemyTeam.GetPetAt(slotIndex)!=null)
 			{
-				getDescription().Show();
+				showDescription(enemyTeam.GetPetAt(slotIndex));
 			}
 		}
     }
@@ -172,8 +172,7 @@ public partial class TeamArea2D : Area2D
     public override void _MouseExit()
     {
 		isInside = false;
-		GD.Print(Time.GetTimeDictFromSystem());
-		getDescription().Hide();
+		hideDescription();
     }
 
     // Called when the node enters the scene tree for the first time.
@@ -189,6 +188,29 @@ public partial class TeamArea2D : Area2D
 	public VBoxContainer getDescription()
 	{
 		return (VBoxContainer)GetChildren()[4];
+	}
+
+	public void showDescription(Pet pet)
+	{
+		if(pet.item!=null)
+		{
+			getDescription().Hide();
+			VBoxContainer ItemDescription = (VBoxContainer)GetChildren()[6];
+			ItemDescription.Show();
+		}
+		else
+		{
+			getDescription().Show();
+			VBoxContainer ItemDescription = (VBoxContainer)GetChildren()[6];
+			ItemDescription.Hide();
+		}
+	}
+
+	public void hideDescription()
+	{
+		getDescription().Hide();
+		VBoxContainer ItemDescription = (VBoxContainer)GetChildren()[6];
+		ItemDescription.Hide();
 	}
 
 	public void unselectPet()

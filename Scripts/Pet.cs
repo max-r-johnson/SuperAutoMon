@@ -617,11 +617,13 @@ public partial class Pet
 			this.item = item;
 			this.item.basePet = this;
 			currentItem = this.item;
+			game.createDescription(team.teamSlots[index],this,"team");
 		}
 		else
 		{
 			currentItem = item;
 			currentItem.basePet = this;
+			game.createDescription(team.teamSlots[index],this,"battle");
 		}
 		game.changeTexture(team.teamSlots[index],this,"team");
 	}

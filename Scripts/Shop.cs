@@ -183,8 +183,6 @@ public partial class Shop
             team.AddPet(selectedPet, teamIndex);
         }
         await team.GetPetAt(teamIndex).petAbility.Buy(null);
-        // VBoxContainer Description = (VBoxContainer)Game.team.teamSlots[teamIndex].GetChildren()[4];
-		// Description.Show();
     }
 
     //for refactoring - make buyFood and buyPet have the same parameters

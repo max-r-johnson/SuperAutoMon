@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b7lxi6rcsotp7"]
+[gd_scene load_steps=13 format=3 uid="uid://b7lxi6rcsotp7"]
 
 [ext_resource type="Script" path="res://Scripts/ShopArea2D.cs" id="1_ph6cj"]
 [ext_resource type="Texture2D" uid="uid://bbe6trhryv6ut" path="res://Images/Base.png" id="2_6jpje"]
@@ -26,11 +26,6 @@ font = ExtResource("5_3sqaj")
 font_size = 10
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_6p1tq"]
-font = ExtResource("5_3sqaj")
-font_size = 14
-font_color = Color(0, 0, 0, 1)
-
 [node name="ShopArea2D" type="Area2D"]
 script = ExtResource("1_ph6cj")
 
@@ -44,7 +39,6 @@ texture = ExtResource("3_4vvdd")
 texture = ExtResource("4_oudc4")
 
 [node name="Health" type="Label" parent="Pet/Stats"]
-z_index = 1
 anchors_preset = -1
 anchor_left = 0.712
 anchor_top = 0.844
@@ -63,7 +57,6 @@ text = "5"
 horizontal_alignment = 1
 
 [node name="Attack" type="Label" parent="Pet/Stats"]
-z_index = 1
 anchors_preset = -1
 anchor_left = 0.288
 anchor_top = 0.844
@@ -145,31 +138,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Description" type="Label" parent="DescriptionBox/Panel"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 5.0
 offset_top = 40.0
 offset_right = 155.0
 offset_bottom = 76.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_fonts/font = ExtResource("5_3sqaj")
+theme_override_font_sizes/font_size = 14
 text = "\"Sell => Put a free apple in the shop.\""
-label_settings = SubResource("LabelSettings_6p1tq")
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="Panel" type="Panel" parent="DescriptionBox/Panel"]
-visible = false
-layout_mode = 0
-offset_top = 50.0
-offset_right = 160.0
-offset_bottom = 80.0
-size_flags_vertical = 3
-theme_override_styles/panel = ExtResource("6_18thn")
-
-[node name="ItemDescription" type="Label" parent="DescriptionBox/Panel/Panel"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 40.0
-offset_right = 155.0
-offset_bottom = 76.0
 
 [node name="PetAnimator" type="Node2D" parent="."]
 script = ExtResource("7_cs2xc")

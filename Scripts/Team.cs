@@ -71,18 +71,9 @@ public partial class Team
 	public void RemoveAt(int index)
 	{
 		team[index] = null;
-		if(game.inBattle == true)
-		{
-			game.changeTexture(teamSlots[index],team[index],"team");
-			VBoxContainer Description = (VBoxContainer)teamSlots[index].GetChildren()[4];
-			Description.Hide();
-		}
-		else if(game.inBattle != true)
-		{
-			game.changeTexture(teamSlots[index],team[index],"team");
-			VBoxContainer Description = (VBoxContainer)teamSlots[index].GetChildren()[4];
-			Description.Hide();
-		}
+		game.changeTexture(teamSlots[index],team[index],"team");
+		TeamArea2D slot = (TeamArea2D)teamSlots[index];
+		slot.hideDescription();
 		game.changeLabel(teamSlots[index],team[index],"team");
 	}
 

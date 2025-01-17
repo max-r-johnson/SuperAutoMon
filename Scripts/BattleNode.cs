@@ -324,21 +324,20 @@ public partial class BattleNode : Node
 
 	public async void BattleDequeue()
 	{
-		VBoxContainer Description = null;
 		foreach(int i in GD.Range(Game.teamSize))
 		{
 			if(team.teamSlots[i] != null)
 			{
-				Description = (VBoxContainer)team.teamSlots[i].GetChildren()[4];
-				Description.Hide();
+				TeamArea2D slot = (TeamArea2D)team.teamSlots[i];
+				slot.hideDescription();
 			}
 		}
 		foreach(int i in GD.Range(Game.teamSize))
 		{
 			if(enemyTeam.teamSlots[i] != null)
 			{
-				Description = (VBoxContainer)enemyTeam.teamSlots[i].GetChildren()[4];
-				Description.Hide();
+				TeamArea2D slot = (TeamArea2D)enemyTeam.teamSlots[i];
+				slot.hideDescription();
 			}
 		}
 		game.FindTargets();
@@ -352,8 +351,8 @@ public partial class BattleNode : Node
 
 		if(pet!=null)
 		{
-			Description = (VBoxContainer)pet.team.teamSlots[pet.index].GetChildren()[4];
-			Description.Show();
+			TeamArea2D slot = (TeamArea2D)pet.team.teamSlots[pet.index];
+			slot.showDescription(pet);
 			await action(tuple.Item2);
 		}
 		else
