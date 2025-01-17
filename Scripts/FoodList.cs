@@ -9,30 +9,22 @@ public partial class FoodList
 	Game game {get {return MainNode.game;}}
 	public int currentTier {get {return game.tier;}}
 	public Dictionary<int, List<Type>> availableFood;
-	public List<Type> tierOneFood {get; set;}
-	public List<Type> tierTwoFood {get; set;}
-	public List<Type> tierThreeFood {get; set;}
-	public List<Type> tierFourFood {get; set;}
-	public List<Type> tierFiveFood {get; set;}
-	public List<Type> tierSixFood {get; set;}
-	public List<Type> tierSevenFood {get; set;}
+	public List<List<Type>> tiers {get; set;}
 	Pack currentPack;
 
 	public FoodList()
 	{
-
+		tiers = new List<List<Type>>();
 	}
 
 	public void generateFoods()
 	{
 		Dictionary<int, List<Type>> Food = new Dictionary<int, List<Type>>();
-		Food[1] = tierOneFood;
-		Food[2] = tierTwoFood;
-		Food[3] = tierThreeFood;
-		Food[4] = tierFourFood;
-		Food[5] = tierFiveFood;
-		Food[6] = tierSixFood;
-		Food[7] = tierSevenFood;
+		Food[1] = tiers[1];
+		foreach(int i in GD.Range(2,Game.numTiers + 1))
+		{
+			Food[i] = tiers[i].Concat(Food[i-1]).ToList();
+		}
 		this.availableFood = Food;
 	}
 

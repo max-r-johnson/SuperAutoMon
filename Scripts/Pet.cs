@@ -254,6 +254,7 @@ public partial class Pet
 		if(game.inBattle != true)
 		{
 			game.createDescription(team.teamSlots[index], this, "team");
+			game.shop.evolveReward();
 			// another method to give next tier pets in shop
 			// it needs to have a check for combining two level 2s
 			await previousAbility.Evolve(this);

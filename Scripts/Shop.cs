@@ -35,6 +35,7 @@ public partial class Shop
         //game = Game;
     }
 
+    //TODO: have a weighted choosing system for current tier, not completely random
     public List<Pet> addPets()
     {
         List<Pet> newPets = new List<Pet>();
@@ -51,15 +52,9 @@ public partial class Shop
             }
             while (newPets.Count < petSlots)
             {
-                //have pets/food be a dictionary, access from dictionary corresponding to tier
-                //have a weighted choosing system, not completely random
                 int randomNumber = random.Next(0,Pack.petList.availablePets[tier].Count);
-                //it's not adding a new instance, when i store something it changes the one in the dictionary so they are all stored
                 newPets.Add(new Pet((PetAbility)Activator.CreateInstance(Pack.petList.availablePets[tier][randomNumber])));
             }      
-        }
-        foreach (Pet p in newPets)
-        {
         }
         return newPets;
     }
@@ -230,6 +225,52 @@ public partial class Shop
     public void replaceShop(Pet pet)
     {
 
+    }
+
+    //maybe should trigger when pets with no evo reach their max exp too?
+    public void evolveReward()
+    {
+        List<Node2D> shopList = new List<Node2D>();
+        foreach(Node2D slot in shopSlots)
+        {
+            shopList.Add(slot);
+        }
+        if(shopList.Count < Game.maxSlots - 1)
+        {
+            //add temp slots - define new method - to get to maxSlots
+        }
+        else
+        {
+            //replace food slots
+        }
+        if(tier < Game.numTiers)
+        {
+            List<Pet> newPets = new List<Pet>();
+            int randomNumber = random.Next(0,Pack.petList.tiers[tier+1].Count);
+            newPets.Add(new Pet((PetAbility)Activator.CreateInstance(Pack.petList.tiers[tier+1][randomNumber])));
+            //TODO need to make sure they are different pets
+            randomNumber = random.Next(0,Pack.petList.tiers[tier+1].Count);
+            newPets.Add(new Pet((PetAbility)Activator.CreateInstance(Pack.petList.tiers[tier+1][randomNumber])));
+            foreach(Pet pet in newPets)
+            {
+                GD.Print(pet);
+            }
+        }
+        else
+        {
+            List<Pet> newPets = new List<Pet>();
+            int randomNumber = random.Next(0,Pack.petList.tiers[tier].Count);
+            newPets.Add(new Pet((PetAbility)Activator.CreateInstance(Pack.petList.tiers[tier][randomNumber])));
+            //TODO need to make sure they are different pets
+            randomNumber = random.Next(0,Pack.petList.tiers[tier].Count);
+            newPets.Add(new Pet((PetAbility)Activator.CreateInstance(Pack.petList.tiers[tier][randomNumber])));
+            foreach(Pet pet in newPets)
+            {
+                GD.Print(pet);
+            }
+        }
+        //add two pets of next tier
+        //add slots back with the two new ones at the end - but change what's in em...?
     }
 
     //commented out because it doesn't properly add a slot and i don't wanna deal with that rn

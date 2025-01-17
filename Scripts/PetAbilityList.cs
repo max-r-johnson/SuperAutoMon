@@ -1066,7 +1066,10 @@ public partial class VulpixAbility : PetAbility
 {
 	public VulpixAbility() : base()
 	{
-
+		name = "Vulpix";
+		attack = 1;
+		health = 1;
+		tier = 3;
 	}
 }
 
@@ -1074,7 +1077,10 @@ public partial class ParasAbility : PetAbility
 {
 	public ParasAbility() : base()
 	{
-
+		name = "Paras";
+		attack = 1;
+		health = 1;
+		tier = 3;
 	}
 }
 
@@ -1082,7 +1088,10 @@ public partial class VenonatAbility : PetAbility
 {
 	public VenonatAbility() : base()
 	{
-
+		name = "Venonat";
+		attack = 1;
+		health = 1;
+		tier = 3;
 	}
 }
 
@@ -1090,7 +1099,10 @@ public partial class DiglettAbility : PetAbility
 {
 	public DiglettAbility() : base()
 	{
-
+		name = "Diglett";
+		attack = 1;
+		health = 1;
+		tier = 3;
 	}
 }
 
@@ -1098,7 +1110,10 @@ public partial class PsyduckAbility : PetAbility
 {
 	public PsyduckAbility() : base()
 	{
-
+		name = "Psyduck";
+		attack = 1;
+		health = 1;
+		tier = 3;
 	}
 }
 
@@ -1106,7 +1121,10 @@ public partial class GrowlitheAbility : PetAbility
 {
 	public GrowlitheAbility() : base()
 	{
-
+		name = "Growlithe";
+		attack = 1;
+		health = 1;
+		tier = 3;
 	}
 }
 
@@ -1114,7 +1132,10 @@ public partial class MachopAbility : PetAbility
 {
 	public MachopAbility() : base()
 	{
-
+		name = "Machop";
+		attack = 1;
+		health = 1;
+		tier = 3;
 	}
 }
 
@@ -1122,7 +1143,10 @@ public partial class GeodudeAbility : PetAbility
 {
 	public GeodudeAbility() : base()
 	{
-
+		name = "Geodude";
+		attack = 1;
+		health = 1;
+		tier = 3;
 	}
 }
 
@@ -1130,7 +1154,10 @@ public partial class OnixAbility : PetAbility
 {
 	public OnixAbility() : base()
 	{
-
+		name = "Onix";
+		attack = 1;
+		health = 1;
+		tier = 3;
 	}
 }
 
@@ -1138,7 +1165,10 @@ public partial class DrowzeeAbility : PetAbility
 {
 	public DrowzeeAbility() : base()
 	{
-
+		name = "Drowzee";
+		attack = 1;
+		health = 1;
+		tier = 3;
 	}
 }
 
@@ -1146,7 +1176,10 @@ public partial class GoldeenAbility : PetAbility
 {
 	public GoldeenAbility() : base()
 	{
-
+		name = "Goldeen";
+		attack = 1;
+		health = 1;
+		tier = 3;
 	}
 }
 
@@ -1155,8 +1188,24 @@ public partial class StaryuAbility : PetAbility
 	public StaryuAbility() : base()
 	{
 		name = "Staryu";
+		attack = 1;
+		health = 1;
+		tier = 3;
 	}
 }
+
+public partial class MagikarpAbility : PetAbility
+{
+	public MagikarpAbility() : base()
+	{
+		name = "Magikarp";
+		attack = 1;
+		health = 1;
+		tier = 3;
+	}
+}
+
+
 
 //next time just use text replacement lol 
 

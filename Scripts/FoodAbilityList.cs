@@ -110,6 +110,66 @@ public partial class DoomSeedAbility : FoodAbility
 	}
 }
 
+public partial class FreshWaterAbility : FoodAbility
+{
+	public FreshWaterAbility() : base()
+    {
+		name = "Fresh Water";
+		tier = 2;
+		cost = 1;
+    }
+
+	public override string AbilityMessage()
+	{
+		return "Makes a pet faint.";
+	}
+
+	public override async void OnEaten(Pet pet)
+	{
+		await pet.Faint(null);
+	}
+}
+
+public partial class LeekAbility : FoodAbility
+{
+	public LeekAbility() : base()
+    {
+		name = "Leek";
+		tier = 2;
+		cost = 1;
+    }
+
+	public override string AbilityMessage()
+	{
+		return "Makes a pet faint.";
+	}
+
+	public override async void OnEaten(Pet pet)
+	{
+		await pet.Faint(null);
+	}
+}
+
+public partial class BerryJuiceAbility : FoodAbility
+{
+	public BerryJuiceAbility() : base()
+    {
+		name = "Berry Juice";
+		tier = 2;
+		cost = 1;
+    }
+
+	public override string AbilityMessage()
+	{
+		return "Makes a pet faint.";
+	}
+
+	public override async void OnEaten(Pet pet)
+	{
+		await pet.Faint(null);
+	}
+}
+
 public partial class RareCandyAbility : FoodAbility
 {
 	public RareCandyAbility()  : base()

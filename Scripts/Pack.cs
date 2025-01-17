@@ -27,35 +27,34 @@ public partial class Pack
 
 	public static Pack generateKanto()
 	{
+		//the concatenation should be done in generatePets() so that can get a specific tier
 		PetList kantoPetList = new PetList();
-		kantoPetList.tierOnePets = new List<Type>{typeof(BulbasaurAbility), typeof(CharmanderAbility), typeof(SquirtleAbility), typeof(CaterpieAbility), typeof(WeedleAbility), typeof(PidgeyAbility), typeof(RattataAbility), typeof(SpearowAbility), typeof(EkansAbility), typeof(NidoranmAbility), typeof(NidoranfAbility)};
-		kantoPetList.tierTwoPets = new List<Type>{typeof(PikachuAbility), typeof(OddishAbility), typeof(ClefairyAbility), typeof(JigglypuffAbility), typeof(AbraAbility), typeof(ZubatAbility), typeof(GastlyAbility), typeof(BellsproutAbility), typeof(SandshrewAbility), typeof(MankeyAbility), typeof(PoliwagAbility), typeof(MeowthAbility)}.Concat(kantoPetList.tierOnePets).ToList();
-		//kantoPetList.tierTwoPets = (List<Type>)kantoPetList.tierTwoPets.Concat(kantoPetList.tierOnePets);
-		//kantoPetList.tierThreePets = new List<Pet> {(new Pet(ability))};
-		//kantoPetList.tierFourPets.Add(new Pet(ability));
-		//kantoPetList.tierFivePets.Add(new Pet(ability));
-		//kantoPetList.tierSixPets.Add(new Pet(ability));
-		//kantoPetList.tierSevenPets.Add(new Pet(ability));
+		kantoPetList.tiers.Add(new List<Type>());
+		kantoPetList.tiers.Add(new List<Type>{typeof(BulbasaurAbility), typeof(CharmanderAbility), typeof(SquirtleAbility), typeof(CaterpieAbility), typeof(WeedleAbility), typeof(PidgeyAbility), typeof(RattataAbility), typeof(SpearowAbility), typeof(EkansAbility), typeof(NidoranmAbility), typeof(NidoranfAbility)});
+		kantoPetList.tiers.Add(new List<Type>{typeof(PikachuAbility), typeof(OddishAbility), typeof(ClefairyAbility), typeof(JigglypuffAbility), typeof(AbraAbility), typeof(ZubatAbility), typeof(GastlyAbility), typeof(BellsproutAbility), typeof(SandshrewAbility), typeof(MankeyAbility), typeof(PoliwagAbility), typeof(MeowthAbility)});
+		kantoPetList.tiers.Add(new List<Type>{typeof(MachopAbility), typeof(MagikarpAbility), typeof(VulpixAbility), typeof(ParasAbility), typeof(VenonatAbility), typeof(DiglettAbility), typeof(PsyduckAbility), typeof(GeodudeAbility), typeof(OnixAbility), typeof(StaryuAbility), typeof(DrowzeeAbility), typeof(GoldeenAbility), typeof(GrowlitheAbility)});
+		kantoPetList.tiers.Add(new List<Type>());
+		kantoPetList.tiers.Add(new List<Type>());
+		kantoPetList.tiers.Add(new List<Type>());
+		kantoPetList.tiers.Add(new List<Type>());
 		kantoPetList.generatePets();
 		
 		//for every pet in tier one of kanto, print the type of every pet's ability (weedleability, rattataability, etc.)
 
 		FoodList kantoFoodList = new FoodList();
-		kantoFoodList.tierOneFood = new List<Type>{typeof(TinyAppleAbility),typeof(OranBerryAbility),typeof(RareCandyAbility)};
-		kantoFoodList.tierTwoFood = new List<Type>{typeof(DoomSeedAbility),typeof(GummiAbility),typeof(EnergyPowderAbility)}.Concat(kantoFoodList.tierOneFood).ToList();
-		//kantoFoodList.tierThreeFood.Add(new Food(ability));
-		//kantoFoodList.tierFourFood.Add(new Food(ability));
-		//kantoFoodList.tierFiveFood.Add(new Food(ability));
-		//kantoFoodList.tierSixFood.Add(new Food(ability));
-		//kantoFoodList.tierSevenFood.Add(new Food(ability));
+		kantoFoodList.tiers.Add(new List<Type>());
+		kantoFoodList.tiers.Add(new List<Type>{typeof(TinyAppleAbility),typeof(OranBerryAbility),typeof(RareCandyAbility)});
+		kantoFoodList.tiers.Add(new List<Type>{typeof(DoomSeedAbility),typeof(GummiAbility),typeof(EnergyPowderAbility)});
+		kantoFoodList.tiers.Add(new List<Type>{typeof(DoomSeedAbility),typeof(GummiAbility),typeof(EnergyPowderAbility)});
+		kantoFoodList.tiers.Add(new List<Type>());
+		kantoFoodList.tiers.Add(new List<Type>());
+		kantoFoodList.tiers.Add(new List<Type>());
+		kantoFoodList.tiers.Add(new List<Type>());
 		kantoFoodList.generateFoods();
 		Pack Kanto = new Pack("Kanto",kantoPetList,kantoFoodList);
 
-		// foreach(Pet i in Kanto.petList.tierOnePets)
-		// {
-		// 	//GD.Print(i.ToString());
-		// }
-		// //GD.Print(Kanto.petList.ToString());
+		// GD.Print(kantoPetList.ToString());
+		// GD.Print(kantoFoodList.ToString());
 		return Kanto;
 	}
 

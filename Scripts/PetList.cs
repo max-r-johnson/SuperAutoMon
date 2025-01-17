@@ -10,29 +10,22 @@ public partial class PetList
 	public int currentTier {get {return game.tier;}}
 
 	public Dictionary<int, List<Type>> availablePets {get;set;}
-	public List<Type> tierOnePets {get; set;}
-	public List<Type> tierTwoPets {get; set;}
-	public List<Type> tierThreePets {get; set;}
-	public List<Type> tierFourPets {get; set;}
-	public List<Type> tierFivePets {get; set;}
-	public List<Type> tierSixPets {get; set;}
-	public List<Type> tierSevenPets {get; set;}
+	public List<List<Type>> tiers {get; set;}
 	Pack currentPack;
 
 	public PetList()
 	{
+		tiers = new List<List<Type>>();
 	}
 
 	public void generatePets()
 	{
 		Dictionary<int, List<Type>> Pets = new Dictionary<int, List<Type>>();
-		Pets[1] = tierOnePets;
-		Pets[2] = tierTwoPets;
-		Pets[3] = tierThreePets;
-		Pets[4] = tierFourPets;
-		Pets[5] = tierFivePets;
-		Pets[6] = tierSixPets;
-		Pets[7] = tierSevenPets;
+		Pets[1] = tiers[1];
+		foreach(int i in GD.Range(2,Game.numTiers + 1))
+		{
+			Pets[i] = tiers[i].Concat(Pets[i-1]).ToList();
+		}
 		this.availablePets = Pets;
 	}
 

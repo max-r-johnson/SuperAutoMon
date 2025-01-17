@@ -15,6 +15,7 @@ public partial class Game
 	public const int rollCost = 1;
 	public const int shopMoney = 11;
 	public const int startSlots = 4;
+	public const int maxSlots = 6;
 	public const int foodCount = 2;
 	public const int slotSpacing = 100;
 	public const int battleSpacing = 90;
