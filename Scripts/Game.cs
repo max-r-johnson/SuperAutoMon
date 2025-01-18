@@ -405,7 +405,7 @@ public partial class Game
 	}
 
 	// the description doesn't align with the pet description
-	public void createDescription(Node slot, Food food, string type)
+	public void createDescription(Node slot, Food food)
 	{
 		VBoxContainer Window = (VBoxContainer)slot.GetChildren()[4];
 		Window.SetPosition(new Godot.Vector2(-80,-140));

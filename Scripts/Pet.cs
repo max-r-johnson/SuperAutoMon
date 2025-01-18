@@ -475,7 +475,6 @@ public partial class Pet
 
 	public async Task healthAnimation(int amount)
 	{
-		GD.Print("gain health started");
 		var projectile = GD.Load<PackedScene>("res://Projectile.tscn");
 		Node2D instance = (Node2D)projectile.Instantiate();
 		if(game.inBattle == true)
@@ -495,7 +494,6 @@ public partial class Pet
 
 	public async Task attackAnimation(int amount)
 	{
-		GD.Print("gain attack started");
 		var projectile = GD.Load<PackedScene>("res://Projectile.tscn");
 		Node2D instance = (Node2D)projectile.Instantiate();
 		if(game.inBattle == true)
@@ -659,7 +657,6 @@ public partial class Pet
 		{
 			foreach(int i in GD.Range(index - 1, -1, -1))
 			{
-				GD.Print("Checking index " + i);
 				if (team.GetPetAt(i)!=null)
 				{
 					adjacentPets.Add(team.GetPetAt(i));
@@ -671,7 +668,6 @@ public partial class Pet
 		{
 			foreach(int i in GD.Range(index + 1, Game.teamSize))
 			{
-				GD.Print("Checking index " + i);
 				if (team.GetPetAt(i)!=null)
 				{
 					adjacentPets.Add(team.GetPetAt(i));
@@ -680,6 +676,37 @@ public partial class Pet
 			}
 		}
 		return adjacentPets;
+	}
+
+	
+	public Pet getNearestFriendAhead()
+	{
+		if(index > 0)
+		{
+			foreach(int i in GD.Range(index - 1, -1, -1))
+			{
+				if (team.GetPetAt(i)!=null)
+				{
+					return team.GetPetAt(i);
+				}
+			}
+		}
+		return null;
+	}
+
+	public Pet getNearestFriendBehind()
+	{
+		if(index < Game.teamSize)
+		{
+			foreach(int i in GD.Range(index + 1, Game.teamSize))
+			{
+				if (team.GetPetAt(i)!=null)
+				{
+					return team.GetPetAt(i);
+				}
+			}
+		}
+		return null;
 	}
 
 	public Pet Clone()

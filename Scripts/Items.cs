@@ -146,3 +146,31 @@ public partial class Poison : Item
         return "Take 3 extra damage.";
     }
 }
+
+public partial class Leek : Item
+{
+    public Leek() : base()
+    {
+        name = "Leek";
+        isAilment = false;
+    }
+
+    public override string itemMessage()
+    {
+        return "Removes an ailment. One use.";
+    }
+}
+
+public partial class BerryJuice : Item
+{
+    public BerryJuice() : base()
+    {
+        name = "Berry Juice";
+        isAilment = false;
+    }
+
+    public override string itemMessage()
+    {
+        return "Removes an ailment. One use.";
+    }
+}

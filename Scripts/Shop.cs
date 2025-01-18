@@ -62,29 +62,24 @@ public partial class Shop
     public List<Food> addFood()
     {
         List<Food> newFood = new List<Food>();
+        for (int i=0; i<foodSlotCount;i++)
         {
-            for (int i=0; i<foodSlotCount;i++)
+            if(shopFood[i] != null)
             {
-                if(shopFood[i] != null)
+                if (shopFood[i].stored)
                 {
-                    if (shopFood[i].stored)
-                    {
-                        newFood.Add(shopFood[i]);
-                    }
+                    newFood.Add(shopFood[i]);
                 }
             }
-            while (newFood.Count < foodSlotCount)
-            {
-                //have Foods/food be a dictionary, access from dictionary corresponding to tier
-                //have a weighted choosing system, not completely random
-                int randomNumber = random.Next(0,Pack.foodList.availableFood[tier].Count);
-                //it's not adding a new instance, when i store something it changes the one in the dictionary so they are all stored
-                newFood.Add(new Food((FoodAbility)Activator.CreateInstance(Pack.foodList.availableFood[tier][randomNumber])));
-            }      
         }
-        foreach (Food p in newFood)
+        while (newFood.Count < foodSlotCount)
         {
-        }
+            //have Foods/food be a dictionary, access from dictionary corresponding to tier
+            //have a weighted choosing system, not completely random
+            int randomNumber = random.Next(0,Pack.foodList.availableFood[tier].Count);
+            //it's not adding a new instance, when i store something it changes the one in the dictionary so they are all stored
+            newFood.Add(new Food((FoodAbility)Activator.CreateInstance(Pack.foodList.availableFood[tier][randomNumber])));
+        }      
         return newFood;
     }
 
@@ -113,10 +108,11 @@ public partial class Shop
         selectedFood = null;
         foreach(int i in GD.Range(foodSlots.Count))
 			{
+                shopFood[i].index = i;
                 game.changeFoodTexture(foodSlots[i],shopFood[i]);
                 if(shopFood[i] != null)
                 {
-                    game.createDescription(foodSlots[i],shopFood[i], "shop");
+                    game.createDescription(foodSlots[i],shopFood[i]);
                     if (shopFood[i].stored)
                     {
                         game.changeStoreFoodTexture(foodSlots[i], "stored");
@@ -217,14 +213,9 @@ public partial class Shop
         }
         shopFood[0] = food;
         game.changeFoodTexture(foodSlots[0],shopFood[0]);
-        game.createDescription(foodSlots[0],food,"shop");
+        game.createDescription(foodSlots[0],food);
         //This would change if I added an anim to replace the shop food
         await Task.CompletedTask;
-    }
-
-    public void replaceShop(Pet pet)
-    {
-
     }
 
     //maybe should trigger when pets with no evo reach their max exp too?

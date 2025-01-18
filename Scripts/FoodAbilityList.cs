@@ -11,26 +11,6 @@ public partial class TinyAppleAbility : FoodAbility
 		attack = 1;
     	health = 1;
 		tier = 1;
-		foreach(int i in GD.Range(Game.teamSize))
-		{
-			//TODO: needs to update if a jigglypuff is bought or sold
-			//TODO: needs to access team somehow
-			// if(team.GetPetAt(i)!=null)
-			// {
-			// 	if(team.GetPetAt(i).name == "Igglybuff")
-			// 	{
-				
-			// 	}
-			// 	else if(team.GetPetAt(i).name == "Jigglypuff")
-			// 	{
-			// 		cost = Math.Min(0,cost - 1);
-			// 	}
-			// 	else if(team.GetPetAt(i).name == "Wigglytuff")
-			// 	{
-			// 		cost = Math.Min(0,cost - 2);
-			// 	}
-			// }
-		}
     }
 
 	public override string AbilityMessage()
@@ -149,7 +129,7 @@ public partial class LeekAbility : FoodAbility
 
 	public override async Task OnEaten(Pet pet)
 	{
-		pet.GiveItem(null);
+		pet.GiveItem(new Leek());
 	}
 }
 
@@ -168,7 +148,7 @@ public partial class BerryJuiceAbility : FoodAbility
 
 	public override async Task OnEaten(Pet pet)
 	{
-		pet.GiveItem(null);
+		pet.GiveItem(new BerryJuice());
 	}
 }
 

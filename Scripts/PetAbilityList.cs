@@ -859,6 +859,22 @@ public partial class JigglypuffAbility : PetAbility
 		health = 2;
 		tier = 2;
 	}
+
+	public override string AbilityMessage()
+    {
+        return "Start of Turn => Reduce the cost of apples by 1. Minimum 0 cost.";
+    }
+
+	public override async Task StartOfTurn(Pet target)
+	{
+		foreach(Food food in shop.shopFood)
+		{
+			if((food.name == "Tiny Apple" || food.name == "Apple" || food.name == "Perfect Apple") && food.cost > 0)
+			{
+				await food.changeCost(-1);
+			}
+		}
+	}
 }
 
 public partial class ZubatAbility : PetAbility
@@ -1081,6 +1097,19 @@ public partial class ParasAbility : PetAbility
 		health = 1;
 		tier = 3;
 	}
+
+	public override string AbilityMessage()
+    {
+        return "End Turn => Give a lum berry to the pet behind this.";
+    }
+
+    public override async Task EndOfTurn(Pet target)
+    {
+        if(basePet.getNearestFriendBehind()!=null)
+		{
+			basePet.getNearestFriendBehind().GiveItem(new LumBerry());
+		}
+    }
 }
 
 public partial class VenonatAbility : PetAbility
@@ -1114,6 +1143,19 @@ public partial class PsyduckAbility : PetAbility
 		health = 1;
 		tier = 3;
 	}
+
+	public override string AbilityMessage()
+    {
+        return "Sell => Give this pet's perk to the pet behind this.";
+    }
+
+    public override async Task Sell(Pet target)
+    {
+        if(basePet.getNearestFriendBehind()!=null)
+		{
+			basePet.getNearestFriendBehind().GiveItem(basePet.item);
+		}
+    }
 }
 
 public partial class GrowlitheAbility : PetAbility
