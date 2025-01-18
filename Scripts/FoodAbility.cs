@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class FoodAbility
 {
@@ -8,7 +9,8 @@ public partial class FoodAbility
     public string name {get;set;}
     public int tier {get;set;}
     public int cost = 3;
-    public Food food {get;set;}
+    public int numTargets;
+    public Food baseFood {get;set;}
 	public Team team;
     public Team enemyTeam;
     public Pet enemyPet;
@@ -23,8 +25,8 @@ public partial class FoodAbility
         return true;
     }
 
-    public virtual void OnEaten(Pet pet)
+    public virtual async Task OnEaten(Pet pet)
     {
-        
+        await Task.CompletedTask;
     }
 }

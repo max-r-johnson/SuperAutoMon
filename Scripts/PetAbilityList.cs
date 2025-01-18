@@ -906,8 +906,7 @@ public partial class OddishAbility : PetAbility
 
     public override async Task FoodPurchased(Pet target)
     {
-        basePet.GainTemporaryAttack(1);
-		basePet.GainTemporaryHealth(1);
+        await game.WaitForTasks(basePet.GainTemporaryAttack(1), basePet.GainTemporaryHealth(1));
     }
 }
 

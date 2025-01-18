@@ -24,7 +24,7 @@ public partial class ProjectileAnimation : Node2D
         slot.ZIndex = 1;
 
         Tween tween = GetTree().CreateTween();
-        _targetPosition = target.GetNode<Sprite2D>("Pet").GlobalPosition - new Vector2(0,20);;
+        _targetPosition = target.GetNode<Sprite2D>("Pet").GlobalPosition - new Vector2(0,20);
         _startPosition = slot.Position - new Vector2(0,20);
         if(_startPosition == _targetPosition)
         {
@@ -45,6 +45,21 @@ public partial class ProjectileAnimation : Node2D
             _duration  // Duration in seconds
         ).SetTrans(Tween.TransitionType.Cubic);
         await ToSignal(tween, "finished");
+        slot.QueueFree();
+    }
+
+    public async Task Buff()
+    {
+        slot.ZIndex = 1;
+
+        Tween tween = GetTree().CreateTween();
+        _duration = .2f;
+
+        tween.
+            TweenProperty(slot, "position", new Vector2(slot.Position.X, slot.Position.Y - 40), _duration)
+            .SetTrans(Tween.TransitionType.Linear);
+        await ToSignal(tween, "finished");
+        await Task.Delay(500);
         slot.QueueFree();
     }
 

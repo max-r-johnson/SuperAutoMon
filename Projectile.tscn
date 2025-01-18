@@ -1,10 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://cluxjgmdowc5q"]
+[gd_scene load_steps=3 format=3 uid="uid://cluxjgmdowc5q"]
 
+[ext_resource type="FontFile" uid="uid://cx0s7gpd6ft8g" path="res://Font/LapsusPro-Bold.otf" id="1_r6ti3"]
 [ext_resource type="Script" path="res://Scripts/ProjectileAnimation.cs" id="1_t7ykj"]
 
 [node name="Projectile" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Amount" type="Label" parent="Sprite2D"]
+anchors_preset = -1
+anchor_left = 0.712
+anchor_top = 0.844
+anchor_right = 0.712
+anchor_bottom = 0.844
+offset_left = -31.512
+offset_top = -30.944
+offset_right = -8.512
+offset_bottom = -12.944
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_r6ti3")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
 
 [node name="ProjectileAnimator" type="Node2D" parent="."]
 script = ExtResource("1_t7ykj")

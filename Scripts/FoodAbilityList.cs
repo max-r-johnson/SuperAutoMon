@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public partial class TinyAppleAbility : FoodAbility
 {
@@ -50,7 +52,7 @@ public partial class OranBerryAbility : FoodAbility
         return "Gives a pet an Oran Berry, which gives 2 health when hurt.";
     }
 
-    public override void OnEaten(Pet pet)
+    public override async Task OnEaten(Pet pet)
     {
         pet.GiveItem(new OranBerry());
     }
@@ -104,7 +106,7 @@ public partial class DoomSeedAbility : FoodAbility
 		return "Makes a pet faint.";
 	}
 
-	public override async void OnEaten(Pet pet)
+	public override async Task OnEaten(Pet pet)
 	{
 		await pet.Faint(null);
 	}
@@ -115,18 +117,20 @@ public partial class FreshWaterAbility : FoodAbility
 	public FreshWaterAbility() : base()
     {
 		name = "Fresh Water";
-		tier = 2;
-		cost = 1;
+		attack = 1;
+		health = 1;
+		tier = 3;
+		numTargets = 2;
     }
 
 	public override string AbilityMessage()
 	{
-		return "Makes a pet faint.";
+		return "Gives +1/+1 to 2 random pets on your team.";
 	}
 
-	public override async void OnEaten(Pet pet)
+	public override async Task OnEaten(Pet pet)
 	{
-		await pet.Faint(null);
+		await baseFood.feedTargets(baseFood.getTargets(pet));
 	}
 }
 
@@ -135,18 +139,17 @@ public partial class LeekAbility : FoodAbility
 	public LeekAbility() : base()
     {
 		name = "Leek";
-		tier = 2;
-		cost = 1;
+		tier = 3;
     }
 
 	public override string AbilityMessage()
 	{
-		return "Makes a pet faint.";
+		return "Gives a pet a Leek, which allows them to deal 5 extra damage.";
 	}
 
-	public override async void OnEaten(Pet pet)
+	public override async Task OnEaten(Pet pet)
 	{
-		await pet.Faint(null);
+		pet.GiveItem(null);
 	}
 }
 
@@ -155,18 +158,17 @@ public partial class BerryJuiceAbility : FoodAbility
 	public BerryJuiceAbility() : base()
     {
 		name = "Berry Juice";
-		tier = 2;
-		cost = 1;
+		tier = 3;
     }
 
 	public override string AbilityMessage()
 	{
-		return "Makes a pet faint.";
+		return "Gives a pet a Berry Juice, which gives them 1 extra health when eating food.";
 	}
 
-	public override async void OnEaten(Pet pet)
+	public override async Task OnEaten(Pet pet)
 	{
-		await pet.Faint(null);
+		pet.GiveItem(null);
 	}
 }
 
@@ -188,7 +190,7 @@ public partial class RareCandyAbility : FoodAbility
 		return pet.experience<pet.maxExp;
     }
 
-    public override async void OnEaten(Pet pet)
+    public override async Task OnEaten(Pet pet)
     {
         await pet.gainExperience(1);
     }

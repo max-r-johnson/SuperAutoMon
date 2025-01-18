@@ -187,8 +187,8 @@ public partial class Shop
         {
             decMoney(food.cost);
             shopFood[selectedFoodIndex] = null;
-            await team.GetPetAt(teamIndex).Eat(food);
             game.changeFoodTexture(foodSlots[selectedFoodIndex],null);
+            await team.GetPetAt(teamIndex).Eat(food);
             foreach(int i in GD.Range(Game.teamSize))
             {
                 if(team.GetPetAt(i)!=null)

@@ -179,33 +179,28 @@ public partial class Pet
 		Func<Task> task1 = async () => await Task.CompletedTask;
 		Func<Task> task2 = async () => await Task.CompletedTask;
 		eatenFood += 1;
-		if(food.health>0)
+		if(food.foodAbility.numTargets == 0)
 		{
-			task1 = async () => await GainHealth(food.health);
-		}
-		else if(food.health<0)
-		{
-			task1 = async () => await ReduceHealth(Math.Abs(food.health));
-		}
-		else
-		{
-			task1 = async () => await Task.CompletedTask;
-		}
-		if(food.attack>0)
-		{
-			task2 = async () => await GainAttack(food.attack);
-		}
-		else if(food.attack<0)
-		{
-			task2 = async () => await ReduceAttack(Math.Abs(food.attack));
-		}
-		else
-		{
-			task2 = async () => await Task.CompletedTask;
+			if(food.health>0)
+			{
+				task1 = async () => await GainHealth(food.health);
+			}
+			else if(food.health<0)
+			{
+				task1 = async () => await ReduceHealth(Math.Abs(food.health));
+			}
+			if(food.attack>0)
+			{
+				task2 = async () => await GainAttack(food.attack);
+			}
+			else if(food.attack<0)
+			{
+				task2 = async () => await ReduceAttack(Math.Abs(food.attack));
+			}
 		}
 		await game.WaitForFuncTasks(task1, task2);
 		await petAbility.AteFood(null);
-		food.foodAbility.OnEaten(this);
+		await food.foodAbility.OnEaten(this);
 	}
 
 	//test giving exp at max evo, test giving enough exp to evolve from 1 to 3 evo, test on pets without evos
@@ -344,83 +339,57 @@ public partial class Pet
 
 	public async Task GainAttack(int attack)
 	{
-		GD.Print("gain attack started");
-		var projectile = GD.Load<PackedScene>("res://Projectile.tscn");
-		Node2D instance = (Node2D)projectile.Instantiate();
-		if(game.inBattle == true)
-		{
-			game.battleNode.AddChild(instance);
-		}
-		else
-		{
-			game.mainNode.AddChild(instance);
-		}
-		instance.Position = team.teamSlots[index].Position + new Vector2(-20, 0);
-		((Sprite2D)instance.GetChild(0)).Texture = (Texture2D)GD.Load(Game.pngURLBuilder("AttackBuff"));
-		await ((ProjectileAnimation)instance.GetChild(1)).FireProjectile(team.teamSlots[index]);
-
 		if(game.inBattle==true)
 		{
+			await attackAnimation(attack);
 			currentAttack += attack;
 			game.changeLabel(team.teamSlots[index],this,"team");
 		}
 		else
 		{
-			GainPermanentAttack(attack);
+			await GainPermanentAttack(attack);
 		}
 	}
 
 	public async Task GainHealth(int health)
 	{
-		GD.Print("gain health started");
-		var projectile = GD.Load<PackedScene>("res://Projectile.tscn");
-		Node2D instance = (Node2D)projectile.Instantiate();
-		if(game.inBattle == true)
-		{
-			game.battleNode.AddChild(instance);
-		}
-		else
-		{
-			game.mainNode.AddChild(instance);
-		}
-		instance.Position = team.teamSlots[index].Position + new Vector2(20, 0);
-		((Sprite2D)instance.GetChild(0)).Texture = (Texture2D)GD.Load(Game.pngURLBuilder("HealthBuff"));
-		await ((ProjectileAnimation)instance.GetChild(1)).FireProjectile(team.teamSlots[index]);
-
 		if(game.inBattle==true)
 		{
+			await healthAnimation(health);
 			currentHealth += health;
 			game.changeLabel(team.teamSlots[index],this,"team");
 		}
 		else
 		{
-			GainPermanentHealth(health);
+			await GainPermanentHealth(health);
 		}
 	}
 
 	//for pets like axolotl
-	public void GainPermanentAttack(int attack)
+	public async Task GainPermanentAttack(int attack)
 	{
 		this.attack += attack;
-		GainTemporaryAttack(attack);
+		await GainTemporaryAttack(attack);
 		game.changeLabel(team.teamSlots[index],this,"team");
 	}
 
-	public void GainPermanentHealth(int health)
+	public async Task GainPermanentHealth(int health)
 	{
 		this.health += health;
-		GainTemporaryHealth(health);
+		await GainTemporaryHealth(health);
 		game.changeLabel(team.teamSlots[index],this,"team");
 	}
 
-	public void GainTemporaryAttack(int attack)
+	public async Task GainTemporaryAttack(int attack)
 	{
+		await attackAnimation(attack);
 		this.currentAttack += attack;
 		game.changeLabel(team.teamSlots[index],this,"team");
 	}
 
-	public void GainTemporaryHealth(int health)
+	public async Task GainTemporaryHealth(int health)
 	{
+		await healthAnimation(health);
 		this.currentHealth += health;
 		game.changeLabel(team.teamSlots[index],this,"team");
 	}
@@ -502,6 +471,47 @@ public partial class Pet
 			this.health = health;
 		}
 		game.changeLabel(team.teamSlots[index],this,"team");
+	}
+
+	public async Task healthAnimation(int amount)
+	{
+		GD.Print("gain health started");
+		var projectile = GD.Load<PackedScene>("res://Projectile.tscn");
+		Node2D instance = (Node2D)projectile.Instantiate();
+		if(game.inBattle == true)
+		{
+			game.battleNode.AddChild(instance);
+		}
+		else
+		{
+			game.mainNode.AddChild(instance);
+		}
+		instance.Position = team.teamSlots[index].Position + new Vector2(20, 0);
+		Sprite2D sprite = (Sprite2D)instance.GetChild(0);
+		sprite.Texture = (Texture2D)GD.Load(Game.pngURLBuilder("HealthBuff"));
+		((Label)sprite.GetChild(0)).Text = "+" + amount;
+		await ((ProjectileAnimation)instance.GetChild(1)).Buff();
+	}
+
+	public async Task attackAnimation(int amount)
+	{
+		GD.Print("gain attack started");
+		var projectile = GD.Load<PackedScene>("res://Projectile.tscn");
+		Node2D instance = (Node2D)projectile.Instantiate();
+		if(game.inBattle == true)
+		{
+			game.battleNode.AddChild(instance);
+		}
+		else
+		{
+			game.mainNode.AddChild(instance);
+		}
+		instance.Position = team.teamSlots[index].Position + new Vector2(-20, 0);
+		Sprite2D sprite = (Sprite2D)instance.GetChild(0);
+		sprite.Texture = (Texture2D)GD.Load(Game.pngURLBuilder("AttackBuff"));
+		((Label)sprite.GetChild(0)).Text = "+" + amount;
+		await ((ProjectileAnimation)instance.GetChild(1)).Buff();
+
 	}
 
 	public async Task Snipe(int damage, Pet target)
