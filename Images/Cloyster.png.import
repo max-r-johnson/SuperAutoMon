@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://jdmdtsk464aj"
+path="res://.godot/imported/Cloyster.png-ec8b03cc018b52976b278dcba09c484c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Cloyster.png"
+dest_files=["res://.godot/imported/Cloyster.png-ec8b03cc018b52976b278dcba09c484c.ctex"]
 
 [params]
 

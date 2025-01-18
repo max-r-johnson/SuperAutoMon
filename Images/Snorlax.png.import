@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://7axwch4c1u6s"
+path="res://.godot/imported/Snorlax.png-72397059d46502dac61dea0aff414124.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Snorlax.png"
+dest_files=["res://.godot/imported/Snorlax.png-72397059d46502dac61dea0aff414124.ctex"]
 
 [params]
 

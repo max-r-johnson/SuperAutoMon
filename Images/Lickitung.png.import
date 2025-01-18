@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://ot8lgv02xvwy"
+path="res://.godot/imported/Lickitung.png-de95fd2054a175cba216a4649b4d4f10.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Lickitung.png"
+dest_files=["res://.godot/imported/Lickitung.png-de95fd2054a175cba216a4649b4d4f10.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://pbkgn2i2uqh"
+path="res://.godot/imported/Pinsir.png-5eae9aa129e2202e370fb09e7ddc1199.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Pinsir.png"
+dest_files=["res://.godot/imported/Pinsir.png-5eae9aa129e2202e370fb09e7ddc1199.ctex"]
 
 [params]
 

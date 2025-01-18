@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://cmsdtpmi8q04u"
+path="res://.godot/imported/Kabutops.png-8372bab031e521d4cf0f16d14a91dced.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Kabutops.png"
+dest_files=["res://.godot/imported/Kabutops.png-8372bab031e521d4cf0f16d14a91dced.ctex"]
 
 [params]
 

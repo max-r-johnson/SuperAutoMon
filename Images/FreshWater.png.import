@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://bacplfj35g6e"
+path="res://.godot/imported/FreshWater.png-8677e08e51bc98b7f940c152d041a47a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/FreshWater.png"
+dest_files=["res://.godot/imported/FreshWater.png-8677e08e51bc98b7f940c152d041a47a.ctex"]
 
 [params]
 

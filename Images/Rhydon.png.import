@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://bk3imtrylpb8m"
+path="res://.godot/imported/Rhydon.png-9250ad4f7abc98a2c1b9cdb1c9305aa3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Rhydon.png"
+dest_files=["res://.godot/imported/Rhydon.png-9250ad4f7abc98a2c1b9cdb1c9305aa3.ctex"]
 
 [params]
 

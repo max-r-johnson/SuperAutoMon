@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://dtcep32hia7am"
+path="res://.godot/imported/Seel.png-f39555a743161afebd526edef3467a05.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Seel.png"
+dest_files=["res://.godot/imported/Seel.png-f39555a743161afebd526edef3467a05.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://db36nijyg2xr7"
+path="res://.godot/imported/Kangaskhan.png-9c5d67661fe6c48549c0efffb7ab0f4e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Kangaskhan.png"
+dest_files=["res://.godot/imported/Kangaskhan.png-9c5d67661fe6c48549c0efffb7ab0f4e.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://dv12euvsq75sd"
+path="res://.godot/imported/Starmie.png-3a648297b9c1981a60466b0b3d6f1806.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Starmie.png"
+dest_files=["res://.godot/imported/Starmie.png-3a648297b9c1981a60466b0b3d6f1806.ctex"]
 
 [params]
 

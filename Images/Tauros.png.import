@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://dsrji4ho8f8sx"
+path="res://.godot/imported/Tauros.png-98bcb9a7e92f42454a4e617ff3efd4de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Tauros.png"
+dest_files=["res://.godot/imported/Tauros.png-98bcb9a7e92f42454a4e617ff3efd4de.ctex"]
 
 [params]
 

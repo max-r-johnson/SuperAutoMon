@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://cyeqgmqa1sovu"
+path="res://.godot/imported/Magikarp.png-ac8c70f3359a0660f5fd40f03d30b75c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Magikarp.png"
+dest_files=["res://.godot/imported/Magikarp.png-ac8c70f3359a0660f5fd40f03d30b75c.ctex"]
 
 [params]
 

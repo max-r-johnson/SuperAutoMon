@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://di6myj1ns4kl"
+path="res://.godot/imported/Tentacool.png-73604f299e6ecd1d7dea3753030ba47f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Tentacool.png"
+dest_files=["res://.godot/imported/Tentacool.png-73604f299e6ecd1d7dea3753030ba47f.ctex"]
 
 [params]
 

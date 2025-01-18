@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://cs0jc78h0hkuk"
+path="res://.godot/imported/Arcanine.png-d87119b74b3dd66dfcf676f72be3f58e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Arcanine.png"
+dest_files=["res://.godot/imported/Arcanine.png-d87119b74b3dd66dfcf676f72be3f58e.ctex"]
 
 [params]
 

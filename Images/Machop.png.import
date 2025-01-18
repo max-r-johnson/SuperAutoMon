@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://c0mkkfmdsrno0"
+path="res://.godot/imported/Machop.png-1913405eb974adc6f75fe3f1c52a904b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Machop.png"
+dest_files=["res://.godot/imported/Machop.png-1913405eb974adc6f75fe3f1c52a904b.ctex"]
 
 [params]
 

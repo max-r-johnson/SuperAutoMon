@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://1e36crkcoykr"
+path="res://.godot/imported/Gyarados.png-3c0e84176065ea7a65fed4e9c9bd4fb1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Gyarados.png"
+dest_files=["res://.godot/imported/Gyarados.png-3c0e84176065ea7a65fed4e9c9bd4fb1.ctex"]
 
 [params]
 

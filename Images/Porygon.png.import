@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://b63c5xpjwxubo"
+path="res://.godot/imported/Porygon.png-c0a2eac26c007bfee5b5f165181bac75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Porygon.png"
+dest_files=["res://.godot/imported/Porygon.png-c0a2eac26c007bfee5b5f165181bac75.ctex"]
 
 [params]
 

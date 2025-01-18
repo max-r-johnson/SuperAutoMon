@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://clbw1kfxrple2"
+path="res://.godot/imported/Magnemite.png-e00572d335052e00d0e62feb3af2b2f3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Magnemite.png"
+dest_files=["res://.godot/imported/Magnemite.png-e00572d335052e00d0e62feb3af2b2f3.ctex"]
 
 [params]
 

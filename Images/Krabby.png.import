@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://b0raf2xfv5y3a"
+path="res://.godot/imported/Krabby.png-4699ea2595c99e3709cc0d4846e16c4d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Krabby.png"
+dest_files=["res://.godot/imported/Krabby.png-4699ea2595c99e3709cc0d4846e16c4d.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://kgre0nux6ims"
+path="res://.godot/imported/Leek.png-6968b615ccb1eb237d0b4b7c1b009913.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Leek.png"
+dest_files=["res://.godot/imported/Leek.png-6968b615ccb1eb237d0b4b7c1b009913.ctex"]
 
 [params]
 

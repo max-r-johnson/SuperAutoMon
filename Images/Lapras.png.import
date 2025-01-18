@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://bco6rsxni7v1t"
+path="res://.godot/imported/Lapras.png-56988a49faac32fdf5bd1b62b721213a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Lapras.png"
+dest_files=["res://.godot/imported/Lapras.png-56988a49faac32fdf5bd1b62b721213a.ctex"]
 
 [params]
 

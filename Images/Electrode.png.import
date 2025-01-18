@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://dtw1tudclhxs5"
+path="res://.godot/imported/Electrode.png-abd401a350803a77ab7df747efbe66e8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Electrode.png"
+dest_files=["res://.godot/imported/Electrode.png-abd401a350803a77ab7df747efbe66e8.ctex"]
 
 [params]
 

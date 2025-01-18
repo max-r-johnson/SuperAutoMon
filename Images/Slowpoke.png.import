@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://b51g0nsmrhq67"
+path="res://.godot/imported/Slowpoke.png-5bb354ad4bc0f8f3e0358935f3809858.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Slowpoke.png"
+dest_files=["res://.godot/imported/Slowpoke.png-5bb354ad4bc0f8f3e0358935f3809858.ctex"]
 
 [params]
 

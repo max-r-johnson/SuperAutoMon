@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://do54ubh30y8m"
+path="res://.godot/imported/Tangela.png-2afd11dc1cde17cc297cc571ceb8bc26.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Tangela.png"
+dest_files=["res://.godot/imported/Tangela.png-2afd11dc1cde17cc297cc571ceb8bc26.ctex"]
 
 [params]
 

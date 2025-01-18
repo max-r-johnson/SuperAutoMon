@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://d22yga4lspejd"
+path="res://.godot/imported/Shellder.png-613494d7b67f8a7f5fe7c9d96bd6c129.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Shellder.png"
+dest_files=["res://.godot/imported/Shellder.png-613494d7b67f8a7f5fe7c9d96bd6c129.ctex"]
 
 [params]
 

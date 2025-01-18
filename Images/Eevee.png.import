@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://bvpvx8538d4te"
+path="res://.godot/imported/Eevee.png-0384c41e157d11fe278079a7fc02591e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Eevee.png"
+dest_files=["res://.godot/imported/Eevee.png-0384c41e157d11fe278079a7fc02591e.ctex"]
 
 [params]
 

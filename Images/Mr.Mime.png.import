@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://dg46bea7pu7wl"
+path="res://.godot/imported/Mr.Mime.png-9398251ef933f222bbd4abc510611062.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Mr.Mime.png"
+dest_files=["res://.godot/imported/Mr.Mime.png-9398251ef933f222bbd4abc510611062.ctex"]
 
 [params]
 

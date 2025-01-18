@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://b8abllx1ljgc5"
+path="res://.godot/imported/LumBerry.png-a0a6b646dcaf299b75b6a6457321e35f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/LumBerry.png"
+dest_files=["res://.godot/imported/LumBerry.png-a0a6b646dcaf299b75b6a6457321e35f.ctex"]
 
 [params]
 

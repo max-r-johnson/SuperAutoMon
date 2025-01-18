@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://okdx182w02my"
+path="res://.godot/imported/Zapdos.png-f09ce3cece25f35f60efc8fbcf0af1d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Zapdos.png"
+dest_files=["res://.godot/imported/Zapdos.png-f09ce3cece25f35f60efc8fbcf0af1d9.ctex"]
 
 [params]
 

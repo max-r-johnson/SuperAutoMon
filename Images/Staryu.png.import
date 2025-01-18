@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://bc7crn01c2atx"
+path="res://.godot/imported/Staryu.png-5c83624d2230f19a083e0628ad56ce80.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Staryu.png"
+dest_files=["res://.godot/imported/Staryu.png-5c83624d2230f19a083e0628ad56ce80.ctex"]
 
 [params]
 

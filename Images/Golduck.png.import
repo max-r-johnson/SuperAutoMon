@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://dqrqgxvrpouel"
+path="res://.godot/imported/Golduck.png-d019921ab846c667e5822813278f5ccb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Golduck.png"
+dest_files=["res://.godot/imported/Golduck.png-d019921ab846c667e5822813278f5ccb.ctex"]
 
 [params]
 

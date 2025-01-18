@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://wj4uito08yl1"
+path="res://.godot/imported/Muk.png-4060dd7f91e323c33291380eb51d6bc1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Muk.png"
+dest_files=["res://.godot/imported/Muk.png-4060dd7f91e323c33291380eb51d6bc1.ctex"]
 
 [params]
 

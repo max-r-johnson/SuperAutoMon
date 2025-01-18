@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://cg4dcafwh7pio"
+path="res://.godot/imported/Parasect.png-69900214f7aa383cae0c8470c7226985.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Parasect.png"
+dest_files=["res://.godot/imported/Parasect.png-69900214f7aa383cae0c8470c7226985.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://pycbahttv8x1"
+path="res://.godot/imported/Mewtwo.png-5f529eba0fcab50a4cf2639ed7ad321e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Mewtwo.png"
+dest_files=["res://.godot/imported/Mewtwo.png-5f529eba0fcab50a4cf2639ed7ad321e.ctex"]
 
 [params]
 

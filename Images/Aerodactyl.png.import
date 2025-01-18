@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://cfqqwfy4vp8p8"
+path="res://.godot/imported/Aerodactyl.png-a7c2e99b737c43f8fa538fc90b292a3e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Aerodactyl.png"
+dest_files=["res://.godot/imported/Aerodactyl.png-a7c2e99b737c43f8fa538fc90b292a3e.ctex"]
 
 [params]
 

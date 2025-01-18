@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://f5hikf7kccq6"
+path="res://.godot/imported/Ponyta.png-159309b9cdace1c537dc5adcbe6f51e9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Ponyta.png"
+dest_files=["res://.godot/imported/Ponyta.png-159309b9cdace1c537dc5adcbe6f51e9.ctex"]
 
 [params]
 

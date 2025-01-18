@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm38f470rock7"
-path="res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"
+uid="uid://bbxmpf54jw7i4"
+path="res://.godot/imported/Dragonair.png-08b81b96528d7be38ad7f0486febb204.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Ninetales.png"
-dest_files=["res://.godot/imported/Ninetales.png-92640800dd998aa605986ecc267f7aea.ctex"]
+source_file="res://Images/Dragonair.png"
+dest_files=["res://.godot/imported/Dragonair.png-08b81b96528d7be38ad7f0486febb204.ctex"]
 
 [params]
 
