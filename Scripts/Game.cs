@@ -204,7 +204,7 @@ public partial class Game
 				petSprite.Texture = (Texture2D)GD.Load(pngURLBuilder(pet.name.Replace(" ", string.Empty)));
 				if(pet.currentItem!=null)
 				{
-					itemSprite.Texture = (Texture2D)GD.Load(pngURLBuilder(pet.item.name.Replace(" ", string.Empty)));
+					itemSprite.Texture = (Texture2D)GD.Load(pngURLBuilder(pet.currentItem.name.Replace(" ", string.Empty)));
 				}
 				else
 				{

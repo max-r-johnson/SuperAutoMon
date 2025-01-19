@@ -177,10 +177,10 @@ public partial class Team
 			// }
 			// game.battleQueue = newQueue;
 			//if the method for "move" was overridden (it's not the base, which is nothing), add it to the queue
-			MethodInfo methodInfo = pet.petAbility.GetType().GetMethod("OnMove");
+			MethodInfo methodInfo = pet.petAbility.GetType().GetMethod("Moved");
 			if(methodInfo.DeclaringType != typeof(PetAbility))
 			{
-				Func<Pet, Task> action = pet.petAbility.OnMove;
+				Func<Pet, Task> action = pet.petAbility.Moved;
 				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(action,null,pet));
 			}
 			foreach(int i in GD.Range(Game.teamSize))

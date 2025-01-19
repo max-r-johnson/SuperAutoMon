@@ -80,7 +80,7 @@ public partial class PetAbility
         await Task.CompletedTask;
     }
     
-    public virtual async Task OnMove(Pet target)
+    public virtual async Task Moved(Pet target)
     {
         await Task.CompletedTask;
     }
@@ -153,6 +153,36 @@ public partial class PetAbility
     }
 
     public virtual async Task FriendEvolved(Pet target)
+    {
+        await Task.CompletedTask;
+    }
+
+    public virtual async Task GainedPerk(Pet target)
+    {
+        await Task.CompletedTask;
+    }
+
+    public virtual async Task FriendGainedPerk(Pet target)
+    {
+        await Task.CompletedTask;
+    }
+
+    public virtual async Task EnemyGainedPerk(Pet target)
+    {
+        await Task.CompletedTask;
+    }
+
+    public virtual async Task GainedAilment(Pet target)
+    {
+        await Task.CompletedTask;
+    }
+
+    public virtual async Task FriendGainedAilment(Pet target)
+    {
+        await Task.CompletedTask;
+    }
+
+    public virtual async Task EnemyGainedAilment(Pet target)
     {
         await Task.CompletedTask;
     }

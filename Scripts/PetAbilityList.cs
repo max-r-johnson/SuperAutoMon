@@ -33,7 +33,15 @@ public partial class BulbasaurAbility : PetAbility
     {
 		//I want this to trigger before it gets yeeted offscreen. However, I also want the other pet to do the recover animation at the same time as this.
 		//if there is a faint ability or any friend faint ability, the other recovers. The faint abilities gets enqueued. The faint ability triggers. The pet gets yeeted.
-		await game.WaitForTasks(basePet.getRandomFriend().GainPermanentHealth(1));
+		Pet randomFriend = basePet.getRandomFriend();
+		if(randomFriend != null && randomFriend.currentHealth > 0)
+		{
+			await game.WaitForTasks(basePet.GiveBuff(1, randomFriend, Pet.BuffType.GainPermanentHealth));
+		}
+		else
+		{
+			game.battleNode.BattleDequeue();
+		}
     }
 }
 
@@ -99,7 +107,7 @@ public partial class CharmanderAbility : PetAbility
     public override async Task Evolve(Pet target)
     {
 		List<Task> taskList = new List<Task>(); 
-		foreach(Pet pet in basePet.getAdjacentPets())
+		foreach(Pet pet in basePet.getAdjacentFriends())
 		{
 			GD.Print("Charmander gave " + pet.name + " 1 attack upon evolving!");
 			taskList.Add(basePet.GiveBuff(1, pet, Pet.BuffType.GainAttack));
@@ -124,7 +132,7 @@ public partial class CharmeleonAbility : PetAbility
     public override async Task Evolve(Pet target)
     {
 		List<Task> taskList = new List<Task>(); 
-		foreach(Pet pet in basePet.getAdjacentPets())
+		foreach(Pet pet in basePet.getAdjacentFriends())
 		{
 			GD.Print("Charmeleon gave " + pet.name + " 2 attack upon evolving!");
 			taskList.Add(basePet.GiveBuff(2, pet, Pet.BuffType.GainAttack));
@@ -1629,9 +1637,26 @@ public partial class MachopAbility : PetAbility
 	public MachopAbility() : base()
 	{
 		name = "Machop";
-		attack = 1;
-		health = 1;
+		attack = 3;
+		health = 4;
 		tier = 3;
+	}
+
+	public override string AbilityMessage()
+    {
+        return "Gained Ailment => Gain 3 attack.";
+    }
+
+	public override async Task GainedAilment(Pet target)
+	{
+		if(basePet.currentHealth>0)
+		{
+			await game.WaitForTasks(basePet.GainAttack(3));
+		}
+		else
+		{
+			game.battleNode.BattleDequeue();
+		}
 	}
 }
 
@@ -1699,6 +1724,11 @@ public partial class MagikarpAbility : PetAbility
 		health = 1;
 		tier = 3;
 	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
 }
 
 public partial class TentacoolAbility : PetAbility
@@ -1787,6 +1817,21 @@ public partial class KoffingAbility : PetAbility
 		health = 1;
 		tier = 4;
 	}
+
+	public override string AbilityMessage()
+    {
+        return "Faint => give adjacent pets the poison ailment. Poison makes pets take 3 extra damage.";
+    }
+
+    public override async Task Faint(Pet source)
+    {
+		List<Task> taskList = new List<Task>();
+        foreach(Pet pet in basePet.getAdjacentPets())
+		{
+			taskList.Add(pet.GiveItem(new Poison()));
+		}
+		await game.WaitForTasks(taskList.ToArray());
+    }
 }
 
 public partial class HorseaAbility : PetAbility

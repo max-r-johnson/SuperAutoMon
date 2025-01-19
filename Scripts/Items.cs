@@ -80,7 +80,10 @@ public partial class Item
             await basePet.petAbility.UsedPerk(null);
             foreach(int i in GD.Range(Game.teamSize))
             {
-                await team.GetPetAt(i).petAbility.FriendUsedPerk(this.basePet);
+                if(team.GetPetAt(i)!=null)
+                {
+                    await team.GetPetAt(i).petAbility.FriendUsedPerk(basePet);
+                }
             }
         }
     }
@@ -180,7 +183,6 @@ public partial class LumBerry : Item
 
     public override async Task GainedAilment(Pet pet)
     {
-        //removes the new ailment
         basePet.RemoveItem();
         await PerkUsed();
     }

@@ -43,7 +43,7 @@ public partial class Pack
 
 		FoodList kantoFoodList = new FoodList();
 		kantoFoodList.tiers.Add(new List<Type>());
-		kantoFoodList.tiers.Add(new List<Type>{typeof(TinyAppleAbility),typeof(OranBerryAbility),typeof(RareCandyAbility)});
+		kantoFoodList.tiers.Add(new List<Type>{typeof(TinyAppleAbility),typeof(OranBerryAbility)});
 		kantoFoodList.tiers.Add(new List<Type>{typeof(DoomSeedAbility),typeof(GummiAbility),typeof(EnergyPowderAbility)});
 		kantoFoodList.tiers.Add(new List<Type>{typeof(FreshWaterAbility),typeof(LeekAbility),typeof(BerryJuiceAbility)});
 		kantoFoodList.tiers.Add(new List<Type>{typeof(EvolutionStoneAbility), typeof(SitrusBerryAbility), typeof(LumBerryAbility)});

@@ -41,6 +41,7 @@ public partial class Pet
 		attack = ability.attack + extraAttack;
 		currentAttack = attack;
 		currentHealth = health;
+		currentItem = item;
 		name = ability.name;
 		petAbility.basePet = this;
 		this.item = item;
@@ -60,6 +61,10 @@ public partial class Pet
 
 	public async Task takeDamage(int damage, Pet source)
 	{
+		if(currentItem?.name == "Poison")
+		{
+			damage += 3;
+		}
 		if (game.inBattle == true)
 		{
 			currentHealth -= damage;
@@ -121,6 +126,10 @@ public partial class Pet
 
 	public async Task takeDamageNoFaint(int damage, Pet source)
 	{
+		if(currentItem?.name == "Poison")
+		{
+			damage += 3;
+		}
 		if (game.inBattle == true)
 		{
 			currentHealth -= damage;
@@ -276,7 +285,7 @@ public partial class Pet
 					if(methodInfo.DeclaringType != typeof(PetAbility))
 					{
 						Func<Pet, Task> task = parameter => team.GetPetAt(i).petAbility.FriendEvolved(parameter);
-						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,this,this));
+						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,this,team.GetPetAt(i)));
 					}
 				}
 			}
@@ -535,13 +544,14 @@ public partial class Pet
 	{
 		SetAttack,
 		GainAttack,
+		GainPermanentAttack,
 		SetHealth,
-		GainHealth
+		GainHealth,
+		GainPermanentHealth
 	}
 
 	public async Task GiveBuff(int amount, Pet target, BuffType buffType)
 	{
-		GD.Print("Give buff triggered");
 		var projectile = GD.Load<PackedScene>("res://Projectile.tscn");
 		Node2D instance = (Node2D)projectile.Instantiate();
 		if(game.inBattle == true)
@@ -564,11 +574,17 @@ public partial class Pet
 			case BuffType.GainAttack:
 				await target.GainAttack(amount);
 				break;
+			case BuffType.GainPermanentAttack:
+				await target.GainPermanentAttack(amount);
+				break;
 			case BuffType.SetHealth:
 				target.SetHealth(amount);
 				break;
 			case BuffType.GainHealth:
 				await target.GainHealth(amount);
+				break;
+			case BuffType.GainPermanentHealth:
+				await target.GainPermanentHealth(amount);
 				break;
 			default:
 				throw new ArgumentException("Invalid BuffType.");
@@ -618,39 +634,138 @@ public partial class Pet
 		}
 	}
 
-	public void GiveItem(Item item)
+	// can consider adding source parameter if necessary
+	public async Task GiveItem(Item newItem)
 	{
-		//needs a thing for lum berry that checks if pet is holding a lum berry and if the new item is an ailment. then uses perk
+		Item oldItem = currentItem;
 		if(game.inBattle!=true)
 		{
-			this.item = item;
-			this.item.basePet = this;
-			currentItem = this.item;
+			item = newItem;
+			item.basePet = this;
+			currentItem = item;
 			game.createDescription(team.teamSlots[index],this,"team");
+			game.changeTexture(team.teamSlots[index],this,"team");
+			//gain item, friend gain item, enemy gain item, gain ailment, friend gain ailment, enemy gain ailment
+			if(newItem.isAilment == false)
+			{
+				await petAbility.GainedPerk(null);
+				foreach (int i in GD.Range(team.team.Count))
+				{
+					if(team.GetPetAt(i)!=null&&i!=index)
+					{
+						await team.GetPetAt(i).petAbility.FriendGainedPerk(this);
+					}
+				}
+			}
+			else
+			{
+				await petAbility.GainedAilment(null);
+				if(oldItem!=null)
+				{
+					await oldItem.GainedAilment(null);
+				}
+				foreach (int i in GD.Range(team.team.Count))
+				{
+					if(team.GetPetAt(i)!=null&&i!=index)
+					{
+						await team.GetPetAt(i).petAbility.FriendGainedAilment(this);
+					}
+				}
+			}
 		}
 		else
 		{
-			currentItem = item;
+			currentItem = newItem;
 			currentItem.basePet = this;
 			game.createDescription(team.teamSlots[index],this,"battle");
+			game.changeTexture(team.teamSlots[index],this,"team");
+			if(newItem.isAilment == false)
+			{
+				MethodInfo methodInfo = petAbility.GetType().GetMethod("GainedPerk");
+				if(methodInfo.DeclaringType != typeof(PetAbility))
+				{
+					Func<Pet, Task> task = petAbility.GainedPerk;
+					game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,this));
+				}
+				foreach (int i in GD.Range(team.team.Count))
+				{
+					if(team.GetPetAt(i)!=null&&i!=index)
+					{
+						methodInfo = team.GetPetAt(i).petAbility.GetType().GetMethod("FriendGainedPerk");
+						if(methodInfo.DeclaringType != typeof(PetAbility))
+						{
+							Func<Pet, Task> task = parameter => team.GetPetAt(i).petAbility.FriendGainedPerk(parameter);
+							game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,this,team.GetPetAt(i)));
+						}
+					}
+					if(enemyTeam.GetPetAt(i)!=null&&i!=index)
+					{
+						methodInfo = enemyTeam.GetPetAt(i).petAbility.GetType().GetMethod("EnemyGainedPerk");
+						if(methodInfo.DeclaringType != typeof(PetAbility))
+						{
+							Func<Pet, Task> task = parameter => enemyTeam.GetPetAt(i).petAbility.EnemyGainedPerk(parameter);
+							game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,this,enemyTeam.GetPetAt(i)));
+						}
+					}
+				}
+			}
+			else
+			{
+				MethodInfo methodInfo = petAbility.GetType().GetMethod("GainedAilment");
+				if(methodInfo.DeclaringType != typeof(PetAbility))
+				{
+					Func<Pet, Task> task = petAbility.GainedAilment;
+					game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,this));
+				}
+				if(oldItem!=null)
+				{
+					methodInfo = oldItem.GetType().GetMethod("GainedAilment");
+					if(methodInfo.DeclaringType != typeof(Item))
+					{
+						Func<Pet, Task> task = oldItem.GainedAilment;
+						game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,this));
+					}
+				}
+				foreach (int i in GD.Range(team.team.Count))
+				{
+					if(team.GetPetAt(i)!=null&&i!=index)
+					{
+						methodInfo = team.GetPetAt(i).petAbility.GetType().GetMethod("FriendGainedAilment");
+						if(methodInfo.DeclaringType != typeof(PetAbility))
+						{
+							Func<Pet, Task> task = parameter => team.GetPetAt(i).petAbility.FriendGainedAilment(parameter);
+							game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,this,team.GetPetAt(i)));
+						}
+					}
+					if(enemyTeam.GetPetAt(i)!=null&&i!=index)
+					{
+						methodInfo = enemyTeam.GetPetAt(i).petAbility.GetType().GetMethod("EnemyGainedAilment");
+						if(methodInfo.DeclaringType != typeof(PetAbility))
+						{
+							Func<Pet, Task> task = parameter => enemyTeam.GetPetAt(i).petAbility.EnemyGainedAilment(parameter);
+							game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,this,enemyTeam.GetPetAt(i)));
+						}
+					}
+				}
+			}
 		}
-		game.changeTexture(team.teamSlots[index],this,"team");
 	}
 
 	public void RemoveItem()
 	{
 		if(game.inBattle!=true)
 		{
-			this.item = null;
+			item = null;
+			currentItem = null;
 		}
 		else
 		{
-			this.currentItem = null;
+			currentItem = null;
 		}
 		game.changeTexture(team.teamSlots[index],this,"team");
 	}
 
-	public List<Pet> getAdjacentPets()
+	public List<Pet> getAdjacentFriends()
 	{
 		List<Pet> adjacentPets = new List<Pet>();
 		if(index > 0)
@@ -676,6 +791,32 @@ public partial class Pet
 			}
 		}
 		return adjacentPets;
+	}
+
+	// give a param for how many on each side
+	public List<Pet> getAdjacentPets()
+	{
+		if(game.inBattle == true && index == 0)
+		{
+			List<Pet> adjacentPets = new List<Pet>();
+			if(enemyTeam.GetPetAt(0)!=null)
+			{
+				adjacentPets.Add(enemyTeam.GetPetAt(0));
+			}
+			foreach(int i in GD.Range(index + 1, Game.teamSize))
+			{
+				if (team.GetPetAt(i)!=null)
+				{
+					adjacentPets.Add(team.GetPetAt(i));
+					break;
+				}
+			}
+			return adjacentPets;
+		}
+		else
+		{
+			return getAdjacentFriends();
+		}
 	}
 
 	
