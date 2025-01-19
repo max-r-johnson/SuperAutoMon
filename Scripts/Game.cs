@@ -201,7 +201,7 @@ public partial class Game
 			}
 			else
 			{
-				petSprite.Texture = (Texture2D)GD.Load(pngURLBuilder(pet.name));
+				petSprite.Texture = (Texture2D)GD.Load(pngURLBuilder(pet.name.Replace(" ", string.Empty)));
 				if(pet.currentItem!=null)
 				{
 					itemSprite.Texture = (Texture2D)GD.Load(pngURLBuilder(pet.item.name.Replace(" ", string.Empty)));
@@ -229,7 +229,7 @@ public partial class Game
 			}
 			else
 			{
-				petSprite.Texture = (Texture2D)GD.Load(pngURLBuilder(pet.name));
+				petSprite.Texture = (Texture2D)GD.Load(pngURLBuilder(pet.name.Replace(" ", string.Empty)));
 				if(pet.currentItem!=null)
 				{
 					itemSprite.Texture = (Texture2D)GD.Load(pngURLBuilder(pet.item.name.Replace(" ", string.Empty)));
@@ -272,11 +272,11 @@ public partial class Game
 		string pokemonName = spritePath.Substring(spritePath.LastIndexOf('/') + 1, spritePath.LastIndexOf('.') - spritePath.LastIndexOf('/') - 1);
 		if(type == "stored")
 		{
-			sprite.Texture = (Texture2D)GD.Load(pngURLBuilder("Stored/" + pokemonName));
+			sprite.Texture = (Texture2D)GD.Load(pngURLBuilder("Stored/" + pokemonName.Replace(" ", string.Empty)));
 		}
 		else if (type == "destored")
 		{
-			sprite.Texture = (Texture2D)GD.Load(pngURLBuilder(pokemonName));
+			sprite.Texture = (Texture2D)GD.Load(pngURLBuilder(pokemonName.Replace(" ", string.Empty)));
 		}
 	}
 

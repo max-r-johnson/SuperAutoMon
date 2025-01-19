@@ -120,6 +120,11 @@ public partial class MainNode : Node
 
 	private void StoreButton()
 	{
+		Store();
+	}
+
+	public void Store()
+	{
 		//need to change icon/text of button when stored for unstore
 		if(shop.selectedPet != null)
 		{

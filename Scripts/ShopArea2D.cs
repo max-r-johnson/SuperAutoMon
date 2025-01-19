@@ -102,6 +102,22 @@ public partial class ShopArea2D : Area2D
 					}
 				}
 			}
+			else if (inputEventMouse.Pressed && inputEventMouse.ButtonIndex == MouseButton.Right && isInside == true && !game.mouseDisabled)
+			{
+				shop.selectedPet = null;
+				shop.selectedFood = null;
+				if(isFood == false)
+				{
+					shop.selectedPet = shop.shopPets[index];
+					shop.selectedPetIndex = index;
+				}
+				else
+				{
+					shop.selectedFood = shop.shopFood[index];
+					shop.selectedFoodIndex = index;
+				}
+				game.mainNode.Store();
+			}
 		}
 	}
 

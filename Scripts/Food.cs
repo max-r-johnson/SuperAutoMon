@@ -45,11 +45,6 @@ public partial class Food
 			targets.Add(tempList[randomNumber]);
 			tempList.RemoveAt(randomNumber);
 		}
-		GD.Print("----");
-		foreach (Pet target in targets)
-		{
-			GD.Print(target);
-		}
 		return targets;
 	}
 
