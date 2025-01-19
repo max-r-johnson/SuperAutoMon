@@ -778,13 +778,6 @@ public partial class Game
 
 	public static bool isSamePet(Pet pet1, Pet pet2)
 	{
-		GD.Print(pet1.name);
-		GD.Print(pet2.name);
-		GD.Print(pet1.petAbility);
-		GD.Print(pet1.petAbility?.evolution);
-		GD.Print(pet1.petAbility?.evolution?.name);
-		GD.Print(pet1.petAbility?.evolution?.evolution?.name);
-
 		bool secondIsEvo = pet1.name == pet2.name || 
            pet1.petAbility?.evolution?.name == pet2.name || 
            pet1.petAbility?.evolution?.evolution?.name == pet2.name;
@@ -793,20 +786,11 @@ public partial class Game
            pet2.petAbility?.evolution?.name == pet1.name || 
            pet2.petAbility?.evolution?.evolution?.name == pet1.name;
 
-		GD.Print("pet 1 " + pet1.name);
-		GD.Print("pet 2 " + pet2.name);
-		GD.Print("second is evo: " + secondIsEvo);
-		GD.Print("first is evo: " + firstIsEvo);
     	return firstIsEvo || secondIsEvo;
 	}
 
 	public static bool isSamePetNidorans(Pet pet1, Pet pet2)
 	{
-		GD.Print("nidorans");
-		GD.Print(isSamePet(new Pet(new NidoranfAbility()), pet1));
-		GD.Print(isSamePet(pet2, new Pet(new NidoranmAbility())));
-		GD.Print(isSamePet(new Pet(new NidoranfAbility()), pet2));
-		GD.Print(isSamePet(pet1, new Pet(new NidoranmAbility())));
 		return (isSamePet(new Pet(new NidoranfAbility()), pet1) && isSamePet(pet2, new Pet(new NidoranmAbility()))) || (isSamePet(new Pet(new NidoranfAbility()), pet2) && isSamePet(pet1, new Pet(new NidoranmAbility())));
 
 	}

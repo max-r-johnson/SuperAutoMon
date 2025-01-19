@@ -299,7 +299,7 @@ public partial class Pet
 			if(methodInfo.DeclaringType != typeof(PetAbility))
 			{
 				Func<Pet, Task> task = source.petAbility.Knockout;
-				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,this));
+				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(task,null,source));
 			}
 			foreach (int i in GD.Range(team.team.Count))
 			{

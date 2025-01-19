@@ -1701,6 +1701,548 @@ public partial class MagikarpAbility : PetAbility
 	}
 }
 
+public partial class TentacoolAbility : PetAbility
+{
+	public TentacoolAbility() : base()
+	{
+		name = "Tentacool";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class PonytaAbility : PetAbility
+{
+	public PonytaAbility() : base()
+	{
+		name = "Ponyta";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class SlowpokeAbility : PetAbility
+{
+	public SlowpokeAbility() : base()
+	{
+		name = "Slowpoke";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class MagnemiteAbility : PetAbility
+{
+	public MagnemiteAbility() : base()
+	{
+		name = "Magnemite";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class DoduoAbility : PetAbility
+{
+	public DoduoAbility() : base()
+	{
+		name = "Doduo";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class SeelAbility : PetAbility
+{
+	public SeelAbility() : base()
+	{
+		name = "Seel";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class GrimerAbility : PetAbility
+{
+	public GrimerAbility() : base()
+	{
+		name = "Grimer";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class KoffingAbility : PetAbility
+{
+	public KoffingAbility() : base()
+	{
+		name = "Koffing";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class HorseaAbility : PetAbility
+{
+	public HorseaAbility() : base()
+	{
+		name = "Horsea";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class KrabbyAbility : PetAbility
+{
+	public KrabbyAbility() : base()
+	{
+		name = "Krabby";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class CuboneAbility : PetAbility
+{
+	public CuboneAbility() : base()
+	{
+		name = "Cubone";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class ExeggcuteAbility : PetAbility
+{
+	public ExeggcuteAbility() : base()
+	{
+		name = "Exeggcute";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class VoltorbAbility : PetAbility
+{
+	public VoltorbAbility() : base()
+	{
+		name = "Voltorb";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class ShellderAbility : PetAbility
+{
+	public ShellderAbility() : base()
+	{
+		name = "Shellder";
+		attack = 1;
+		health = 1;
+		tier = 4;
+	}
+}
+
+public partial class TaurosAbility : PetAbility
+{
+	public TaurosAbility() : base()
+	{
+		name = "Tauros";
+		attack = 1;
+		health = 1;
+		tier = 5;
+	}
+}
+
+public partial class PinsirAbility : PetAbility
+{
+	public PinsirAbility() : base()
+	{
+		name = "Pinsir";
+		attack = 1;
+		health = 1;
+		tier = 5;
+	}
+}
+
+public partial class MagmarAbility : PetAbility
+{
+	public MagmarAbility() : base()
+	{
+		name = "Magmar";
+		attack = 1;
+		health = 1;
+		tier = 5;
+	}
+}
+
+public partial class ElectabuzzAbility : PetAbility
+{
+	public ElectabuzzAbility() : base()
+	{
+		name = "Electabuzz";
+		attack = 1;
+		health = 1;
+		tier = 5;
+	}
+}
+
+public partial class JynxAbility : PetAbility
+{
+	public JynxAbility() : base()
+	{
+		name = "Jynx";
+		attack = 1;
+		health = 1;
+		tier = 5;
+	}
+}
+
+public partial class ScytherAbility : PetAbility
+{
+	public ScytherAbility() : base()
+	{
+		name = "Scyther";
+		attack = 1;
+		health = 1;
+		tier = 5;
+	}
+}
+
+public partial class MrMimeAbility : PetAbility
+{
+	public MrMimeAbility() : base()
+	{
+		name = "Mr. Mime";
+		attack = 1;
+		health = 1;
+		tier = 5;
+	}
+}
+
+public partial class FarfetchdAbility : PetAbility
+{
+	public FarfetchdAbility() : base()
+	{
+		name = "Farfetch'd";
+		attack = 1;
+		health = 1;
+		tier = 5;
+	}
+}
+
+public partial class LickitungAbility : PetAbility
+{
+	public LickitungAbility() : base()
+	{
+		name = "Lickitung";
+		attack = 1;
+		health = 1;
+		tier = 5;
+	}
+}
+
+public partial class RhyhornAbility : PetAbility
+{
+	public RhyhornAbility() : base()
+	{
+		name = "Rhyhorn";
+		attack = 1;
+		health = 1;
+		tier = 5;
+	}
+}
+
+public partial class TangelaAbility : PetAbility
+{
+	public TangelaAbility() : base()
+	{
+		name = "Tangela";
+		attack = 1;
+		health = 1;
+		tier = 5;
+	}
+}
+
+public partial class EeveeAbility : PetAbility
+{
+	public EeveeAbility() : base()
+	{
+		name = "Eevee";
+		attack = 1;
+		health = 1;
+		tier = 5;
+	}
+}
+
+public partial class DratiniAbility : PetAbility
+{
+	public DratiniAbility() : base()
+	{
+		name = "Dratini";
+		attack = 1;
+		health = 1;
+		tier = 6;
+	}
+}
+
+public partial class SnorlaxAbility : PetAbility
+{
+	public SnorlaxAbility() : base()
+	{
+		name = "Snorlax";
+		attack = 1;
+		health = 1;
+		tier = 6;
+	}
+}
+
+public partial class AerodactylAbility : PetAbility
+{
+	public AerodactylAbility() : base()
+	{
+		name = "Aerodactyl";
+		attack = 1;
+		health = 1;
+		tier = 6;
+	}
+}
+
+public partial class OmanyteAbility : PetAbility
+{
+	public OmanyteAbility() : base()
+	{
+		name = "Omanyte";
+		attack = 1;
+		health = 1;
+		tier = 6;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class KabutoAbility : PetAbility
+{
+	public KabutoAbility() : base()
+	{
+		name = "Kabuto";
+		attack = 1;
+		health = 1;
+		tier = 6;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class LaprasAbility : PetAbility
+{
+	public LaprasAbility() : base()
+	{
+		name = "Lapras";
+		attack = 1;
+		health = 1;
+		tier = 6;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class KangaskhanAbility : PetAbility
+{
+	public KangaskhanAbility() : base()
+	{
+		name = "Kangaskhan";
+		attack = 1;
+		health = 1;
+		tier = 6;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class HitmonleeAbility : PetAbility
+{
+	public HitmonleeAbility() : base()
+	{
+		name = "Hitmonlee";
+		attack = 1;
+		health = 1;
+		tier = 6;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class HitmonchanAbility : PetAbility
+{
+	public HitmonchanAbility() : base()
+	{
+		name = "Hitmonchan";
+		attack = 1;
+		health = 1;
+		tier = 6;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class ChanseyAbility : PetAbility
+{
+	public ChanseyAbility() : base()
+	{
+		name = "Chansey";
+		attack = 1;
+		health = 1;
+		tier = 6;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class DittoAbility : PetAbility
+{
+	public DittoAbility() : base()
+	{
+		name = "Ditto";
+		attack = 1;
+		health = 1;
+		tier = 6;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class PorygonAbility : PetAbility
+{
+	public PorygonAbility() : base()
+	{
+		name = "Porygon";
+		attack = 1;
+		health = 1;
+		tier = 6;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class ArticunoAbility : PetAbility
+{
+	public ArticunoAbility() : base()
+	{
+		name = "Articuno";
+		attack = 1;
+		health = 1;
+		tier = 7;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class ZapdosAbility : PetAbility
+{
+	public ZapdosAbility() : base()
+	{
+		name = "Zapdos";
+		attack = 1;
+		health = 1;
+		tier = 7;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class MoltresAbility : PetAbility
+{
+	public MoltresAbility() : base()
+	{
+		name = "Moltres";
+		attack = 1;
+		health = 1;
+		tier = 7;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class MewAbility : PetAbility
+{
+	public MewAbility() : base()
+	{
+		name = "Mew";
+		attack = 1;
+		health = 1;
+		tier = 7;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
+
+public partial class MewtwoAbility : PetAbility
+{
+	public MewtwoAbility() : base()
+	{
+		name = "Mewtwo";
+		attack = 1;
+		health = 1;
+		tier = 7;
+	}
+
+	public override string AbilityMessage()
+    {
+        return base.AbilityMessage();
+    }
+}
 
 
 //next time just use text replacement lol 
@@ -1709,6 +2251,6 @@ public partial class MagikarpAbility : PetAbility
 // {
 // 	public PokemonAbility() : base()
 // 	{
-//		name = "Pokemon"
+// 		name = "Pokemon";
 // 	}
 // }

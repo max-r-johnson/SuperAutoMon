@@ -35,7 +35,7 @@ public partial class Shop
         //game = Game;
     }
 
-    //TODO: have a weighted choosing system for current tier, not completely random
+    //if performance proves to be an issue, consider cumulative weighting
     public List<Pet> addPets()
     {
         List<Pet> newPets = new List<Pet>();
@@ -52,8 +52,33 @@ public partial class Shop
             }
             while (newPets.Count < petSlots)
             {
-                int randomNumber = random.Next(0,Pack.petList.availablePets[tier].Count);
-                newPets.Add(new Pet((PetAbility)Activator.CreateInstance(Pack.petList.availablePets[tier][randomNumber])));
+                if(tier > 1 && tier < Game.numTiers)
+                {
+                    int weightedProb = 11;
+                    int baseProb = 10;
+                    List<Type> weightedList = new List<Type>();
+                    foreach(Type pet in Pack.petList.availablePets[tier-1])
+                    {
+                        foreach(int i in GD.Range(baseProb))
+                        {
+                            weightedList.Add(pet);
+                        }
+                    }
+                    foreach(Type pet in Pack.petList.tiers[tier])
+                    {
+                        foreach(int i in GD.Range(weightedProb))
+                        {
+                            weightedList.Add(pet);
+                        }
+                    }
+                    int randomNumber = random.Next(0,weightedList.Count);
+                    newPets.Add(new Pet((PetAbility)Activator.CreateInstance(weightedList[randomNumber])));
+                }
+                else
+                {
+                    int randomNumber = random.Next(0,Pack.petList.availablePets[tier].Count);
+                    newPets.Add(new Pet((PetAbility)Activator.CreateInstance(Pack.petList.availablePets[tier][randomNumber])));
+                }
             }      
         }
         return newPets;

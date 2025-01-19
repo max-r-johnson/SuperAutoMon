@@ -85,6 +85,22 @@ public partial class Item
         }
     }
 }
+
+
+public partial class Poison : Item
+{
+    public Poison() : base()
+    {
+        name = "Poison";
+        isAilment = true;
+    }
+
+    public override string itemMessage()
+    {
+        return "Take 3 extra damage.";
+    }
+}
+
 public partial class OranBerry : Item
 {
     public OranBerry() : base()
@@ -112,6 +128,48 @@ public partial class OranBerry : Item
     }
 }
 
+public partial class Leek : Item
+{
+    public Leek() : base()
+    {
+        name = "Leek";
+        isAilment = false;
+    }
+
+    public override string itemMessage()
+    {
+        return "Removes an ailment. One use.";
+    }
+}
+
+public partial class BerryJuice : Item
+{
+    public BerryJuice() : base()
+    {
+        name = "Berry Juice";
+        isAilment = false;
+    }
+
+    public override string itemMessage()
+    {
+        return "Removes an ailment. One use.";
+    }
+}
+
+public partial class SitrusBerry : Item
+{
+    public SitrusBerry() : base()
+    {
+        name = "Sitrus Berry";
+        isAilment = false;
+    }
+
+    public override string itemMessage()
+    {
+        return "Removes an ailment. One use.";
+    }
+}
+
 public partial class LumBerry : Item
 {
     public LumBerry() : base()
@@ -133,25 +191,11 @@ public partial class LumBerry : Item
     }
 }
 
-public partial class Poison : Item
+public partial class EjectButton : Item
 {
-    public Poison() : base()
+    public EjectButton() : base()
     {
-        name = "Poison";
-        isAilment = true;
-    }
-
-    public override string itemMessage()
-    {
-        return "Take 3 extra damage.";
-    }
-}
-
-public partial class Leek : Item
-{
-    public Leek() : base()
-    {
-        name = "Leek";
+        name = "Eject Button";
         isAilment = false;
     }
 
@@ -161,11 +205,25 @@ public partial class Leek : Item
     }
 }
 
-public partial class BerryJuice : Item
+public partial class ShellBell : Item
 {
-    public BerryJuice() : base()
+    public ShellBell() : base()
     {
-        name = "Berry Juice";
+        name = "Shell Bell";
+        isAilment = false;
+    }
+
+    public override string itemMessage()
+    {
+        return "Removes an ailment. One use.";
+    }
+}
+
+public partial class Leftovers : Item
+{
+    public Leftovers() : base()
+    {
+        name = "Leftovers";
         isAilment = false;
     }
 
