@@ -709,6 +709,25 @@ public partial class Pet
 		return null;
 	}
 
+	public Pet getRandomFriend()
+	{
+		Pet randomPet = null;
+		Random random = new Random();
+		List<Pet> newList = new List<Pet>();
+		foreach(int i in GD.Range(team.team.Count))
+		{
+			if(team.GetPetAt(i)!=null && team.GetPetAt(i)!=this)
+			{
+				newList.Add(team.GetPetAt(i));
+			}
+		}
+		if(newList.Count>=1)
+		{
+			randomPet = newList[random.Next(0,newList.Count)];
+		}
+		return randomPet;
+	}
+
 	public Pet Clone()
 	{
 		return (Pet)MemberwiseClone();

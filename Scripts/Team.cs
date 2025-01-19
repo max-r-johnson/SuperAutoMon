@@ -41,14 +41,14 @@ public partial class Team
 	}
 
 	//rn can get the pet that calls this with their ability
-	public Pet GetRandomPet(Pet source)
+	public Pet GetRandomPet()
 	{
 		Pet randomPet = null;
 		Random random = new Random();
 		List<Pet> newList = new List<Pet>();
 		foreach(int i in GD.Range(team.Count))
 		{
-			if(GetPetAt(i)!=null && GetPetAt(i)!=source)
+			if(GetPetAt(i)!=null)
 			{
 				newList.Add(GetPetAt(i));
 			}
@@ -177,10 +177,10 @@ public partial class Team
 			// }
 			// game.battleQueue = newQueue;
 			//if the method for "move" was overridden (it's not the base, which is nothing), add it to the queue
-			MethodInfo methodInfo = pet.petAbility.GetType().GetMethod("Move");
+			MethodInfo methodInfo = pet.petAbility.GetType().GetMethod("OnMove");
 			if(methodInfo.DeclaringType != typeof(PetAbility))
 			{
-				Func<Pet, Task> action = pet.petAbility.Move;
+				Func<Pet, Task> action = pet.petAbility.OnMove;
 				game.battleQueue.Enqueue(new Tuple<Func<Pet, Task>, Pet, Pet>(action,null,pet));
 			}
 			foreach(int i in GD.Range(Game.teamSize))

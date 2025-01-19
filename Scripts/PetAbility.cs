@@ -80,7 +80,7 @@ public partial class PetAbility
         await Task.CompletedTask;
     }
     
-    public virtual async Task Move(Pet target)
+    public virtual async Task OnMove(Pet target)
     {
         await Task.CompletedTask;
     }

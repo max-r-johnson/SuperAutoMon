@@ -274,7 +274,7 @@ public partial class BattleNode : Node
 		{
 			if(team.GetPetAt(i)!= null)
 			{
-				if(team.GetPetAt(i).name == "Abra")
+				if(Game.isSamePet(new Pet(new AbraAbility()),team.GetPetAt(i)))
 				{
 					abraCount += 1;
 				}

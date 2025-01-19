@@ -26,15 +26,15 @@ public partial class BulbasaurAbility : PetAbility
 
 	public override string AbilityMessage()
 	{
-		return "Faint => BLEEEHHHH.";
+		return "Faint => Give a random friend on your team +1 health permanently.";
 	}
 
-    // public override async async Task Faint(Pet source)
-    // {
-	// 	//I want this to trigger before it gets yeeted offscreen. However, I also want the other pet to do the recover animation at the same time as this.
-	// 	//if there is a faint ability or any friend faint ability, the other recovers. The faint abilities gets enqueued. The faint ability triggers. The pet gets yeeted.
-	// 	await game.WaitForTasks(Game.GetAnimator(team.teamSlots[basePet.index]).AnimateAttack());
-    // }
+    public override async Task Faint(Pet source)
+    {
+		//I want this to trigger before it gets yeeted offscreen. However, I also want the other pet to do the recover animation at the same time as this.
+		//if there is a faint ability or any friend faint ability, the other recovers. The faint abilities gets enqueued. The faint ability triggers. The pet gets yeeted.
+		await game.WaitForTasks(basePet.getRandomFriend().GainPermanentHealth(1));
+    }
 }
 
 public partial class IvysaurAbility : PetAbility
@@ -50,15 +50,13 @@ public partial class IvysaurAbility : PetAbility
 
 	public override string AbilityMessage()
 	{
-		return "Faint => BLEEEHHHH.";
+		return "Faint => Give a random friend on your team +2 health permanently.";
 	}
 
-    // public override async async Task Faint(Pet source)
-    // {
-	// 	//I want this to trigger before it gets yeeted offscreen. However, I also want the other pet to do the recover animation at the same time as this.
-	// 	//if there is a faint ability or any friend faint ability, the other recovers. The faint abilities gets enqueued. The faint ability triggers. The pet gets yeeted.
-	// 	await game.WaitForTasks(Game.GetAnimator(team.teamSlots[basePet.index]).AnimateAttack());
-    // }
+    public override async Task Faint(Pet source)
+    {
+		await game.WaitForTasks(basePet.getRandomFriend().GainPermanentHealth(2));
+    }
 }
 
 public partial class VenusaurAbility : PetAbility
@@ -73,15 +71,13 @@ public partial class VenusaurAbility : PetAbility
 
 	public override string AbilityMessage()
 	{
-		return "Faint => BLEEEHHHH.";
+		return "Faint => Give a random friend on your team +3 health permanently.";
 	}
 
-    // public override async async Task Faint(Pet source)
-    // {
-	// 	//I want this to trigger before it gets yeeted offscreen. However, I also want the other pet to do the recover animation at the same time as this.
-	// 	//if there is a faint ability or any friend faint ability, the other recovers. The faint abilities gets enqueued. The faint ability triggers. The pet gets yeeted.
-	// 	await game.WaitForTasks(Game.GetAnimator(team.teamSlots[basePet.index]).AnimateAttack());
-    // }
+    public override async Task Faint(Pet source)
+    {
+		await game.WaitForTasks(basePet.getRandomFriend().GainPermanentHealth(3));
+    }
 }
 
 public partial class CharmanderAbility : PetAbility
@@ -158,8 +154,44 @@ public partial class SquirtleAbility : PetAbility
 		attack = 2;
     	health = 3;
 		tier = 1;
+		evolution = new WartortleAbility();
     }
+
+	public override string AbilityMessage()
+	{
+		return base.AbilityMessage();
+	}
 }
+
+public partial class WartortleAbility : PetAbility
+{
+	public WartortleAbility() : base()
+    {
+		name = "Wartortle";
+		tier = 1;
+		evolution = new BlastoiseAbility();
+    }
+
+	public override string AbilityMessage()
+	{
+		return base.AbilityMessage();
+	}
+}
+
+public partial class BlastoiseAbility : PetAbility
+{
+	public BlastoiseAbility() : base()
+    {
+		name = "Blastoise";
+		tier = 1;
+    }
+
+	public override string AbilityMessage()
+	{
+		return base.AbilityMessage();
+	}
+}
+
 
 public partial class CaterpieAbility : PetAbility
 {
@@ -169,6 +201,30 @@ public partial class CaterpieAbility : PetAbility
 		attack = 1;
     	health = 1;
 		tier = 1;
+		evolution = new MetapodAbility();
+    }
+
+	public override string AbilityMessage()
+	{
+		return "Sell => Put a free tiny apple in the shop.";
+	}
+
+    public override async Task Sell(Pet target)
+    {
+		Food addedFood = new Food(new TinyAppleAbility());
+		addedFood.foodAbility.cost = 0;
+		await shop.replaceShop(addedFood);
+		GD.Print("Replaced shop with a free tiny apple!");
+    }
+}
+
+public partial class MetapodAbility : PetAbility
+{
+	public MetapodAbility() : base()
+    {
+		name = "Metapod";
+		tier = 1;
+		evolution = new ButterfreeAbility();
     }
 
 	public override string AbilityMessage()
@@ -178,10 +234,32 @@ public partial class CaterpieAbility : PetAbility
 
     public override async Task Sell(Pet target)
     {
-		Food addedFood = new Food(new TinyAppleAbility());
+		Food addedFood = new Food(new AppleAbility());
 		addedFood.foodAbility.cost = 0;
 		await shop.replaceShop(addedFood);
 		GD.Print("Replaced shop with a free apple!");
+    }
+}
+
+public partial class ButterfreeAbility : PetAbility
+{
+	public ButterfreeAbility() : base()
+    {
+		name = "Butterfree";
+		tier = 1;
+    }
+
+	public override string AbilityMessage()
+	{
+		return "Sell => Put a free perfect apple in the shop.";
+	}
+
+    public override async Task Sell(Pet target)
+    {
+		Food addedFood = new Food(new PerfectAppleAbility());
+		addedFood.foodAbility.cost = 0;
+		await shop.replaceShop(addedFood);
+		GD.Print("Replaced shop with a free perfect apple!");
     }
 }
 
@@ -832,6 +910,7 @@ public partial class ClefairyAbility : PetAbility
 		attack = 2;
 		health = 4;
 		tier = 2;
+		evolution = new ClefableAbility();
 		isStoneEvo = true;
 	}
 
@@ -850,6 +929,29 @@ public partial class ClefairyAbility : PetAbility
     }
 }
 
+public partial class ClefableAbility : PetAbility
+{
+	public ClefableAbility() : base()
+	{
+		name = "Clefable";
+		tier = 2;
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Start of Battle => Reduce the attack of the opposite pet by 4.";
+    }
+
+    public override async Task StartOfBattle(Pet target)
+    {
+		await base.StartOfBattle(null);
+		if(enemyTeam.GetPetAt(basePet.index)!=null)
+		{
+			await game.WaitForTasks(basePet.GiveDebuff(4,enemyTeam.GetPetAt(basePet.index),Pet.DebuffType.ReduceAttack));
+		}
+    }
+}
+
 public partial class JigglypuffAbility : PetAbility
 {
 	public JigglypuffAbility() : base()
@@ -858,6 +960,8 @@ public partial class JigglypuffAbility : PetAbility
 		attack = 1;
 		health = 2;
 		tier = 2;
+		evolution = new WigglytuffAbility();
+		isStoneEvo = true;
 	}
 
 	public override string AbilityMessage()
@@ -872,6 +976,31 @@ public partial class JigglypuffAbility : PetAbility
 			if((food.name == "Tiny Apple" || food.name == "Apple" || food.name == "Perfect Apple") && food.cost > 0)
 			{
 				await food.changeCost(-1);
+			}
+		}
+	}
+}
+
+public partial class WigglytuffAbility : PetAbility
+{
+	public WigglytuffAbility() : base()
+	{
+		name = "Wigglytuff";
+		tier = 2;
+	}
+
+	public override string AbilityMessage()
+    {
+        return "Start of Turn => Reduce the cost of apples by 2. Minimum 0 cost.";
+    }
+
+	public override async Task StartOfTurn(Pet target)
+	{
+		foreach(Food food in shop.shopFood)
+		{
+			if((food.name == "Tiny Apple" || food.name == "Apple" || food.name == "Perfect Apple") && food.cost > 0)
+			{
+				await food.changeCost(-2);
 			}
 		}
 	}
@@ -905,6 +1034,32 @@ public partial class ZubatAbility : PetAbility
     }
 }
 
+public partial class GolbatAbility : PetAbility
+{
+	public GolbatAbility() : base()
+	{
+		name = "Golbat";
+		tier = 2;
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Knockout => Move front enemy back 2 spaces.";
+    }
+
+    public override async Task Knockout(Pet target)
+    {
+        if(enemyTeam.GetPetAt(1)!=null)
+		{
+			await enemyTeam.Move(enemyTeam.GetPetAt(1),2);
+		}
+		else
+		{
+			game.battleNode.BattleDequeue();
+		}
+    }
+}
+
 public partial class OddishAbility : PetAbility
 {
 	public OddishAbility() : base()
@@ -913,6 +1068,7 @@ public partial class OddishAbility : PetAbility
 		attack = 1;
 		health = 1;
 		tier = 2;
+		evolution = new GloomAbility();
 	}
 
     public override string AbilityMessage()
@@ -926,6 +1082,47 @@ public partial class OddishAbility : PetAbility
     }
 }
 
+public partial class GloomAbility : PetAbility
+{
+	public GloomAbility() : base()
+	{
+		name = "Gloom";
+		tier = 2;
+		evolution = new VileplumeAbility();
+		isStoneEvo = true;
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Food Purchased => Temporarily gain +2/2 this turn.";
+    }
+
+    public override async Task FoodPurchased(Pet target)
+    {
+        await game.WaitForTasks(basePet.GainTemporaryAttack(2), basePet.GainTemporaryHealth(2));
+    }
+}
+
+public partial class VileplumeAbility : PetAbility
+{
+	public VileplumeAbility() : base()
+	{
+		name = "Vileplume";
+		tier = 2;
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Food Purchased => Temporarily gain +3/3 this turn.";
+    }
+
+    public override async Task FoodPurchased(Pet target)
+    {
+        await game.WaitForTasks(basePet.GainTemporaryAttack(3), basePet.GainTemporaryHealth(3));
+    }
+}
+
+
 public partial class MeowthAbility : PetAbility
 {
 	public MeowthAbility() : base()
@@ -934,6 +1131,7 @@ public partial class MeowthAbility : PetAbility
 		attack = 3;
 		health = 2;
 		tier = 2;
+		evolution = new PersianAbility();
 	}
 
     public override string AbilityMessage()
@@ -951,6 +1149,29 @@ public partial class MeowthAbility : PetAbility
     }
 }
 
+public partial class PersianAbility : PetAbility
+{
+	public PersianAbility() : base()
+	{
+		name = "Persian";
+		tier = 2;
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Eats Food => Gain 4 gold. (Once per turn)";
+   
+    }
+
+    public override async Task AteFood(Pet target)
+    {
+        if(basePet.eatenFood<=1)
+		{
+			shop.incMoney(4);
+		}
+    }
+}
+
 public partial class MankeyAbility : PetAbility
 {
 	public MankeyAbility() : base()
@@ -959,6 +1180,7 @@ public partial class MankeyAbility : PetAbility
 		attack = 1;
 		health = 4;
 		tier = 2;
+		evolution = new PrimeapeAbility();
 	}
 
     public override string AbilityMessage()
@@ -968,8 +1190,40 @@ public partial class MankeyAbility : PetAbility
 
     public override async Task Hurt(Pet source)
     {
-		//probably should dequeue if mankey is dead
-        await basePet.GainAttack(4);
+		if(basePet.currentHealth>0)
+		{
+        	await basePet.GainAttack(4);
+		}
+		else
+		{
+			game.battleNode.BattleDequeue();
+		}
+    }
+}
+
+public partial class PrimeapeAbility : PetAbility
+{
+	public PrimeapeAbility() : base()
+	{
+		name = "Primeape";
+		tier = 2;
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Hurt => Gain 8 attack.";
+    }
+
+    public override async Task Hurt(Pet source)
+    {
+		if(basePet.currentHealth>0)
+		{
+        	await basePet.GainAttack(8);
+		}
+		else
+		{
+			game.battleNode.BattleDequeue();
+		}
     }
 }
 
@@ -990,7 +1244,7 @@ public partial class PoliwagAbility : PetAbility
 
     public override async Task Buy(Pet target)
     {
-        Pet randomPet = team.GetRandomPet(basePet);
+        Pet randomPet = basePet.getRandomFriend();
 		if(randomPet != null)
 		{
 			Func<Task> task1 = async () => await basePet.GiveBuff(1, randomPet, Pet.BuffType.GainAttack);
@@ -1008,6 +1262,7 @@ public partial class AbraAbility : PetAbility
 		attack = 4;
 		health = 2;
 		tier = 2;
+		evolution = new KadabraAbility();
 	}
 
     public override string AbilityMessage()
@@ -1025,6 +1280,53 @@ public partial class AbraAbility : PetAbility
     }
 }
 
+public partial class KadabraAbility : PetAbility
+{
+	public KadabraAbility() : base()
+	{
+		name = "Kadabra";
+		tier = 2;
+		evolution = new AlakazamAbility();
+	}
+
+    public override string AbilityMessage()
+    {
+        return "In Front => Move to the back and gain 4 attack. (Doesn't work with others in the Kadabra evolution family)";
+    }
+
+    public override async Task InFront(Pet target)
+    {
+		game.mouseDisabled = true;
+		await team.Move(basePet,5);
+		await basePet.GainAttack(4);
+		game.mouseDisabled = false;
+		GD.Print(name + " at index + " + basePet.index + " moved to the back and gained 4 attack!");
+    }
+}
+
+public partial class AlakazamAbility : PetAbility
+{
+	public AlakazamAbility() : base()
+	{
+		name = "Alakazam";
+		tier = 2;
+	}
+
+    public override string AbilityMessage()
+    {
+        return "In Front => Move to the back and gain 6 attack. (Doesn't work with others in the Alakazam evolution family)";
+    }
+
+    public override async Task InFront(Pet target)
+    {
+		game.mouseDisabled = true;
+		await team.Move(basePet,5);
+		await basePet.GainAttack(6);
+		game.mouseDisabled = false;
+		GD.Print(name + " at index + " + basePet.index + " moved to the back and gained 6 attack!");
+    }
+}
+
 public partial class BellsproutAbility : PetAbility
 {
 	public BellsproutAbility() : base()
@@ -1033,6 +1335,7 @@ public partial class BellsproutAbility : PetAbility
 		attack = 1;
 		health = 2;
 		tier = 2;
+		evolution = new WeepinbellAbility();
 	}
 
     public override string AbilityMessage()
@@ -1040,11 +1343,54 @@ public partial class BellsproutAbility : PetAbility
         return "Friend Used Perk => Give it 1 attack and 2 health.";
     }
 
-	//doesn't work when it uses the perk
     public override async Task FriendUsedPerk(Pet target)
     {
 		Func<Task> task1 = async () => await basePet.GiveBuff(1, target, Pet.BuffType.GainAttack);
 		Func<Task> task2 = async () => await basePet.GiveBuff(2, target, Pet.BuffType.GainHealth);
+		await game.WaitForFuncTasks(task1, task2);
+    }
+}
+
+public partial class WeepinbellAbility : PetAbility
+{
+	public WeepinbellAbility() : base()
+	{
+		name = "Weepinbell";
+		tier = 2;
+		evolution = new VictreebelAbility();
+		isStoneEvo = true;
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Friend Used Perk => Give it 2 attack and 4 health.";
+    }
+
+    public override async Task FriendUsedPerk(Pet target)
+    {
+		Func<Task> task1 = async () => await basePet.GiveBuff(2, target, Pet.BuffType.GainAttack);
+		Func<Task> task2 = async () => await basePet.GiveBuff(4, target, Pet.BuffType.GainHealth);
+		await game.WaitForFuncTasks(task1, task2);
+    }
+}
+
+public partial class VictreebelAbility : PetAbility
+{
+	public VictreebelAbility() : base()
+	{
+		name = "Victreebel";
+		tier = 2;
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Friend Used Perk => Give it 3 attack and 6 health.";
+    }
+
+    public override async Task FriendUsedPerk(Pet target)
+    {
+		Func<Task> task1 = async () => await basePet.GiveBuff(3, target, Pet.BuffType.GainAttack);
+		Func<Task> task2 = async () => await basePet.GiveBuff(6, target, Pet.BuffType.GainHealth);
 		await game.WaitForFuncTasks(task1, task2);
     }
 }
@@ -1057,6 +1403,7 @@ public partial class GastlyAbility : PetAbility
 		attack = 4;
 		health = 1;
 		tier = 2;
+		evolution = new HaunterAbility();
 	}
 
     public override string AbilityMessage()
@@ -1069,6 +1416,59 @@ public partial class GastlyAbility : PetAbility
         if(source.currentHealth>0)
 		{
 			await game.WaitForTasks(basePet.Snipe(5, source));
+    	}
+		else
+		{
+			game.battleNode.BattleDequeue();
+		}
+	}
+}
+
+public partial class HaunterAbility : PetAbility
+{
+	public HaunterAbility() : base()
+	{
+		name = "Haunter";
+		tier = 2;
+		evolution = new GengarAbility();
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Faint => Deal 10 damage to the pet that knocked this out.";
+    }
+
+    public override async Task Faint(Pet source)
+    {
+        if(source.currentHealth>0)
+		{
+			await game.WaitForTasks(basePet.Snipe(10, source));
+    	}
+		else
+		{
+			game.battleNode.BattleDequeue();
+		}
+	}
+}
+
+public partial class GengarAbility : PetAbility
+{
+	public GengarAbility() : base()
+	{
+		name = "Gengar";
+		tier = 2;
+	}
+
+    public override string AbilityMessage()
+    {
+        return "Faint => Deal 15 damage to the pet that knocked this out.";
+    }
+
+    public override async Task Faint(Pet source)
+    {
+        if(source.currentHealth>0)
+		{
+			await game.WaitForTasks(basePet.Snipe(15, source));
     	}
 		else
 		{
@@ -1096,6 +1496,7 @@ public partial class ParasAbility : PetAbility
 		attack = 1;
 		health = 1;
 		tier = 3;
+		evolution = new ParasectAbility();
 	}
 
 	public override string AbilityMessage()
@@ -1108,6 +1509,32 @@ public partial class ParasAbility : PetAbility
         if(basePet.getNearestFriendBehind()!=null)
 		{
 			basePet.getNearestFriendBehind().GiveItem(new LumBerry());
+		}
+    }
+}
+
+public partial class ParasectAbility : PetAbility
+{
+	public ParasectAbility() : base()
+	{
+		name = "Parasect";
+		tier = 3;
+	}
+
+	public override string AbilityMessage()
+    {
+        return "End Turn => Give a lum berry to the two pets behind this.";
+    }
+
+    public override async Task EndOfTurn(Pet target)
+    {
+        if(basePet.getNearestFriendBehind()!=null)
+		{
+			basePet.getNearestFriendBehind().GiveItem(new LumBerry());
+			if(basePet.getNearestFriendBehind().getNearestFriendBehind()!=null)
+			{
+				basePet.getNearestFriendBehind().getNearestFriendBehind().GiveItem(new LumBerry());
+			}
 		}
     }
 }
@@ -1154,6 +1581,34 @@ public partial class PsyduckAbility : PetAbility
         if(basePet.getNearestFriendBehind()!=null)
 		{
 			basePet.getNearestFriendBehind().GiveItem(basePet.item);
+		}
+    }
+}
+
+public partial class GolduckAbility : PetAbility
+{
+	public GolduckAbility() : base()
+	{
+		name = "Golduck";
+		attack = 1;
+		health = 1;
+		tier = 3;
+	}
+
+	public override string AbilityMessage()
+    {
+        return "Sell => Give this pet's perk to the two pets behind this.";
+    }
+
+    public override async Task Sell(Pet target)
+    {
+        if(basePet.getNearestFriendBehind()!=null)
+		{
+			basePet.getNearestFriendBehind().GiveItem(basePet.item);
+			if(basePet.getNearestFriendBehind().getNearestFriendBehind()!=null)
+			{
+				basePet.getNearestFriendBehind().getNearestFriendBehind().GiveItem(basePet.item);
+			}
 		}
     }
 }

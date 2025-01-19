@@ -19,6 +19,38 @@ public partial class TinyAppleAbility : FoodAbility
 	}
 }
 
+public partial class AppleAbility : FoodAbility
+{
+	public AppleAbility() : base()
+    {
+		name = "Apple";
+		attack = 2;
+    	health = 2;
+		tier = 1;
+    }
+
+	public override string AbilityMessage()
+	{
+		return "Gives +2/+2 to a pet who eats this.";
+	}
+}
+
+public partial class PerfectAppleAbility : FoodAbility
+{
+	public PerfectAppleAbility() : base()
+    {
+		name = "Perfect Apple";
+		attack = 3;
+    	health = 3;
+		tier = 1;
+    }
+
+	public override string AbilityMessage()
+	{
+		return "Gives +3/+3 to a pet who eats this.";
+	}
+}
+
 public partial class OranBerryAbility : FoodAbility
 {
 	public OranBerryAbility()  : base()
